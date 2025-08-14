@@ -9,54 +9,57 @@
     :root {
       --laranja: #FF6B00;
       --azul: #007BFF;
-      --fundo: #f9f9f9;
+      --fundo: #ffffff;
+      --cinza-claro: #f4f6f8;
       --texto: #333;
     }
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
     body { background:var(--fundo); color:var(--texto); line-height:1.6; }
+    
     header {
-      background:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between;
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+      background:white; padding:20px 30px; display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 5px rgba(0,0,0,0.05);
     }
-    .logo { display:flex; align-items:center; font-size:1.5rem; font-weight:600; }
+    .logo { display:flex; align-items:center; font-size:1.8rem; font-weight:600; }
     .logo svg { width:48px; height:48px; margin-right:10px; }
-    .logo span { margin-left:4px; }
-    .logo span:nth-child(2) { color:var(--azul); }
+    .logo span:nth-child(2) { color:var(--azul); margin-right:4px; }
     .logo span:nth-child(3) { color:var(--laranja); }
-    main { padding:30px; max-width:1100px; margin:auto; }
-    .hero { text-align:center; margin-bottom:40px; }
+
+    main { padding:40px 20px; max-width:700px; margin:auto; text-align:center; }
+
     .hero h1 { font-size:2rem; margin-bottom:10px; }
+    .hero p { font-size:1.1rem; color:#555; margin-bottom:30px; }
+
     .btn {
-      display:inline-block; margin:10px 5px; padding:12px 25px;
-      font-size:1rem; font-weight:600; color:white; border:none;
+      display:inline-block; padding:14px 30px;
+      font-size:1.1rem; font-weight:600; color:white; border:none;
       border-radius:8px; cursor:pointer; text-decoration:none;
+      background:var(--laranja);
       transition: background 0.3s ease;
     }
-    .btn-laranja { background:var(--laranja); }
-    .btn-laranja:hover { background:#e65e00; }
-    .btn-azul { background:var(--azul); }
-    .btn-azul:hover { background:#0066cc; }
-    .fluxo {
-      background:white; padding:20px; border-radius:8px;
-      margin-bottom:30px; box-shadow:0 2px 8px rgba(0,0,0,0.05);
-    }
-    .fluxo h2 { color:var(--azul); margin-bottom:15px; }
-    .fluxo ol { margin-left:20px; }
+    .btn:hover { background:#e65e00; }
+
     form {
-      background:white; padding:20px; border-radius:8px;
+      background:var(--cinza-claro); padding:25px; border-radius:10px;
       box-shadow:0 2px 8px rgba(0,0,0,0.05);
-      max-width:500px; margin:20px auto;
+      margin-top:30px; text-align:left;
     }
-    form label { font-weight:600; display:block; margin:10px 0 5px; }
+    form label { font-weight:600; display:block; margin:12px 0 5px; }
     form input, form select {
-      width:100%; padding:10px; border:1px solid #ccc;
+      width:100%; padding:12px; border:1px solid #ccc;
       border-radius:6px; font-size:1rem;
     }
     form button {
-      margin-top:15px; width:100%;
+      margin-top:20px; width:100%; padding:14px;
+      font-size:1.1rem; font-weight:600; color:white;
+      background:var(--azul); border:none; border-radius:8px;
+      cursor:pointer; transition: background 0.3s ease;
     }
+    form button:hover { background:#0066cc; }
+
     footer {
-      text-align:center; padding:15px; background:var(--azul); color:white; margin-top:20px;
+      text-align:center; padding:15px; background:var(--azul);
+      color:white; margin-top:40px; font-size:0.9rem;
     }
   </style>
 </head>
@@ -81,25 +84,15 @@
       <span>HelpDesk</span><span>Amado</span>
     </div>
   </header>
+
   <main>
     <section class="hero">
-      <h1>Suporte Técnico Rápido e Eficiente</h1>
-      <p>Atendimento a equipamentos, redes e periféricos. Clique abaixo para iniciar seu chamado.</p>
-      <a href="#formulario" class="btn btn-laranja">Iniciar Chamado</a>
-      <a href="https://wa.me/5519981629450" target="_blank" class="btn btn-azul">Falar no WhatsApp</a>
+      <h1>Suporte Técnico HelpDesk Amado</h1>
+      <p>Preencha as informações para abrir seu chamado e falar diretamente com nosso time técnico pelo WhatsApp.</p>
+      <a href="#formulario" class="btn">Iniciar Chamado</a>
     </section>
-    <section class="fluxo">
-      <h2>Como Funciona</h2>
-      <ol>
-        <li>Cliente acessa o site ou envia mensagem via WhatsApp.</li>
-        <li>Preenche o formulário com dados básicos do equipamento.</li>
-        <li>Mensagem é enviada automaticamente para nosso WhatsApp.</li>
-        <li>Técnico avalia se visita ou peça são necessárias.</li>
-        <li>Chamado é encerrado ou agendamento é realizado conforme necessidade.</li>
-      </ol>
-    </section>
+
     <section id="formulario">
-      <h2 style="color:var(--laranja); text-align:center;">Formulário de Triagem</h2>
       <form id="chamadoForm">
         <label>Nome Completo:</label>
         <input type="text" id="nome" required>
@@ -123,10 +116,11 @@
         <label>Número de Série:</label>
         <input type="text" id="serie" required>
 
-        <button type="submit" class="btn btn-laranja">Enviar para WhatsApp</button>
+        <button type="submit">Enviar para WhatsApp</button>
       </form>
     </section>
   </main>
+
   <footer>
     &copy; 2025 HelpDesk Amado — Todos os direitos reservados.
   </footer>
@@ -140,10 +134,12 @@
       const equipamento = document.getElementById('equipamento').value.trim();
       const serie = document.getElementById('serie').value.trim();
 
-      const mensagem = `Olá, meu nome é ${nome}.
-Cidade: ${cidade} - ${estado}
-Equipamento: ${equipamento}
-Nº de Série: ${serie}`;
+      const mensagem = `*Novo Chamado - HelpDesk Amado*\n\n` +
+                       `👤 *Nome:* ${nome}\n` +
+                       `📍 *Localização:* ${cidade} - ${estado}\n` +
+                       `🖥 *Equipamento:* ${equipamento}\n` +
+                       `🔢 *Nº de Série:* ${serie}\n\n` +
+                       `Por favor, verifique e prossiga com o atendimento.`;
 
       const url = `https://wa.me/5519981629450?text=${encodeURIComponent(mensagem)}`;
       window.open(url, '_blank');
@@ -151,3 +147,4 @@ Nº de Série: ${serie}`;
   </script>
 </body>
 </html>
+
