@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HelpDesk Amado</title>
+  <title>HelpDesk Amado - Início</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,37 +16,50 @@
     body { background:white; color:var(--texto); line-height:1.6; }
 
     header {
-      text-align:center;
-      padding:25px;
       background:white;
-      font-size:2rem;
+      box-shadow:0 2px 5px rgba(0,0,0,0.05);
+      padding:15px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+    header h1 {
+      font-size:1.5rem;
       font-weight:600;
       color:var(--azul);
-      box-shadow:0 2px 5px rgba(0,0,0,0.05);
     }
+    nav a {
+      margin-left:20px;
+      text-decoration:none;
+      color:var(--laranja);
+      font-weight:500;
+      transition:0.3s;
+    }
+    nav a:hover { color:var(--azul); }
+
+    .hero {
+      background:url('https://images.openai.com/blob/KTKCWXicu1mUUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw52CszOCw7JNvQPdHEqcgksjDJMKw4I9DAPyyopzndONfDNNKsIrXB29ksON_AML0wKT87JTY83TipRKwYAwuYpZQ') center/cover no-repeat;
+      height:300px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      text-shadow:0 2px 5px rgba(0,0,0,0.5);
+    }
+    .hero h2 { font-size:2rem; background:rgba(0,0,0,0.4); padding:10px 20px; border-radius:8px; }
 
     main { padding:40px 20px; max-width:900px; margin:auto; }
-
-    section { margin-bottom:50px; }
-
-    h2 {
-      color:var(--laranja);
-      font-size:1.6rem;
-      margin-bottom:15px;
-      text-align:center;
-    }
-    p.descricao {
-      text-align:center;
-      margin-bottom:25px;
-      color:#555;
-    }
+    h2 { color:var(--laranja); text-align:center; margin-bottom:15px; }
+    p.descricao { text-align:center; margin-bottom:25px; color:#555; }
 
     form {
       background:var(--cinza-claro);
       padding:25px;
       border-radius:10px;
       box-shadow:0 2px 8px rgba(0,0,0,0.05);
-      margin-bottom:40px;
     }
     form label { font-weight:600; display:block; margin:12px 0 5px; }
     form input, form select {
@@ -61,31 +74,6 @@
     }
     form button:hover { background:#0066cc; }
 
-    .manual {
-      display:flex;
-      flex-wrap:wrap;
-      gap:30px;
-      justify-content:center;
-    }
-    .card {
-      width:200px;
-      text-align:center;
-    }
-    .card img {
-      width:100%;
-      height:auto;
-      border-radius:8px;
-      box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    }
-    .card a {
-      display:block;
-      margin-top:10px;
-      color:var(--laranja);
-      font-weight:500;
-      text-decoration:none;
-    }
-    .card a:hover { text-decoration:underline; }
-
     footer {
       text-align:center;
       padding:15px;
@@ -97,47 +85,41 @@
   </style>
 </head>
 <body>
-  <header>HelpDesk Amado</header>
+  <header>
+    <h1>HelpDesk Amado</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="manuais.html">Manuais de Usuário</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h2>Suporte técnico rápido e eficiente</h2>
+  </div>
 
   <main>
-    <!-- Formulário -->
-    <section>
-      <h2>Abrir Chamado</h2>
-      <p class="descricao">Preencha os dados para iniciar seu atendimento via WhatsApp.</p>
-      <form id="chamadoForm">
-        <label>Nome Completo:</label>
-        <input type="text" id="nome" required>
-        <label>Cidade:</label>
-        <input type="text" id="cidade" required>
-        <label>Estado:</label>
-        <input type="text" id="estado" required>
-        <label>Equipamento:</label>
-        <select id="equipamento" required>
-          <option value="">Selecione...</option>
-          <option>Impressora 3D</option>
-          <option>Plotter de Recorte</option>
-        </select>
-        <label>Número de Série:</label>
-        <input type="text" id="serie" required>
-        <button type="submit">Enviar para WhatsApp</button>
-      </form>
-    </section>
-
-    <!-- Seção de Manuais -->
-    <section>
-      <h2>Manual de Usuário</h2>
-      <p class="descricao">Escolha seu equipamento para acessar o manual correspondente.</p>
-      <div class="manual">
-        <div class="card">
-          <img src="${/* escolha da imagem 3d */ ''}" alt="Impressora 3D">
-          <a href="manuais/impressora3d/manual.pdf" target="_blank">Impressora 3D</a>
-        </div>
-        <div class="card">
-          <img src="${/* escolha da imagem plotter */ ''}" alt="Plotter de Recorte">
-          <a href="manuais/plotter/manual.pdf" target="_blank">Plotter de Recorte</a>
-        </div>
-      </div>
-    </section>
+    <h2>Abrir Chamado</h2>
+    <p class="descricao">Preencha os dados para iniciar seu atendimento via WhatsApp.</p>
+    <form id="chamadoForm">
+      <label>Nome Completo:</label>
+      <input type="text" id="nome" required>
+      <label>Cidade:</label>
+      <input type="text" id="cidade" required>
+      <label>Estado:</label>
+      <input type="text" id="estado" required>
+      <label>Equipamento:</label>
+      <select id="equipamento" required>
+        <option value="">Selecione...</option>
+        <option>Impressora 3D</option>
+        <option>Plotter de Recorte</option>
+        <option>Corte a Laser</option>
+        <option>Tela Interativa</option>
+        <option>Notebook Amado</option>
+      </select>
+      <label>Número de Série:</label>
+      <input type="text" id="serie" required>
+      <button type="submit">Enviar para WhatsApp</button>
+    </form>
   </main>
 
   <footer>&copy; 2025 HelpDesk Amado — Todos os direitos reservados.</footer>
