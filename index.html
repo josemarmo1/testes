@@ -17,18 +17,21 @@
 
     header {
       text-align:center;
-      padding:25px 15px;
+      padding:25px;
       background:white;
-      box-shadow:0 2px 5px rgba(0,0,0,0.05);
-      font-size:1.8rem;
+      font-size:2rem;
       font-weight:600;
       color:var(--azul);
+      box-shadow:0 2px 5px rgba(0,0,0,0.05);
     }
+
     main { padding:40px 20px; max-width:900px; margin:auto; }
+
+    section { margin-bottom:50px; }
 
     h2 {
       color:var(--laranja);
-      font-size:1.5rem;
+      font-size:1.6rem;
       margin-bottom:15px;
       text-align:center;
     }
@@ -58,35 +61,30 @@
     }
     form button:hover { background:#0066cc; }
 
-    /* Repositório */
-    .repositorio {
-      margin-top:40px;
+    .manual {
+      display:flex;
+      flex-wrap:wrap;
+      gap:30px;
+      justify-content:center;
     }
-    .categoria {
-      background:var(--cinza-claro);
-      padding:15px;
+    .card {
+      width:200px;
+      text-align:center;
+    }
+    .card img {
+      width:100%;
+      height:auto;
       border-radius:8px;
-      margin-bottom:20px;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
     }
-    .categoria h3 {
-      margin-bottom:10px;
-      color:var(--azul);
-      font-size:1.2rem;
-    }
-    .categoria ul {
-      list-style:none;
-    }
-    .categoria ul li {
-      margin:8px 0;
-    }
-    .categoria ul li a {
+    .card a {
+      display:block;
+      margin-top:10px;
       color:var(--laranja);
-      text-decoration:none;
       font-weight:500;
+      text-decoration:none;
     }
-    .categoria ul li a:hover {
-      text-decoration:underline;
-    }
+    .card a:hover { text-decoration:underline; }
 
     footer {
       text-align:center;
@@ -99,89 +97,50 @@
   </style>
 </head>
 <body>
-  <header>
-    HelpDesk Amado
-  </header>
+  <header>HelpDesk Amado</header>
 
   <main>
-    <!-- Formulário de Chamado -->
+    <!-- Formulário -->
     <section>
       <h2>Abrir Chamado</h2>
-      <p class="descricao">Preencha as informações para abrir seu chamado e falar com nosso time técnico via WhatsApp.</p>
-
+      <p class="descricao">Preencha os dados para iniciar seu atendimento via WhatsApp.</p>
       <form id="chamadoForm">
         <label>Nome Completo:</label>
         <input type="text" id="nome" required>
-
         <label>Cidade:</label>
         <input type="text" id="cidade" required>
-
         <label>Estado:</label>
         <input type="text" id="estado" required>
-
         <label>Equipamento:</label>
         <select id="equipamento" required>
           <option value="">Selecione...</option>
           <option>Impressora 3D</option>
-          <option>Corte a laser</option>
           <option>Plotter de Recorte</option>
-          <option>Tela interativa</option>
-          <option>Notebook Amado</option>
         </select>
-
         <label>Número de Série:</label>
         <input type="text" id="serie" required>
-
         <button type="submit">Enviar para WhatsApp</button>
       </form>
     </section>
 
-    <!-- Repositório de Manuais -->
-    <section class="repositorio">
-      <h2>Repositório de Manuais</h2>
-      <p class="descricao">Selecione a categoria do seu equipamento e acesse o manual.</p>
-
-      <div class="categoria">
-        <h3>📄 Impressora 3D</h3>
-        <ul>
-          <li><a href="manuais/impressora3d/manual1.pdf" target="_blank">Manual de Operação</a></li>
-          <li><a href="manuais/impressora3d/manual2.pdf" target="_blank">Guia de Manutenção</a></li>
-        </ul>
-      </div>
-
-      <div class="categoria">
-        <h3>📄 Corte a Laser</h3>
-        <ul>
-          <li><a href="manuais/laser/manual1.pdf" target="_blank">Manual de Segurança</a></li>
-        </ul>
-      </div>
-
-      <div class="categoria">
-        <h3>📄 Plotter de Recorte</h3>
-        <ul>
-          <li><a href="manuais/plotter/manual1.pdf" target="_blank">Manual Completo</a></li>
-        </ul>
-      </div>
-
-      <div class="categoria">
-        <h3>📄 Tela Interativa</h3>
-        <ul>
-          <li><a href="manuais/tela/manual1.pdf" target="_blank">Guia do Usuário</a></li>
-        </ul>
-      </div>
-
-      <div class="categoria">
-        <h3>📄 Notebook Amado</h3>
-        <ul>
-          <li><a href="manuais/notebook/manual1.pdf" target="_blank">Manual Técnico</a></li>
-        </ul>
+    <!-- Seção de Manuais -->
+    <section>
+      <h2>Manual de Usuário</h2>
+      <p class="descricao">Escolha seu equipamento para acessar o manual correspondente.</p>
+      <div class="manual">
+        <div class="card">
+          <img src="${/* escolha da imagem 3d */ ''}" alt="Impressora 3D">
+          <a href="manuais/impressora3d/manual.pdf" target="_blank">Impressora 3D</a>
+        </div>
+        <div class="card">
+          <img src="${/* escolha da imagem plotter */ ''}" alt="Plotter de Recorte">
+          <a href="manuais/plotter/manual.pdf" target="_blank">Plotter de Recorte</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    &copy; 2025 HelpDesk Amado — Todos os direitos reservados.
-  </footer>
+  <footer>&copy; 2025 HelpDesk Amado — Todos os direitos reservados.</footer>
 
   <script>
     document.getElementById('chamadoForm').addEventListener('submit', function(e){
@@ -193,11 +152,11 @@
       const serie = document.getElementById('serie').value.trim();
 
       const mensagem = `*Novo Chamado - HelpDesk Amado*\n\n` +
-                       `👤 *Nome:* ${nome}\n` +
-                       `📍 *Localização:* ${cidade} - ${estado}\n` +
-                       `🖥 *Equipamento:* ${equipamento}\n` +
-                       `🔢 *Nº de Série:* ${serie}\n\n` +
-                       `Por favor, verifique e prossiga com o atendimento.`;
+        `👤 *Nome:* ${nome}\n` +
+        `📍 *Localização:* ${cidade} - ${estado}\n` +
+        `🖥 *Equipamento:* ${equipamento}\n` +
+        `🔢 *Nº de Série:* ${serie}\n\n` +
+        `Por favor, prossiga com o atendimento.`;
 
       const url = `https://wa.me/5519981629450?text=${encodeURIComponent(mensagem)}`;
       window.open(url, '_blank');
@@ -205,4 +164,3 @@
   </script>
 </body>
 </html>
-
