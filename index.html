@@ -1,148 +1,158 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HelpDesk Amado - Início</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HelpDesk Amado</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
     :root {
-      --laranja: #FF6B00;
-      --azul: #007BFF;
-      --cinza-claro: #f4f6f8;
-      --texto: #333;
+        --laranja: #FF6B00;
+        --azul: #0056D2;
+        --cinza-claro: #f8f9fa;
+        --texto: #333;
     }
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
-    body { background:white; color:var(--texto); line-height:1.6; }
-
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+    body {
+        background: white;
+        color: var(--texto);
+    }
     header {
-      background:white;
-      box-shadow:0 2px 5px rgba(0,0,0,0.05);
-      padding:15px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
     }
     header h1 {
-      font-size:1.5rem;
-      font-weight:600;
-      color:var(--azul);
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--azul);
     }
     nav a {
-      margin-left:20px;
-      text-decoration:none;
-      color:var(--laranja);
-      font-weight:500;
-      transition:0.3s;
+        margin-left: 20px;
+        text-decoration: none;
+        color: var(--texto);
+        font-weight: 500;
     }
-    nav a:hover { color:var(--azul); }
-
+    nav a:hover {
+        color: var(--laranja);
+    }
     .hero {
-      background:url('https://images.openai.com/blob/KTKCWXicu1mUUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw52CszOCw7JNvQPdHEqcgksjDJMKw4I9DAPyyopzndONfDNNKsIrXB29ksON_AML0wKT87JTY83TipRKwYAwuYpZQ') center/cover no-repeat;
-      height:300px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      text-shadow:0 2px 5px rgba(0,0,0,0.5);
+        text-align: center;
+        padding: 60px 20px;
+        background: var(--cinza-claro);
     }
-    .hero h2 { font-size:2rem; background:rgba(0,0,0,0.4); padding:10px 20px; border-radius:8px; }
-
-    main { padding:40px 20px; max-width:900px; margin:auto; }
-    h2 { color:var(--laranja); text-align:center; margin-bottom:15px; }
-    p.descricao { text-align:center; margin-bottom:25px; color:#555; }
-
-    form {
-      background:var(--cinza-claro);
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    .hero h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--azul);
     }
-    form label { font-weight:600; display:block; margin:12px 0 5px; }
-    form input, form select {
-      width:100%; padding:12px; border:1px solid #ccc;
-      border-radius:6px; font-size:1rem;
+    .form-section {
+        max-width: 500px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    form button {
-      margin-top:20px; width:100%; padding:14px;
-      font-size:1.1rem; font-weight:600; color:white;
-      background:var(--azul); border:none; border-radius:8px;
-      cursor:pointer; transition: background 0.3s ease;
+    .form-section label {
+        display: block;
+        margin-top: 15px;
+        font-weight: 500;
     }
-    form button:hover { background:#0066cc; }
-
+    .form-section input, .form-section select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+    .form-section button {
+        margin-top: 20px;
+        background: var(--laranja);
+        color: white;
+        padding: 12px;
+        border: none;
+        width: 100%;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+    .form-section button:hover {
+        background: #e65e00;
+    }
     footer {
-      text-align:center;
-      padding:15px;
-      background:var(--azul);
-      color:white;
-      margin-top:40px;
-      font-size:0.9rem;
+        text-align: center;
+        padding: 15px;
+        background: var(--azul);
+        color: white;
+        margin-top: 40px;
     }
-  </style>
+</style>
 </head>
 <body>
-  <header>
+
+<header>
     <h1>HelpDesk Amado</h1>
     <nav>
-      <a href="index.html">Início</a>
-      <a href="manuais.html">Manuais de Usuário</a>
+        <a href="index.html">Início</a>
+        <a href="manuais.html">Manuais de Usuário</a>
     </nav>
-  </header>
+</header>
 
-  <div class="hero">
-    <h2>Suporte técnico rápido e eficiente</h2>
-  </div>
+<section class="hero">
+    <h2>Atendimento Técnico Especializado</h2>
+    <p>Registre seu chamado e nossa equipe cuidará do resto.</p>
+</section>
 
-  <main>
-    <h2>Abrir Chamado</h2>
-    <p class="descricao">Preencha os dados para iniciar seu atendimento via WhatsApp.</p>
-    <form id="chamadoForm">
-      <label>Nome Completo:</label>
-      <input type="text" id="nome" required>
-      <label>Cidade:</label>
-      <input type="text" id="cidade" required>
-      <label>Estado:</label>
-      <input type="text" id="estado" required>
-      <label>Equipamento:</label>
-      <select id="equipamento" required>
-        <option value="">Selecione...</option>
-        <option>Impressora 3D</option>
-        <option>Plotter de Recorte</option>
-        <option>Corte a Laser</option>
-        <option>Tela Interativa</option>
-        <option>Notebook Amado</option>
-      </select>
-      <label>Número de Série:</label>
-      <input type="text" id="serie" required>
-      <button type="submit">Enviar para WhatsApp</button>
-    </form>
-  </main>
+<section class="form-section">
+    <h3>Abrir Chamado</h3>
+    <label>Nome Completo</label>
+    <input type="text" id="nome">
+    <label>Cidade</label>
+    <input type="text" id="cidade">
+    <label>Estado</label>
+    <input type="text" id="estado">
+    <label>Equipamento</label>
+    <select id="equipamento">
+        <option value="Impressora 3D">Impressora 3D</option>
+        <option value="Corte a Laser">Corte a Laser</option>
+        <option value="Plotter de Recorte">Plotter de Recorte</option>
+        <option value="Tela Interativa">Tela Interativa</option>
+        <option value="Notebook Amado">Notebook Amado</option>
+    </select>
+    <label>Nº de Série</label>
+    <input type="text" id="serie">
+    <button onclick="enviarWhatsApp()">Enviar pelo WhatsApp</button>
+</section>
 
-  <footer>&copy; 2025 HelpDesk Amado — Todos os direitos reservados.</footer>
+<footer>
+    &copy; 2025 HelpDesk Amado - Todos os direitos reservados.
+</footer>
 
-  <script>
-    document.getElementById('chamadoForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      const nome = document.getElementById('nome').value.trim();
-      const cidade = document.getElementById('cidade').value.trim();
-      const estado = document.getElementById('estado').value.trim();
-      const equipamento = document.getElementById('equipamento').value.trim();
-      const serie = document.getElementById('serie').value.trim();
+<script>
+function enviarWhatsApp() {
+    const nome = document.getElementById('nome').value;
+    const cidade = document.getElementById('cidade').value;
+    const estado = document.getElementById('estado').value;
+    const equipamento = document.getElementById('equipamento').value;
+    const serie = document.getElementById('serie').value;
 
-      const mensagem = `*Novo Chamado - HelpDesk Amado*\n\n` +
-        `👤 *Nome:* ${nome}\n` +
-        `📍 *Localização:* ${cidade} - ${estado}\n` +
-        `🖥 *Equipamento:* ${equipamento}\n` +
-        `🔢 *Nº de Série:* ${serie}\n\n` +
-        `Por favor, prossiga com o atendimento.`;
+    const msg = `*Novo Chamado*\nNome: ${nome}\nCidade: ${cidade} - ${estado}\nEquipamento: ${equipamento}\nNº de Série: ${serie}`;
+    const url = `https://wa.me/5519981629450?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+}
+</script>
 
-      const url = `https://wa.me/5519981629450?text=${encodeURIComponent(mensagem)}`;
-      window.open(url, '_blank');
-    });
-  </script>
 </body>
 </html>
