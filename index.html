@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelpDesk Amado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --laranja: #FF6B00;
+      --azul: #007BFF;
+      --fundo: #f9f9f9;
+      --texto: #333;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { background:var(--fundo); color:var(--texto); line-height:1.6; }
+    header {
+      background:white; padding:15px 30px; display:flex; align-items:center; justify-content:space-between;
+      box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo { display:flex; align-items:center; font-size:1.5rem; font-weight:600; }
+    .logo svg { width:48px; height:48px; margin-right:10px; }
+    .logo span { margin-left:4px; }
+    .logo span:nth-child(2) { color:var(--azul); }
+    .logo span:nth-child(3) { color:var(--laranja); }
+    main { padding:30px; max-width:1100px; margin:auto; }
+    .hero { text-align:center; margin-bottom:40px; }
+    .hero h1 { font-size:2rem; margin-bottom:10px; }
+    .btn {
+      display:inline-block; margin:10px 5px; padding:12px 25px;
+      font-size:1rem; font-weight:600; color:white; border:none;
+      border-radius:8px; cursor:pointer; text-decoration:none;
+      transition: background 0.3s ease;
+    }
+    .btn-laranja { background:var(--laranja); }
+    .btn-laranja:hover { background:#e65e00; }
+    .btn-azul { background:var(--azul); }
+    .btn-azul:hover { background:#0066cc; }
+    .fluxo {
+      background:white; padding:20px; border-radius:8px;
+      margin-bottom:30px; box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .fluxo h2 { color:var(--azul); margin-bottom:15px; }
+    .fluxo ol { margin-left:20px; }
+    form {
+      background:white; padding:20px; border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      max-width:500px; margin:20px auto;
+    }
+    form label { font-weight:600; display:block; margin:10px 0 5px; }
+    form input, form select {
+      width:100%; padding:10px; border:1px solid #ccc;
+      border-radius:6px; font-size:1rem;
+    }
+    form button {
+      margin-top:15px; width:100%;
+    }
+    footer {
+      text-align:center; padding:15px; background:var(--azul); color:white; margin-top:20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <!-- Logo SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="28" stroke="#007BFF" stroke-width="4" fill="none"/>
+        <g fill="#007BFF">
+          <rect x="30" y="4" width="4" height="10"/>
+          <rect x="30" y="50" width="4" height="10"/>
+          <rect x="4" y="30" width="10" height="4"/>
+          <rect x="50" y="30" width="10" height="4"/>
+          <rect x="13" y="13" width="6" height="6" transform="rotate(45 16 16)"/>
+          <rect x="45" y="45" width="6" height="6" transform="rotate(45 48 48)"/>
+          <rect x="13" y="45" width="6" height="6" transform="rotate(-45 16 48)"/>
+          <rect x="45" y="13" width="6" height="6" transform="rotate(-45 48 16)"/>
+        </g>
+        <path d="M20,36 a12,12 0 0,0 24,0 v10 a2,2 0 0,1 -2,2 h-4 a2,2 0 0,1 -2,-2 v-8 a2,2 0 0,0 -4,0 v8 a2,2 0 0,1 -2,2 h-4 a2,2 0 0,1 -2,-2 z" fill="#FF6B00"/>
+      </svg>
+      <span>HelpDesk</span><span>Amado</span>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Suporte Técnico Rápido e Eficiente</h1>
+      <p>Atendimento a equipamentos, redes e periféricos. Clique abaixo para iniciar seu chamado.</p>
+      <a href="#formulario" class="btn btn-laranja">Iniciar Chamado</a>
+      <a href="https://wa.me/5519981629450" target="_blank" class="btn btn-azul">Falar no WhatsApp</a>
+    </section>
+    <section class="fluxo">
+      <h2>Como Funciona</h2>
+      <ol>
+        <li>Cliente acessa o site ou envia mensagem via WhatsApp.</li>
+        <li>Preenche o formulário com dados básicos do equipamento.</li>
+        <li>Mensagem é enviada automaticamente para nosso WhatsApp.</li>
+        <li>Técnico avalia se visita ou peça são necessárias.</li>
+        <li>Chamado é encerrado ou agendamento é realizado conforme necessidade.</li>
+      </ol>
+    </section>
+    <section id="formulario">
+      <h2 style="color:var(--laranja); text-align:center;">Formulário de Triagem</h2>
+      <form id="chamadoForm">
+        <label>Nome Completo:</label>
+        <input type="text" id="nome" required>
+
+        <label>Cidade:</label>
+        <input type="text" id="cidade" required>
+
+        <label>Estado:</label>
+        <input type="text" id="estado" required>
+
+        <label>Equipamento:</label>
+        <select id="equipamento" required>
+          <option value="">Selecione...</option>
+          <option>Impressora 3D</option>
+          <option>Corte a laser</option>
+          <option>Plotter de Recorte</option>
+          <option>Tela interativa</option>
+          <option>Notebook Amado</option>
+        </select>
+
+        <label>Número de Série:</label>
+        <input type="text" id="serie" required>
+
+        <button type="submit" class="btn btn-laranja">Enviar para WhatsApp</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 HelpDesk Amado — Todos os direitos reservados.
+  </footer>
+
+  <script>
+    document.getElementById('chamadoForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const cidade = document.getElementById('cidade').value.trim();
+      const estado = document.getElementById('estado').value.trim();
+      const equipamento = document.getElementById('equipamento').value.trim();
+      const serie = document.getElementById('serie').value.trim();
+
+      const mensagem = `Olá, meu nome é ${nome}.
+Cidade: ${cidade} - ${estado}
+Equipamento: ${equipamento}
+Nº de Série: ${serie}`;
+
+      const url = `https://wa.me/5519981629450?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
