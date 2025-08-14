@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelpDesk Amado - Manuais</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --laranja: #FF6B00;
+      --azul: #007BFF;
+      --cinza-claro: #f4f6f8;
+      --texto: #333;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body { background:white; color:var(--texto); line-height:1.6; }
+
+    header {
+      background:white;
+      box-shadow:0 2px 5px rgba(0,0,0,0.05);
+      padding:15px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+    header h1 { font-size:1.5rem; font-weight:600; color:var(--azul); }
+    nav a {
+      margin-left:20px;
+      text-decoration:none;
+      color:var(--laranja);
+      font-weight:500;
+      transition:0.3s;
+    }
+    nav a:hover { color:var(--azul); }
+
+    main { padding:40px 20px; max-width:1000px; margin:auto; }
+    h2 { color:var(--laranja); text-align:center; margin-bottom:30px; }
+
+    .manual {
+      display:flex;
+      flex-wrap:wrap;
+      gap:30px;
+      justify-content:center;
+    }
+    .card {
+      width:200px;
+      text-align:center;
+      background:var(--cinza-claro);
+      padding:15px;
+      border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    }
+    .card a {
+      display:block;
+      margin-top:10px;
+      color:var(--laranja);
+      font-weight:500;
+      text-decoration:none;
+    }
+    .card a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HelpDesk Amado</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="manuais.html">Manuais de Usuário</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Manuais de Usuário</h2>
+    <div class="manual">
+      <div class="card"><strong>Impressora 3D</strong><a href="manuais/impressora3d/manual.pdf" target="_blank">Acessar</a></div>
+      <div class="card"><strong>Plotter de Recorte</strong><a href="manuais/plotter/manual.pdf" target="_blank">Acessar</a></div>
+      <div class="card"><strong>Corte a Laser</strong><a href="manuais/laser/manual.pdf" target="_blank">Acessar</a></div>
+      <div class="card"><strong>Tela Interativa</strong><a href="manuais/telainterativa/manual.pdf" target="_blank">Acessar</a></div>
+      <div class="card"><strong>Notebook Amado</strong><a href="manuais/notebook/manual.pdf" target="_blank">Acessar</a></div>
+    </div>
+  </main>
+</body>
+</html>
