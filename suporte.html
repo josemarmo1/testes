@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help Amado — Suporte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --laranja:#ff6b00; --roxo:#6a1b9a; --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
+      --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      --space-field:16px;  /* espaçamento padronizado entre campos */
+      --space-actions:26px;/* espaçamento maior antes do botão */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
+
+    /* Cabeçalho animado */
+    header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
+    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
+    .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem}
+    .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
+    nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
+    nav a:hover{color:var(--laranja);opacity:1}
+    nav a.active{color:var(--laranja)}
+    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
+    nav a:hover::after,nav a.active::after{width:100%}
+
+    /* Hero */
+    .hero{background:var(--cinza-claro);padding:56px 20px}
+    .hero .wrap{max-width:1200px;margin:0 auto;text-align:center}
+    .hero h1{font:800 clamp(1.6rem,3.6vw,2.4rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 10px}
+    .hero p{margin:0 0 16px;opacity:.9}
+
+    /* Conteúdo */
+    .container{max-width:1200px;margin:0 auto;padding:28px 18px 60px}
+    .panel{max-width:560px;margin:0 auto;background:#fff;border:1px solid var(--borda);border-radius:14px;box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+    .panel-title{font:800 1.05rem/1.2 var(--font-heading);color:var(--roxo);margin:0;padding:14px 16px;border-bottom:1px solid var(--borda)}
+    .panel-body{padding:16px}
+
+    /* Formulário */
+    .field{margin-top:var(--space-field)}
+    .field:first-of-type{margin-top:0}
+    .label{display:block;font-weight:600;margin-bottom:6px}
+    .input,.select,.textarea{
+      width:100%;padding:12px;border:1px solid var(--borda);border-radius:10px;background:#fff;font:inherit
+    }
+    .textarea{min-height:110px;resize:vertical}
+    .actions{margin-top:var(--space-actions)}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 14px;border-radius:10px;border:1px solid transparent;cursor:pointer;
+      font-weight:800;text-decoration:none
+    }
+    .btn-primary{background:var(--laranja);color:#fff}
+    .btn-primary:hover{filter:brightness(.96)}
+
+    /* Rodapé animado */
+    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
+    .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .site-footer p{margin:0;font-weight:600}
+
+    /* Animação base */
+    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+    @media (prefers-reduced-motion:reduce){header::after,.site-footer{animation:none;background-position:50% 50%}}
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <div class="header-wrap">
+      <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
+  <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
+</a>
+
+      <nav aria-label="Navegação principal">
+        <a href="index.html">Início</a>
+        <a href="manuais.html">Manuais</a>
+        <a class="active" href="suporte.html" aria-current="page">Suporte</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Suporte Técnico</h1>
+      <p>Informe seus dados e do equipamento para iniciarmos o atendimento.</p>
+    </div>
+  </section>
+
+  <!-- Formulário centralizado -->
+  <main class="container">
+    <article class="panel" aria-label="Formulário de chamado técnico">
+      <h3 class="panel-title">Abrir Chamado</h3>
+      <div class="panel-body">
+        <div class="field">
+          <label class="label" for="nome">Nome Completo</label>
+          <input class="input" type="text" id="nome" autocomplete="name"/>
+        </div>
+
+        <div class="field">
+          <label class="label" for="escola">Escola / Instituição</label>
+          <input class="input" type="text" id="escola" placeholder="Ex.: Escola Municipal XYZ"/>
+        </div>
+
+        <div class="field">
+          <label class="label" for="cidade">Cidade</label>
+          <input class="input" type="text" id="cidade" autocomplete="address-level2"/>
+        </div>
+
+        <div class="field">
+          <label class="label" for="estado">Estado</label>
+          <input class="input" type="text" id="estado" autocomplete="address-level1" placeholder="Ex.: SP, RJ, MG..."/>
+        </div>
+
+        <div class="field">
+          <label class="label" for="equipamento">Equipamento</label>
+          <select class="select" id="equipamento">
+            <option value="Impressora 3D">Impressora 3D</option>
+            <option value="Corte a Laser">Corte a Laser</option>
+            <option value="Plotter de Recorte">Plotter de Recorte</option>
+            <option value="Tela Interativa">Tela Interativa</option>
+            <option value="Notebook Amado">Notebook Amado</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="label" for="serie">Nº de Série</label>
+          <input class="input" type="text" id="serie"/>
+        </div>
+
+        <!-- Espaço padronizado maior antes do botão -->
+        <div class="actions">
+          <button class="btn btn-primary" onclick="enviarWhatsApp()">Enviar pelo WhatsApp</button>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="footer-wrap">
+      <p>© 2025 Help Amado — Todos os direitos reservados.</p>
+      <p>Atendimento • Segunda a Sexta, horário escolar</p>
+    </div>
+  </footer>
+
+  <script>
+    function enviarWhatsApp(){
+      const nome = document.getElementById('nome').value.trim();
+      const escola = document.getElementById('escola').value.trim();
+      const cidade = document.getElementById('cidade').value.trim();
+      const estado = document.getElementById('estado').value.trim();
+      const equipamento = document.getElementById('equipamento').value;
+      const serie = document.getElementById('serie').value.trim();
+
+      const msg = `*Novo Chamado*\n` +
+                  `Nome: ${nome}\n` +
+                  `Escola: ${escola}\n` +
+                  `Cidade: ${cidade} - ${estado}\n` +
+                  `Equipamento: ${equipamento}\n` +
+                  `Nº de Série: ${serie}`;
+
+      const url = `https://wa.me/5519981629450?text=${encodeURIComponent(msg)}`;
+      window.open(url,'_blank');
+    }
+  </script>
+</body>
+</html>

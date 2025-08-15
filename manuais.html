@@ -1,213 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manuais de Usuário - HelpDesk Amado</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manuais de Usuário - Help Amado</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --laranja: #ff6b00;
-      --azul: #0056d2;
-      --cinza-claro: #f5f7fb;
-      --texto: #1f2937;
-      --borda: #e5e7eb;
-      --card: #ffffff;
+    :root{
+      --laranja:#ff6b00; --roxo:#6a1b9a; --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
+      --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: white;
-      color: var(--texto);
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
-      line-height: 1.5;
-    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Header */
-    header {
-      background: white;
-      position: sticky; top: 0; z-index: 50;
-      border-bottom: 1px solid var(--borda);
-      backdrop-filter: saturate(180%) blur(6px);
-    }
-    .header-wrap { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; max-width: 1200px; margin: 0 auto; }
-    header h1 { font-size: 1.25rem; margin: 0; color: var(--azul); letter-spacing: .2px; }
-    nav a { text-decoration: none; color: var(--texto); margin-left: 18px; font-weight: 600; opacity: .85; }
-    nav a:hover { color: var(--laranja); opacity: 1; }
+    /* Cabeçalho */
+    header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
+    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
+    .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem}
+    .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
+    nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
+    nav a:hover{color:var(--laranja);opacity:1}
+    nav a.active{color:var(--laranja)}
+    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
+    nav a:hover::after,nav a.active::after{width:100%}
 
-    /* Container */
-    .container { max-width: 1200px; margin: 0 auto; padding: 28px 18px 60px; }
-    h2.section-title { text-align: center; color: var(--azul); font-size: clamp(1.2rem, 2.8vw, 1.8rem); margin: 22px 0 26px; }
+    /* Filtro / Busca */
+    .toolbar{max-width:1200px;margin:0 auto;padding:20px 18px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    .search{flex:1 1 260px;display:flex;align-items:center;gap:8px;border:1px solid var(--borda);border-radius:10px;padding:8px 12px;background:#fff}
+    .search input{border:0;outline:none;flex:1;font-size:1rem}
+    .badge{font-size:.72rem;font-weight:800;color:var(--roxo);background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px}
 
-    /* Grid */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-    }
+    /* Grid / Cards */
+    .container{max-width:1200px;margin:0 auto;padding:18px 18px 60px}
+    .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:12px 0 20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.08);border-color:#d7dce3}
+    .card-media{background:#eef2f7;aspect-ratio:16/9;display:flex;justify-content:center;align-items:center}
+    .card-media img{max-width:100%;max-height:100%;object-fit:contain}
+    .card-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .card-title{font:800 1rem/1.3 var(--font-heading);margin:0;color:var(--roxo)}
+    .card-meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 14px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none}
+    .btn-primary{background:var(--laranja);color:#fff}
+    .btn-primary:hover{filter:brightness(.96)}
 
-    /* Card */
-    .card {
-      position: relative;
-      display: grid;
-      grid-template-rows: 150px auto;
-      background: var(--card);
-      border: 1px solid var(--borda);
-      border-radius: 14px;
-      overflow: hidden;
-      text-decoration: none; /* para <a> completo */
-      color: inherit;
-      box-shadow: 0 1px 2px rgba(0,0,0,.04);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-      will-change: transform;
-    }
-    .card:focus-visible { outline: 3px solid rgba(0,86,210,.35); outline-offset: 2px; }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,.08); border-color: #d7dce3; }
+    /* Rodapé */
+    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
+    .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .site-footer p{margin:0;font-weight:600}
 
-    .card-media { position: relative; height: 100%; width: 100%; overflow: hidden; background: #e9eef5; }
-      .card-media img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; /* em vez de cover */
-        display: block;
-        background-color: #e9eef5; /* cor de fundo visível se houver espaço vazio */
-      }
-    .card:hover .card-media img { transform: scale(1.04); }
-    .card-media::after {
-      content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,.25) 100%);
-    }
-
-    .card-body { padding: 14px 14px 16px; display: grid; gap: 10px; align-content: start; }
-    .card-title { font-size: 1rem; font-weight: 700; margin: 0; }
-
-    .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .badge { font-size: .72rem; font-weight: 700; color: #0f172a; background: #e2e8f0; border-radius: 999px; padding: 6px 10px; letter-spacing: .2px; }
-
-    .cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-weight: 700; font-size: .9rem;
-      background: var(--laranja); color: #fff; padding: 10px 12px; border-radius: 10px;
-      border: none; pointer-events: none; /* botão só para aparência (card já é clicável) */
-    }
-    .card:hover .cta { filter: brightness(.96); }
-
-    /* Footer text inside image */
-    .card-label {
-      position: absolute; left: 10px; bottom: 10px; z-index: 2; color: #fff; font-weight: 700; font-size: .85rem;
-      background: rgba(0,0,0,.45); padding: 6px 10px; border-radius: 999px;
-      backdrop-filter: blur(4px);
-    }
-
-    /* Utilities */
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-
-
+    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+    @media (prefers-reduced-motion:reduce){header::after,.site-footer{animation:none;background-position:50% 50%}}
   </style>
 </head>
 <body>
   <header>
     <div class="header-wrap">
-      <h1>HelpDesk Amado</h1>
+      <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
+  <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
+</a>
+
       <nav aria-label="Navegação principal">
         <a href="index.html">Início</a>
-        <a href="manuais.html" aria-current="page">Manuais de Usuário</a>
+        <a class="active" href="manuais.html" aria-current="page">Manuais</a>
+        <a href="suporte.html">Suporte</a>
       </nav>
     </div>
   </header>
 
+  <!-- Barra de busca simples -->
+  <div class="toolbar">
+    <div class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2M10.8 18a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Z" stroke="#6a1b9a" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Buscar manual... (ex.: laser, 3D, plotter)"/>
+    </div>
+    <span class="badge">PDFs</span>
+  </div>
+
   <main class="container">
     <h2 class="section-title">Manuais de Usuário</h2>
 
-    <section class="cards" aria-label="Lista de manuais">
-      <!-- CARD 1 -->
-      <a class="card" href="manuais/manual_seth.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir manual da Impressora 3D">
-        <div class="card-media" style="aspect-ratio: 16/9;">
-          <img loading="lazy" alt="Foto ilustrativa de impressora 3D" src="imagens/seth3d.png" />
-          <span class="card-label">PDF</span>
+    <section class="grid" id="cards" aria-label="Lista de manuais">
+      <article class="card" data-tags="3d impressora">
+        <div class="card-media">
+          <img src="imagens/Imagens impressora 3d.png" alt="Impressora 3D"/>
         </div>
         <div class="card-body">
           <h3 class="card-title">Impressora 3D</h3>
           <div class="card-meta">
             <span class="badge">Manual</span>
-            <span class="cta" aria-hidden="true">Baixar</span>
+            <a class="btn btn-primary" href="manuais/Manual_FARM_V1.1.pdf" target="_blank" rel="noopener">Abrir</a>
           </div>
         </div>
-      </a>
+      </article>
 
-      <!-- CARD 2 -->
-      <a class="card" href="manuais/laser/manual.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir manual de Corte a Laser">
-        <div class="card-media" style="aspect-ratio: 16/9;">
-          <img loading="lazy" alt="Foto ilustrativa de corte a laser" src="https://cdn.awsli.com.br/600x700/2/2757/produto/130668869/4ddaaa0f95.jpgser,manufacturing" />
-          <span class="card-label">PDF</span>
+      <article class="card" data-tags="laser corte gravação">
+        <div class="card-media">
+          <img src="imagens/Corte a laser flow.png" alt="Corte a Laser"/>
         </div>
         <div class="card-body">
           <h3 class="card-title">Corte a Laser</h3>
           <div class="card-meta">
             <span class="badge">Manual</span>
-            <span class="cta" aria-hidden="true">Baixar</span>
+            <a class="btn btn-primary" href="manuais/manual%20due.pdf" target="_blank" rel="noopener">Abrir</a>
           </div>
         </div>
-      </a>
+      </article>
 
-      <!-- CARD 3 -->
-      <a class="card" href="manuais/plotter/manual.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir manual do Plotter de Recorte">
-        <div class="card-media" style="aspect-ratio: 16/9;">
-          <img loading="lazy" alt="Foto ilustrativa de plotter de recorte" src="https://source.unsplash.com/800x450/?plotter,printer" />
-          <span class="card-label">PDF</span>
+      <article class="card" data-tags="plotter recorte vinil">
+        <div class="card-media">
+          <img src="imagens/plotter de recorte.webp" alt="Plotter de Recorte"/>
         </div>
         <div class="card-body">
           <h3 class="card-title">Plotter de Recorte</h3>
           <div class="card-meta">
             <span class="badge">Manual</span>
-            <span class="cta" aria-hidden="true">Baixar</span>
+            <a class="btn btn-primary" href="manuais/plotter/manual.pdf" target="_blank" rel="noopener">Abrir</a>
           </div>
         </div>
-      </a>
+      </article>
 
-      <!-- CARD 4 -->
-      <a class="card" href="manuais/telainterativa/manual.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir manual da Tela Interativa">
-        <div class="card-media" style="aspect-ratio: 16/9;">
-          <img loading="lazy" alt="Foto ilustrativa de tela interativa" src="https://source.unsplash.com/800x450/?interactive,display" />
-          <span class="card-label">PDF</span>
+      <article class="card" data-tags="tela interativa display">
+        <div class="card-media">
+          <img src="imagens/D_NQ_NP_717598-MLB54926343763_042023-O-removebg-preview.png" alt="Tela Interativa"/>
         </div>
         <div class="card-body">
           <h3 class="card-title">Tela Interativa</h3>
           <div class="card-meta">
             <span class="badge">Manual</span>
-            <span class="cta" aria-hidden="true">Baixar</span>
+            <a class="btn btn-primary" href="manuais/telainterativa/manual.pdf" target="_blank" rel="noopener">Abrir</a>
           </div>
         </div>
-      </a>
+      </article>
 
-      <!-- CARD 5 -->
-      <a class="card" href="manuais/notebook/manual.pdf" target="_blank" rel="noopener noreferrer" aria-label="Abrir manual do Notebook Amado">
-        <div class="card-media" style="aspect-ratio: 16/9;">
-          <img loading="lazy" alt="Foto ilustrativa de notebook" src="https://source.unsplash.com/800x450/?laptop,workspace" />
-          <span class="card-label">PDF</span>
+      <article class="card" data-tags="notebook amado computador">
+        <div class="card-media">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&auto=format&fit=crop&q=70" alt="Notebook Amado"/>
         </div>
         <div class="card-body">
           <h3 class="card-title">Notebook Amado</h3>
           <div class="card-meta">
             <span class="badge">Manual</span>
-            <span class="cta" aria-hidden="true">Baixar</span>
+            <a class="btn btn-primary" href="manuais/notebook/manual.pdf" target="_blank" rel="noopener">Abrir</a>
           </div>
         </div>
-      </a>
+      </article>
     </section>
-
-    <!-- Dica: para adicionar mais cards, duplique um bloco <a class="card">...</a> alterando a imagem e o href -->
   </main>
 
-  <!-- Opcional: script para suportar click com tecla Enter no cartão inteiro quando focado -->
+  <footer class="site-footer">
+    <div class="footer-wrap">
+      <p>© 2025 Help Amado — Todos os direitos reservados.</p>
+      <p>Documentação & Guia de Usuário</p>
+    </div>
+  </footer>
+
   <script>
-    document.querySelectorAll('.card').forEach(card => {
-      // Permite ativar com Enter quando focado (acessibilidade extra em alguns leitores)
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.click();
-        }
+    // Filtro por texto
+    const q = document.getElementById('q');
+    const cards = document.querySelectorAll('#cards .card');
+    q.addEventListener('input', ()=>{
+      const val = q.value.toLowerCase().trim();
+      cards.forEach(card=>{
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const tags = (card.dataset.tags || '').toLowerCase();
+        const ok = !val || title.includes(val) || tags.includes(val);
+        card.style.display = ok ? '' : 'none';
       });
     });
   </script>
