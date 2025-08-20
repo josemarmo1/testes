@@ -10,18 +10,16 @@
       --laranja:#ff6b00; --roxo:#6a1b9a; --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
       --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
-      --space-field:16px;  /* espaçamento padronizado entre campos */
-      --space-actions:26px;/* espaçamento maior antes do botão */
+      --space-field:16px; --space-actions:26px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho animado */
+    /* Cabeçalho (igual) */
     header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
-    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
     nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
     nav a:hover{color:var(--laranja);opacity:1}
@@ -29,9 +27,21 @@
     nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
     nav a:hover::after,nav a.active::after{width:100%}
 
-    /* Hero */
-    .hero{background:var(--cinza-claro);padding:56px 20px}
-    .hero .wrap{max-width:1200px;margin:0 auto;text-align:center}
+    /* Hero animado */
+    .hero{
+      position:relative;overflow:hidden;
+      background:linear-gradient(120deg, #fff 0%, #fff 30%, #f8efff 60%, #fff 100%);
+      padding:56px 20px;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:-40%;background:
+        radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
+        radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
+        radial-gradient(45% 35% at 50% 80%, rgba(106,27,154,.10), transparent 60%);
+      animation:floatBg 16s linear infinite; pointer-events:none;
+    }
+    @keyframes floatBg{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5%, 3%, 0)}100%{transform:translate3d(0,0,0)}}
+    .hero .wrap{max-width:1200px;margin:0 auto;text-align:center;position:relative}
     .hero h1{font:800 clamp(1.6rem,3.6vw,2.4rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 10px}
     .hero p{margin:0 0 16px;opacity:.9}
 
@@ -45,38 +55,29 @@
     .field{margin-top:var(--space-field)}
     .field:first-of-type{margin-top:0}
     .label{display:block;font-weight:600;margin-bottom:6px}
-    .input,.select,.textarea{
-      width:100%;padding:12px;border:1px solid var(--borda);border-radius:10px;background:#fff;font:inherit
-    }
+    .input,.select,.textarea{width:100%;padding:12px;border:1px solid var(--borda);border-radius:10px;background:#fff;font:inherit}
     .textarea{min-height:110px;resize:vertical}
     .actions{margin-top:var(--space-actions)}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:12px 14px;border-radius:10px;border:1px solid transparent;cursor:pointer;
-      font-weight:800;text-decoration:none
-    }
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none;transition:transform .15s ease,filter .15s ease}
+    .btn:active{transform:scale(.98)}
     .btn-primary{background:var(--laranja);color:#fff}
     .btn-primary:hover{filter:brightness(.96)}
 
-    /* Rodapé animado */
+    /* Rodapé (igual) */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
 
-    /* Animação base */
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-    @media (prefers-reduced-motion:reduce){header::after,.site-footer{animation:none;background-position:50% 50%}}
+    @media (prefers-reduced-motion:reduce){header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}}
   </style>
 </head>
 <body>
-
-  <!-- Cabeçalho -->
   <header>
     <div class="header-wrap">
       <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
-  <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
-</a>
-
+        <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
+      </a>
       <nav aria-label="Navegação principal">
         <a href="index.html">Início</a>
         <a href="manuais.html">Manuais</a>
@@ -85,7 +86,6 @@
     </div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div class="wrap">
       <h1>Suporte Técnico</h1>
@@ -93,7 +93,6 @@
     </div>
   </section>
 
-  <!-- Formulário centralizado -->
   <main class="container">
     <article class="panel" aria-label="Formulário de chamado técnico">
       <h3 class="panel-title">Abrir Chamado</h3>
@@ -134,7 +133,6 @@
           <input class="input" type="text" id="serie"/>
         </div>
 
-        <!-- Espaço padronizado maior antes do botão -->
         <div class="actions">
           <button class="btn btn-primary" onclick="enviarWhatsApp()">Enviar pelo WhatsApp</button>
         </div>
@@ -142,7 +140,6 @@
     </article>
   </main>
 
-  <!-- Rodapé -->
   <footer class="site-footer">
     <div class="footer-wrap">
       <p>© 2025 Help Amado — Todos os direitos reservados.</p>

@@ -14,11 +14,11 @@
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho */
+    /* Cabeçalho (igual ao index) */
     header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
-    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
     nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
     nav a:hover{color:var(--laranja);opacity:1}
@@ -26,17 +26,35 @@
     nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
     nav a:hover::after,nav a.active::after{width:100%}
 
-    /* Filtro / Busca */
-    .toolbar{max-width:1200px;margin:0 auto;padding:20px 18px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+    /* Hero animado (igual ao index) */
+    .hero{
+      position:relative;overflow:hidden;
+      background:linear-gradient(120deg, #fff 0%, #fff 30%, #f8efff 60%, #fff 100%);
+      padding:44px 20px 28px;
+    }
+    .hero::before{
+      content:"";position:absolute;inset:-40%;background:
+        radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
+        radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
+        radial-gradient(45% 35% at 50% 80%, rgba(106,27,154,.10), transparent 60%);
+      animation:floatBg 16s linear infinite; pointer-events:none;
+    }
+    @keyframes floatBg{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5%, 3%, 0)}100%{transform:translate3d(0,0,0)}}
+    .hero .wrap{max-width:1200px;margin:0 auto;text-align:center;position:relative}
+    .hero h1{font:800 clamp(1.5rem,3.4vw,2.2rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 8px}
+    .hero p{margin:0;opacity:.9}
+
+    /* Barra de busca */
+    .toolbar{max-width:1200px;margin:0 auto;padding:18px 18px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
     .search{flex:1 1 260px;display:flex;align-items:center;gap:8px;border:1px solid var(--borda);border-radius:10px;padding:8px 12px;background:#fff}
     .search input{border:0;outline:none;flex:1;font-size:1rem}
     .badge{font-size:.72rem;font-weight:800;color:var(--roxo);background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px}
 
-    /* Grid / Cards */
+    /* Grid / Cards (mesmo estilo do index) */
     .container{max-width:1200px;margin:0 auto;padding:18px 18px 60px}
-    .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:12px 0 20px}
+    .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:18px 0 20px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
-    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+    .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--borda);border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;position:relative}
     .card:hover{transform:translateY(-2px);box-shadow:0 10px 20px rgba(0,0,0,.08);border-color:#d7dce3}
     .card-media{background:#eef2f7;aspect-ratio:16/9;display:flex;justify-content:center;align-items:center}
     .card-media img{max-width:100%;max-height:100%;object-fit:contain}
@@ -46,23 +64,25 @@
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 14px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none}
     .btn-primary{background:var(--laranja);color:#fff}
     .btn-primary:hover{filter:brightness(.96)}
+    /* Ripple como no index */
+    .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
+    @keyframes ripple{to{transform:scale(10);opacity:0}}
 
-    /* Rodapé */
+    /* Rodapé (igual) */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
 
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-    @media (prefers-reduced-motion:reduce){header::after,.site-footer{animation:none;background-position:50% 50%}}
+    @media (prefers-reduced-motion:reduce){header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}}
   </style>
 </head>
 <body>
   <header>
     <div class="header-wrap">
       <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
-  <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
-</a>
-
+        <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
+      </a>
       <nav aria-label="Navegação principal">
         <a href="index.html">Início</a>
         <a class="active" href="manuais.html" aria-current="page">Manuais</a>
@@ -71,7 +91,14 @@
     </div>
   </header>
 
-  <!-- Barra de busca simples -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>Manuais de Usuário</h1>
+      <p>Encontre rapidamente o manual do seu equipamento.</p>
+    </div>
+  </section>
+
+  <!-- Barra de busca -->
   <div class="toolbar">
     <div class="search">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.2-4.2M10.8 18a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Z" stroke="#6a1b9a" stroke-width="2" stroke-linecap="round"/></svg>
@@ -81,8 +108,6 @@
   </div>
 
   <main class="container">
-    <h2 class="section-title">Manuais de Usuário</h2>
-
     <section class="grid" id="cards" aria-label="Lista de manuais">
       <article class="card" data-tags="3d impressora">
         <div class="card-media">
@@ -170,6 +195,21 @@
         const ok = !val || title.includes(val) || tags.includes(val);
         card.style.display = ok ? '' : 'none';
       });
+    });
+
+    // Ripple nos cards (igual ao index)
+    document.addEventListener('click', (e)=>{
+      const card = e.target.closest('.card');
+      if(!card) return;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      const rect = card.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = (e.clientX - rect.left - size/2) + 'px';
+      r.style.top  = (e.clientY - rect.top  - size/2) + 'px';
+      card.appendChild(r);
+      setTimeout(()=>r.remove(), 600);
     });
   </script>
 </body>

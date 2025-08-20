@@ -77,11 +77,11 @@
     .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:var(--roxo);text-decoration:none;font-weight:800}
     .btn-download:hover{background:#f8f5ff}
 
-    /* Efeito ripple ao clicar no card */
+    /* Efeito ripple */
     .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
     @keyframes ripple{to{transform:scale(10);opacity:0}}
 
-    /* “Blog” de assistência */
+    /* “Blog” */
     .blog{margin-top:14px}
     .post-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:8px}
     .post{padding:16px;border:1px solid var(--borda);border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease, box-shadow .18s ease;display:grid;gap:6px}
@@ -96,14 +96,14 @@
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
 
-    /* Animação base */
+    /* Animações base */
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
     @media (prefers-reduced-motion:reduce){
       header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}
       .btn,.btn-mini{transition:none}
     }
 
-    /* Fallback: modal injetado via JS quando pop-up é bloqueado */
+    /* Fallback modal (apenas se pop-up for bloqueado) */
     .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
     .overlay.open{display:flex}
     .modal{background:#fff;border:1px solid var(--borda);border-radius:16px;max-width:760px;width:min(96vw,760px);box-shadow:0 25px 60px rgba(0,0,0,.18);overflow:hidden;animation:pop .15s ease}
@@ -142,9 +142,7 @@
   <main class="container">
     <h2 class="section-title">Ideias de Projetos Pedagógicos</h2>
 
-    <!-- ARQUIVOS PARA DOWNLOAD:
-         Suba seus SVG/DXF em: /downloads/projetos/
-         e altere os href dos botões "Baixar Arquivo" abaixo. -->
+    <!-- Suba seus SVG/DXF/ZIP em /downloads/projetos/ e ajuste os href dos botões "Baixar Arquivo" -->
     <section class="grid" aria-label="Ideias pedagógicas">
       <!-- 1 -->
       <article class="card" data-project="proj1" data-dl="downloads/projetos/chaveiro-acrilico.zip">
@@ -314,7 +312,7 @@
     </div>
   </footer>
 
-  <!-- Fallback modal (usado só se o navegador bloquear a nova aba) -->
+  <!-- Fallback modal (só se pop-up for bloqueado) -->
   <div class="overlay" id="overlay" aria-hidden="true" style="display:none">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -326,7 +324,7 @@
   </div>
 
   <script>
-    // RIPPLE no clique do card (efeito visual)
+    // RIPPLE no clique do card
     document.addEventListener('click', (e)=>{
       const card = e.target.closest('.card');
       if(!card) return;
@@ -341,173 +339,46 @@
       setTimeout(()=>r.remove(), 600);
     });
 
-    // ===== Conteúdo dos projetos (substitui os <template> do rodapé) =====
+    // Conteúdo (sem templates no HTML)
     const TPL = {
-      proj1: `
-        <div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Artes & Design</span><span class="chip">1–2 aulas</span></div>
-        <p><strong>Descrição:</strong> criação de chaveiros em acrílico com símbolos da turma, trabalhando vetorização e segurança.</p>
-        <ol class="steps">
-          <li>Desenhar vetor simples (Inkscape/Corel/Illustrator).</li>
-          <li>Ajustar espessura, medidas e cores de corte/gravação.</li>
-          <li>Configurar material (acrílico 3mm) e testar potência/velocidade.</li>
-          <li>Cortar na laser e lixar rebarbas.</li>
-          <li>Adicionar argola/metais e montar o chaveiro.</li>
-          <li>Registrar aprendizados e apresentar.</li>
-        </ol>
-      `,
-      proj2: `
-        <div class="chips"><span class="chip">Impressora 3D</span><span class="chip">Tecnologia</span><span class="chip">2–3 aulas</span></div>
-        <p><strong>Descrição:</strong> modelagem do brasão da escola e impressão 3D para aplicar em murais/projetos.</p>
-        <ol class="steps">
-          <li>Modelar o selo em Tinkercad/Fusion (alto-relevo).</li>
-          <li>Exportar STL e fatiar (0,2mm; 15–20% infill).</li>
-          <li>Imprimir PLA, remover suportes e lixar leve.</li>
-          <li>Opcional: pintar com tinta acrílica.</li>
-          <li>Fixar no painel da escola.</li>
-        </ol>
-      `,
-      proj3: `
-        <div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Geografia</span><span class="chip">2 aulas</span></div>
-        <p><strong>Descrição:</strong> puzzle do mapa do Brasil em MDF para trabalhar regiões e capitais.</p>
-        <ol class="steps">
-          <li>Preparar vetor com divisões estaduais.</li>
-          <li>Cortar em MDF 3mm e gravar nomes no verso.</li>
-          <li>Lixar leve e aplicar seladora.</li>
-          <li>Criar base/tabuleiro com silhueta.</li>
-          <li>Jogar e avaliar aprendizagem.</li>
-        </ol>
-      `,
-      proj4: `
-        <div class="chips"><span class="chip">Plotter de Recorte</span><span class="chip">Comunicação</span><span class="chip">1–2 aulas</span></div>
-        <p><strong>Descrição:</strong> sinalização da escola com pictogramas e adesivos de orientação.</p>
-        <ol class="steps">
-          <li>Coletar necessidades de sinalização.</li>
-          <li>Selecionar ícones padronizados e cores.</li>
-          <li>Recortar vinil e aplicar máscara de transferência.</li>
-          <li>Aplicar nos locais definidos (porta/sala/corredor).</li>
-          <li>Revisar legibilidade e acessibilidade.</li>
-        </ol>
-      `,
-      proj5: `
-        <div class="chips"><span class="chip">Tecnologia</span><span class="chip">Lógica</span><span class="chip">2–4 aulas</span></div>
-        <p><strong>Descrição:</strong> robôs simples com sensores para introdução à programação e eletrônica.</p>
-        <ol class="steps">
-          <li>Montar kit (microcontrolador + motor/servo).</li>
-          <li>Ligar sensor (ultrassom/luz) e testar.</li>
-          <li>Programar reações (desviar/seguir linha).</li>
-          <li>Construir chassis em cartão/MDF.</li>
-          <li>Desafio final e reflexão.</li>
-        </ol>
-      `,
-      proj6: `
-        <div class="chips"><span class="chip">3D + Laser</span><span class="chip">Artes</span><span class="chip">1–2 aulas</span></div>
-        <p><strong>Descrição:</strong> carimbo com cabo impresso em 3D e matriz gravada a laser em borracha.</p>
-        <ol class="steps">
-          <li>Modelar cabo simples e imprimir.</li>
-          <li>Gravar borracha a laser (espelhado).</li>
-          <li>Colar matriz no cabo.</li>
-          <li>Testar e ajustar pressão/tinta.</li>
-          <li>Produzir cartões/selos da escola.</li>
-        </ol>
-      `,
-      proj7: `
-        <div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Matemática</span><span class="chip">1–2 aulas</span></div>
-        <p><strong>Descrição:</strong> porta-lápis com encaixes paramétricos explorando medidas e tolerância.</p>
-        <ol class="steps">
-          <li>Gerar desenho paramétrico (thickness, folga).</li>
-          <li>Cortar MDF 3mm e testar encaixes.</li>
-          <li>Ajustar folga e repetir se necessário.</li>
-          <li>Montar e reforçar com cola.</li>
-          <li>Personalizar com gravação.</li>
-        </ol>
-      `,
-      proj8: `
-        <div class="chips"><span class="chip">Plotter + Tela</span><span class="chip">Interdisciplinar</span><span class="chip">1 aula</span></div>
-        <p><strong>Descrição:</strong> totem com QR Codes de trabalhos que apontam para vídeos/portfólios.</p>
-        <ol class="steps">
-          <li>Gerar QR Codes (links verificados).</li>
-          <li>Diagramar totem e imprimir vinil.</li>
-          <li>Aplicar em placa de foam/MDF.</li>
-          <li>Instalar próximo à tela interativa.</li>
-          <li>Organizar visita guiada.</li>
-        </ol>
-      `
+      proj1:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Artes & Design</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> criação de chaveiros em acrílico com símbolos da turma, trabalhando vetorização e segurança.</p><ol class="steps"><li>Desenhar vetor simples (Inkscape/Corel/Illustrator).</li><li>Ajustar espessura, medidas e cores de corte/gravação.</li><li>Configurar material (acrílico 3mm) e testar potência/velocidade.</li><li>Cortar na laser e lixar rebarbas.</li><li>Adicionar argola/metais e montar o chaveiro.</li><li>Registrar aprendizados e apresentar.</li></ol>`,
+      proj2:`<div class="chips"><span class="chip">Impressora 3D</span><span class="chip">Tecnologia</span><span class="chip">2–3 aulas</span></div><p><strong>Descrição:</strong> modelagem do brasão da escola e impressão 3D para aplicar em murais/projetos.</p><ol class="steps"><li>Modelar o selo em Tinkercad/Fusion (alto-relevo).</li><li>Exportar STL e fatiar (0,2mm; 15–20% infill).</li><li>Imprimir PLA, remover suportes e lixar leve.</li><li>Opcional: pintar com tinta acrílica.</li><li>Fixar no painel da escola.</li></ol>`,
+      proj3:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Geografia</span><span class="chip">2 aulas</span></div><p><strong>Descrição:</strong> puzzle do mapa do Brasil em MDF para trabalhar regiões e capitais.</p><ol class="steps"><li>Preparar vetor com divisões estaduais.</li><li>Cortar em MDF 3mm e gravar nomes no verso.</li><li>Lixar leve e aplicar seladora.</li><li>Criar base/tabuleiro com silhueta.</li><li>Jogar e avaliar aprendizagem.</li></ol>`,
+      proj4:`<div class="chips"><span class="chip">Plotter de Recorte</span><span class="chip">Comunicação</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> sinalização da escola com pictogramas e adesivos de orientação.</p><ol class="steps"><li>Coletar necessidades de sinalização.</li><li>Selecionar ícones padronizados e cores.</li><li>Recortar vinil e aplicar máscara de transferência.</li><li>Aplicar nos locais definidos (porta/sala/corredor).</li><li>Revisar legibilidade e acessibilidade.</li></ol>`,
+      proj5:`<div class="chips"><span class="chip">Tecnologia</span><span class="chip">Lógica</span><span class="chip">2–4 aulas</span></div><p><strong>Descrição:</strong> robôs simples com sensores para introdução à programação e eletrônica.</p><ol class="steps"><li>Montar kit (microcontrolador + motor/servo).</li><li>Ligar sensor (ultrassom/luz) e testar.</li><li>Programar reações (desviar/seguir linha).</li><li>Construir chassis em cartão/MDF.</li><li>Desafio final e reflexão.</li></ol>`,
+      proj6:`<div class="chips"><span class="chip">3D + Laser</span><span class="chip">Artes</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> carimbo com cabo impresso em 3D e matriz gravada a laser em borracha.</p><ol class="steps"><li>Modelar cabo simples e imprimir.</li><li>Gravar borracha a laser (espelhado).</li><li>Colar matriz no cabo.</li><li>Testar e ajustar pressão/tinta.</li><li>Produzir cartões/selos da escola.</li></ol>`,
+      proj7:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Matemática</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> porta-lápis com encaixes paramétricos explorando medidas e tolerância.</p><ol class="steps"><li>Gerar desenho paramétrico (thickness, folga).</li><li>Cortar MDF 3mm e testar encaixes.</li><li>Ajustar folga e repetir se necessário.</li><li>Montar e reforçar com cola.</li><li>Personalizar com gravação.</li></ol>`,
+      proj8:`<div class="chips"><span class="chip">Plotter + Tela</span><span class="chip">Interdisciplinar</span><span class="chip">1 aula</span></div><p><strong>Descrição:</strong> totem com QR Codes de trabalhos que apontam para vídeos/portfólios.</p><ol class="steps"><li>Gerar QR Codes (links verificados).</li><li>Diagramar totem e imprimir vinil.</li><li>Aplicar em placa de foam/MDF.</li><li>Instalar próximo à tela interativa.</li><li>Organizar visita guiada.</li></ol>`
     };
 
-    // Dados extras (título, materiais, etc.) para a página/aba
     const extras = {
       proj1:{titulo:'Chaveiro em Acrílico', materiais:['Acrílico 3mm','Argolas metálicas','Lixa fina','Detergente neutro'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Use cores diferentes para corte (vermelho) e gravação (preto). Faça um teste de potência antes.'},
       proj2:{titulo:'Selo 3D da Escola', materiais:['PLA','Espátula','Lixa 400','Tinta acrílica (opcional)'], softwares:['Tinkercad / Fusion 360','Fatiador Cura/PrusaSlicer'], dicas:'Para alto-relevo nítido, use 0,2mm de camada e 3 paredes.'},
       proj3:{titulo:'Mapa Quebra-cabeça', materiais:['MDF 3mm','Seladora','Lixa','Cola branca'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Grave nomes no verso para autoavaliação dos alunos.'},
-      proj4:{titulo:'Sinalização da Escola', materiais:['Vinil adesivo','Máscara de transferência','Espátula','Álcool isopropílico'], softwares:['Corel / Illustrator','Studio da plotter'], dicas:'Limpe a superfície e aplique com espátula do centro para bordas.'},
+      proj4:{titulo:'Sinalização da Escola', materiais:['Vinil adesivo','Máscara de transferência','Espátula','Álcool isopropílico'], softwares:['Corel / Illustrator','Studio da plotter'], dicas:'Limpe a superfície e aplique com espátula do centro para as bordas.'},
       proj5:{titulo:'Robótica Básica', materiais:['Microcontrolador','Motores/Servos','Jumpers','Bateria'], softwares:['Arduino IDE / Block-based','Serial Monitor'], dicas:'Comece com “pisca LED” e avance para sensor ultrassom.'},
       proj6:{titulo:'Carimbo Pedagógico', materiais:['Borracha para carimbo','PLA para cabo','Adesivo de contato'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Lembre-se de espelhar o desenho antes da gravação.'},
       proj7:{titulo:'Porta-lápis Paramétrico', materiais:['MDF 3mm','Cola','Lixa'], softwares:['OpenSCAD / Inkscape','Software da Laser'], dicas:'Ajuste folga (kerf) conforme sua máquina (0,12–0,2mm).'},
       proj8:{titulo:'Totem com QR Codes', materiais:['Vinil','Placa foam/MDF','Impressão'], softwares:['Gerador de QR','Editor Vetorial'], dicas:'Teste os QR Codes em celulares diferentes antes de imprimir.'}
     };
 
-    // Abre NOVA ABA; se pop-up for bloqueado, usa MODAL como fallback
     function abrirAbaDetalhe(projectId, conteudoHTML, dlHref){
       const info = extras[projectId] || {};
-      const page = `
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      const page = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>${info.titulo ? info.titulo + ' — ' : ''}Help Amado</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
-<style>
-:root{--laranja:#ff6b00;--roxo:#6a1b9a;--borda:#e5e7eb;--texto:#1f2937;--cinza:#f5f7fb;
---font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
---font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;}
-*{box-sizing:border-box}body{margin:0;font-family:var(--font-body);color:var(--texto);background:#fff}
-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--borda)}
-header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 12s linear infinite}
-@keyframes move{to{background-position:300% 50%}}
-.wrap{max-width:920px;margin:0 auto;padding:14px 18px}
-.logo{font-family:var(--font-heading);font-weight:800}
-.logo .o{color:var(--laranja)} .p{color:var(--roxo)}
-main{max-width:920px;margin:0 auto;padding:20px 18px 40px}
-h1{font:800 1.6rem/1.1 var(--font-heading);color:var(--roxo);margin:10px 0 6px}
-.section{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;margin-top:14px}
-.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid transparent;font-weight:800;text-decoration:none;cursor:pointer}
-.btn-primary{background:var(--laranja);color:#fff}
-.btn-outline{background:#fff;color:var(--roxo);border:1px solid var(--roxo)}
-ul{margin:6px 0 0 18px}
-footer{color:#fff;margin-top:30px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 16s linear infinite}
-footer .wrap{padding:16px 18px}
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-.chip{font-size:.8rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:#4c1d95}
-</style>
-</head>
-<body>
-<header><div class="wrap"><span class="logo"><span class="o">Help</span> <span class="p">Amado</span></span></div></header>
-<main>
-  <h1>${info.titulo || 'Projeto'}</h1>
-  <div class="section">${conteudoHTML}</div>
-  <div class="section">
-    <strong>Materiais sugeridos:</strong>
-    <ul>${(info.materiais||[]).map(i=>'<li>'+i+'</li>').join('')}</ul>
-    <strong>Softwares:</strong>
-    <ul>${(info.softwares||[]).map(i=>'<li>'+i+'</li>').join('')}</ul>
-    <strong>Dicas rápidas:</strong>
-    <p>${info.dicas||'—'}</p>
-  </div>
-  <div class="section" style="display:flex;gap:10px;flex-wrap:wrap">
-    <a class="btn btn-primary" href="${dlHref||'#'}" ${dlHref?'download':''}>Baixar Arquivo</a>
-    <a class="btn btn-outline" href="index.html">Voltar à Início</a>
-  </div>
-</main>
-<footer><div class="wrap">© 2025 Help Amado — Todos os direitos reservados.</div></footer>
-</body></html>`;
-
-      // Tenta abrir nova aba; se pop-up estiver bloqueado, usa modal
+<style>:root{--laranja:#ff6b00;--roxo:#6a1b9a;--borda:#e5e7eb;--texto:#1f2937;--cinza:#f5f7fb;--font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;--font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif}*{box-sizing:border-box}body{margin:0;font-family:var(--font-body);color:var(--texto);background:#fff}header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--borda)}header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 12s linear infinite}@keyframes move{to{background-position:300% 50%}}.wrap{max-width:920px;margin:0 auto;padding:14px 18px}.logo{font-family:var(--font-heading);font-weight:800}.logo .o{color:var(--laranja)} .p{color:var(--roxo)}main{max-width:920px;margin:0 auto;padding:20px 18px 40px}h1{font:800 1.6rem/1.1 var(--font-heading);color:var(--roxo);margin:10px 0 6px}.section{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;margin-top:14px}.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid transparent;font-weight:800;text-decoration:none;cursor:pointer}.btn-primary{background:var(--laranja);color:#fff}.btn-outline{background:#fff;color:var(--roxo);border:1px solid var(--roxo)}ul{margin:6px 0 0 18px}footer{color:#fff;margin-top:30px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 16s linear infinite}footer .wrap{padding:16px 18px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}.chip{font-size:.8rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:#4c1d95}</style></head>
+<body><header><div class="wrap"><span class="logo"><span class="o">Help</span> <span class="p">Amado</span></span></div></header>
+<main><h1>${info.titulo || 'Projeto'}</h1><div class="section">${conteudoHTML}</div>
+<div class="section"><strong>Materiais sugeridos:</strong><ul>${(info.materiais||[]).map(i=>'<li>'+i+'</li>').join('')}</ul><strong>Softwares:</strong><ul>${(info.softwares||[]).map(i=>'<li>'+i+'</li>').join('')}</ul><strong>Dicas rápidas:</strong><p>${info.dicas||'—'}</p></div>
+<div class="section" style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="${dlHref||'#'}" ${dlHref?'download':''}>Baixar Arquivo</a><a class="btn btn-outline" href="index.html">Voltar à Início</a></div>
+</main><footer><div class="wrap">© 2025 Help Amado — Todos os direitos reservados.</div></footer></body></html>`;
       const w = window.open('', '_blank');
       if(!w){ return abrirModalFallback(info.titulo || 'Projeto', conteudoHTML, dlHref); }
       w.document.open(); w.document.write(page); w.document.close();
     }
 
-    // ===== Fallback: modal leve in-page =====
+    // Modal fallback
     const overlay = document.getElementById('overlay');
     const modalBody = document.getElementById('modalBody');
     const modalTitle = document.getElementById('modalTitle');
@@ -535,12 +406,12 @@ footer .wrap{padding:16px 18px}
       modalBody.innerHTML=''; document.removeEventListener('keydown', escTrap);
     }
 
-    // ===== Handler do botão "Ver projeto" =====
+    // Botão "Ver projeto"
     document.addEventListener('click', (e)=>{
       const btn = e.target.closest('button.btn-mini[data-modal]');
       if(!btn) return;
       e.preventDefault();
-      const projectId = btn.dataset.modal;            // proj1..proj8
+      const projectId = btn.dataset.modal;
       const card = btn.closest('.card');
       const dlHref = card?.getAttribute('data-dl') || '#';
       const html = TPL[projectId] || '';
