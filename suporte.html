@@ -15,7 +15,7 @@
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho (igual) */
+    /* Cabeçalho */
     header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
@@ -65,7 +65,7 @@
     .muted{font-size:.85rem;opacity:.75;margin-top:6px}
     .hidden{display:none !important}
 
-    /* Rodapé (igual) */
+    /* Rodapé */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
@@ -149,7 +149,11 @@
           <select class="select" id="cidadeSelect" disabled>
             <option value="">Selecione o estado primeiro</option>
           </select>
-          <input class="input hidden" type="text" id="cidadeInput" placeholder="Digite sua cidade" />
+
+          <!-- Fallback: input com sugestões (capitais) -->
+          <input class="input hidden" type="text" id="cidadeInput" placeholder="Digite sua cidade" list="sugestoesCapitais"/>
+          <datalist id="sugestoesCapitais"></datalist>
+
           <p id="cidadeStatus" class="muted"></p>
         </div>
 
@@ -166,7 +170,7 @@
 
         <div class="field">
           <label class="label" for="serie">Nº de Série</label>
-          <input class="input" type="text" id="serie" />
+          <input class="input" type="text" id="serie"/>
         </div>
 
         <div class="actions">
@@ -184,67 +188,34 @@
   </footer>
 
   <script>
-    // Mapa UF -> ID numérico do IBGE (estável)
-    const UF_IDS = {
-      AC:12, AL:27, AP:16, AM:13, BA:29, CE:23, DF:53, ES:32, GO:52, MA:21,
-      MT:51, MS:50, MG:31, PA:15, PB:25, PR:41, PE:26, PI:22, RJ:33, RN:24,
-      RS:43, RO:11, RR:14, SC:42, SP:35, SE:28, TO:17
+    // Mapa UF -> ID do IBGE
+    const UF_IDS = {AC:12, AL:27, AP:16, AM:13, BA:29, CE:23, DF:53, ES:32, GO:52, MA:21, MT:51, MS:50, MG:31, PA:15, PB:25, PR:41, PE:26, PI:22, RJ:33, RN:24, RS:43, RO:11, RR:14, SC:42, SP:35, SE:28, TO:17};
+
+    // Capitais para sugestões no fallback (sempre disponível)
+    const CAPITAIS = {
+      AC:'Rio Branco', AL:'Maceió', AP:'Macapá', AM:'Manaus', BA:'Salvador', CE:'Fortaleza', DF:'Brasília', ES:'Vitória',
+      GO:'Goiânia', MA:'São Luís', MT:'Cuiabá', MS:'Campo Grande', MG:'Belo Horizonte', PA:'Belém', PB:'João Pessoa',
+      PR:'Curitiba', PE:'Recife', PI:'Teresina', RJ:'Rio de Janeiro', RN:'Natal', RS:'Porto Alegre', RO:'Porto Velho',
+      RR:'Boa Vista', SC:'Florianópolis', SP:'São Paulo', SE:'Aracaju', TO:'Palmas'
     };
 
-    const estadoEl = document.getElementById('estado');
+    // Preenche datalist com capitais (usado só no fallback)
+    const dataList = document.getElementById('sugestoesCapitais');
+    dataList.innerHTML = Object.values(CAPITAIS).map(c => `<option value="${c}">`).join('');
+
+    const estadoEl     = document.getElementById('estado');
     const cidadeSelect = document.getElementById('cidadeSelect');
     const cidadeInput  = document.getElementById('cidadeInput');
     const cidadeStatus = document.getElementById('cidadeStatus');
 
     // fetch com timeout
-    async function fetchWithTimeout(url, ms = 10000){
+    async function fetchWithTimeout(url, ms = 12000){
       const ctrl = new AbortController();
       const to = setTimeout(()=>ctrl.abort(), ms);
       try{
-        const res = await fetch(url, { signal: ctrl.signal });
-        return res;
+        return await fetch(url, { signal: ctrl.signal, mode:'cors', cache:'no-store' });
       } finally {
         clearTimeout(to);
-      }
-    }
-
-    async function carregarCidades(uf){
-      const id = UF_IDS[uf];
-      if(!id){
-        usarInputManual('Estado inválido. Digite a cidade.');
-        return;
-      }
-
-      const cacheKey = 'cities_' + id + '_v2';
-      const cached = localStorage.getItem(cacheKey);
-      if(cached){
-        try{
-          const lista = JSON.parse(cached);
-          preencherSelect(lista);
-          return;
-        }catch{}
-      }
-
-      preparandoLoad();
-
-      try{
-        // tentativa 1: com orderBy
-        let url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios?orderBy=nome`;
-        let res = await fetchWithTimeout(url, 12000);
-        if(!res.ok){
-          // tentativa 2: sem orderBy (alguns proxies/ISPs dão 400/404 nisso)
-          url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`;
-          res = await fetchWithTimeout(url, 12000);
-        }
-        if(!res.ok) throw new Error('HTTP '+res.status);
-
-        const data = await res.json();
-        const nomes = data.map(m => m.nome).sort((a,b)=>a.localeCompare(b,'pt-BR'));
-        localStorage.setItem(cacheKey, JSON.stringify(nomes));
-        preencherSelect(nomes);
-      }catch(err){
-        usarInputManual('Não foi possível carregar as cidades. Digite manualmente.');
-        console.warn('Falha IBGE:', err);
       }
     }
 
@@ -270,10 +241,54 @@
       cidadeSelect.disabled = true;
       cidadeInput.classList.remove('hidden');
       cidadeInput.value = '';
-      cidadeInput.focus();
+      cidadeInput.placeholder = 'Digite sua cidade (ex.: ' + (CAPITAIS[estadoEl.value] || 'sua cidade') + ')';
       cidadeStatus.textContent = msg || '';
+      cidadeInput.focus();
     }
 
+    async function carregarCidades(uf){
+      const id = UF_IDS[uf];
+      if(!id){ usarInputManual('Estado inválido. Digite a cidade.'); return; }
+
+      // Cache local por UF
+      const cacheKey = 'cities_' + id + '_v3';
+      const cached = localStorage.getItem(cacheKey);
+      if(cached){
+        try{
+          const nomes = JSON.parse(cached);
+          if(Array.isArray(nomes) && nomes.length){
+            preencherSelect(nomes);
+            return;
+          }
+        }catch{}
+      }
+
+      preparandoLoad();
+
+      try{
+        // 1ª tentativa (ordenado)
+        let url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios?orderBy=nome`;
+        let res = await fetchWithTimeout(url, 12000);
+        if(!res.ok){
+          // 2ª tentativa (sem orderBy)
+          url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`;
+          res = await fetchWithTimeout(url, 12000);
+        }
+        if(!res.ok) throw new Error('HTTP ' + res.status);
+
+        const data = await res.json();
+        if(!Array.isArray(data)) throw new Error('Resposta inesperada');
+
+        const nomes = data.map(m => m.nome).sort((a,b)=>a.localeCompare(b, 'pt-BR'));
+        localStorage.setItem(cacheKey, JSON.stringify(nomes));
+        preencherSelect(nomes);
+      }catch(err){
+        console.warn('Falha na busca de cidades do IBGE:', err);
+        usarInputManual('Não foi possível carregar as cidades. Digite manualmente (sugestões de capitais disponíveis).');
+      }
+    }
+
+    // Troca UF => carrega cidades
     estadoEl.addEventListener('change', ()=>{
       const uf = estadoEl.value;
       if(!uf){
@@ -288,8 +303,8 @@
     });
 
     function getCidadeValor(){
-      return (!cidadeSelect.classList.contains('hidden') && !cidadeSelect.disabled)
-        ? (cidadeSelect.value || '')
+      return (!cidadeSelect.classList.contains('hidden') && !cidadeSelect.disabled && cidadeSelect.value)
+        ? cidadeSelect.value
         : cidadeInput.value.trim();
     }
 
@@ -312,10 +327,8 @@
       window.open(url,'_blank');
     }
 
-    // se já houver UF selecionada, carrega na entrada
-    if(estadoEl.value){
-      carregarCidades(estadoEl.value);
-    }
+    // Se já vier com UF preenchido (autofill), carrega
+    if(estadoEl.value){ carregarCidades(estadoEl.value); }
   </script>
 </body>
 </html>

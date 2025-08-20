@@ -7,19 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
   <style>
     :root{
-      --laranja:#ff6b00; --roxo:#6a1b9a; --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
+      --laranja:#ff6b00; --roxo:#6a1b9a; --azul:#2563eb; --verde:#16a34a; --amarelo:#eab308;
+      --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
       --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
     }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho animado */
+    /* Cabeçalho */
     header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
-    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
+    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
     .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none;display:inline-flex;align-items:center}
-    .logo-text:focus-visible{outline:3px solid rgba(106,27,154,.35);outline-offset:2px}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
     nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
     nav a:hover{color:var(--laranja);opacity:1}
@@ -27,62 +27,44 @@
     nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
     nav a:hover::after,nav a.active::after{width:100%}
 
-    /* Hero com gradiente animado suave */
-    .hero{
-      position:relative;overflow:hidden;
-      background:linear-gradient(120deg, #fff 0%, #fff 30%, #f8efff 60%, #fff 100%);
-      padding:56px 20px;
-    }
-    .hero::before{
-      content:"";position:absolute;inset:-40%;background:
-        radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
-        radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
-        radial-gradient(45% 35% at 50% 80%, rgba(106,27,154,.10), transparent 60%);
-      animation:floatBg 16s linear infinite; pointer-events:none;
-    }
+    /* Hero */
+    .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 30%,#f8efff 60%,#fff 100%);padding:56px 20px}
+    .hero::before{content:"";position:absolute;inset:-40%;background:
+      radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
+      radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
+      radial-gradient(45% 35% at 50% 80%, rgba(37,99,235,.10), transparent 60%);animation:floatBg 16s linear infinite}
     @keyframes floatBg{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5%, 3%, 0)}100%{transform:translate3d(0,0,0)}}
     .hero .wrap{max-width:1200px;margin:0 auto;text-align:center;position:relative}
-    .hero h1{font:800 clamp(1.6rem,3.6vw,2.4rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 10px}
+    .hero h1{font:800 clamp(1.6rem,3.6vw,2.6rem)/1.1 var(--font-heading);color:var(--roxo);margin:0 0 10px}
     .hero p{margin:0 0 16px;opacity:.9}
     .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none;transition:transform .15s ease,filter .15s ease}
-    .btn:active{transform:scale(.98)}
-    .btn-primary{background:var(--laranja);color:#fff}
-    .btn-primary:hover{filter:brightness(.96)}
-    .btn-outline{background:#fff;color:var(--roxo);border-color:var(--roxo)}
-    .btn-outline:hover{background:#f8f5ff}
+    .btn:active{transform:scale(.98)} .btn-primary{background:var(--laranja);color:#fff} .btn-primary:hover{filter:brightness(.96)}
+    .btn-outline{background:#fff;color:var(--roxo);border-color:var(--roxo)} .btn-outline:hover{background:#f8f5ff}
 
-    /* CTA de Assistência Técnica — destaque forte */
-    .support-cta{
-      max-width:1200px;margin:18px auto 0;padding:18px; border:1px solid var(--borda); border-radius:18px;
-      background:linear-gradient(90deg, rgba(106,27,154,.12), rgba(255,107,0,.12));
-      position:relative;overflow:hidden;
-    }
-    .support-cta::after{
-      content:"";position:absolute;left:-30%;top:-120%;width:160%;height:300%;
-      background:radial-gradient(50% 30% at 30% 40%, rgba(106,27,154,.20), transparent 60%),
-                 radial-gradient(40% 25% at 80% 30%, rgba(255,107,0,.18), transparent 60%);
-      animation:floatBg 18s linear infinite;pointer-events:none;opacity:.7;
-    }
-    .support-cta .cta-wrap{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    .support-cta h3{margin:0;font:800 clamp(1.1rem,2.6vw,1.4rem)/1.2 var(--font-heading);color:var(--roxo)}
-    .support-cta p{margin:2px 0 0;opacity:.95}
-    .support-cta .cta-actions{display:flex;gap:10px;flex-wrap:wrap}
-    .btn-strong{background:var(--laranja);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;text-decoration:none;border:1px solid transparent;display:inline-flex;align-items:center}
-    .btn-strong:hover{filter:brightness(.96)}
+    /* CTA flutuante */
+    .cta-suporte{position:fixed;right:18px;bottom:18px;z-index:60;background:linear-gradient(135deg,var(--laranja),var(--roxo));color:#fff;border-radius:999px;padding:12px 16px;font-weight:800;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.18);animation:pulse 2.4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-    /* Conteúdo principal (lista e blog) */
-    .container{max-width:1200px;margin:0 auto;padding:20px 18px 60px}
-    .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:22px 0 26px;letter-spacing:.2px}
+    .container{max-width:1200px;margin:0 auto;padding:28px 18px 60px}
+    .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:22px 0 26px}
 
-    /* Grid e Cards (maiores, animados e com ripple) */
+    /* Ribbon */
+    .ribbon{background:linear-gradient(90deg,var(--azul),var(--verde),var(--amarelo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite;border-radius:16px;padding:12px;margin:12px 0}
+    .ribbon p{margin:0;text-align:center;color:#fff;font-weight:700}
+
+    /* Equipamentos - imagens pequenas */
+    .equip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .equip{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--borda);border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04);transition:transform .15s ease, box-shadow .15s ease}
+    .equip:hover{transform:translateY(-2px);box-shadow:0 12px 20px rgba(0,0,0,.08)}
+    .equip img{width:56px;height:56px;border-radius:12px;object-fit:cover;background:#f3f4f6;border:1px solid #e5e7eb}
+    .equip h4{margin:0;font:800 .98rem/1.1 var(--font-heading);color:var(--roxo)}
+    .equip p{margin:2px 0 0;font-size:.9rem;opacity:.85}
+    .equip a{margin-left:auto;text-decoration:none;font-weight:800;color:var(--laranja)}
+
+    /* Grid cards projetos */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-    .card{
-      position:relative;display:flex;flex-direction:column;background:var(--card);
-      border:1px solid var(--borda);border-radius:18px;overflow:hidden;
-      box-shadow:0 6px 18px rgba(0,0,0,.04);
-      transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
-    }
+    .card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--borda);border-radius:18px;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.04);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
     .card:hover{transform:translateY(-4px);box-shadow:0 18px 34px rgba(0,0,0,.10);border-color:#d7dce3}
     .card-media{background:#eef2f7;aspect-ratio:16/9;display:flex;justify-content:center;align-items:center}
     .card-media img{width:100%;height:100%;object-fit:cover}
@@ -91,16 +73,13 @@
     .card-meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
     .badge{font-size:.72rem;font-weight:800;color:#4c1d95;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:5px 10px}
     .btn-mini{padding:9px 12px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none;background:var(--laranja);color:#fff;transition:transform .15s ease,filter .15s ease}
-    .btn-mini:hover{filter:brightness(.96)}
-    .btn-mini:active{transform:scale(.98)}
-    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:#6a1b9a;text-decoration:none;font-weight:800}
+    .btn-mini:hover{filter:brightness(.96)} .btn-mini:active{transform:scale(.98)}
+    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:var(--roxo);text-decoration:none;font-weight:800}
     .btn-download:hover{background:#f8f5ff}
-
-    /* Efeito ripple */
     .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
     @keyframes ripple{to{transform:scale(10);opacity:0}}
 
-    /* Blog enxuto */
+    /* Blog */
     .blog{margin-top:14px}
     .post-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:8px}
     .post{padding:16px;border:1px solid var(--borda);border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease, box-shadow .18s ease;display:grid;gap:6px}
@@ -110,40 +89,35 @@
     .post .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
     .chip{font-size:.75rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:var(--roxo)}
 
-    /* Página de Detalhe (mesma guia) */
-    .hidden{display:none}
-    .detail{max-width:920px;margin:0 auto;padding:22px 18px 50px}
-    .detail h1{font:800 1.6rem/1.15 var(--font-heading);color:var(--roxo);margin:0 0 10px}
-    .detail .section{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;margin-top:14px;animation:fadeSlide .2s ease}
-    .detail .chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
-    .detail .chip{font-size:.8rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:#4c1d95}
-    .detail .actions{display:flex;gap:10px;flex-wrap:wrap}
-    .btn-outline{background:#fff;color:var(--roxo);border:1px solid var(--roxo)}
-    @keyframes fadeSlide{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-    /* Rodapé animado */
-    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
+    /* Rodapé */
+    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
-
-    /* Animações base */
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
-    @media (prefers-reduced-motion:reduce){
-      header::after,.site-footer,.hero::before,.support-cta::after{animation:none;background-position:50% 50%}
-      .btn,.btn-mini{transition:none}
-    }
+    @media (prefers-reduced-motion:reduce){header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}}
+
+    /* Modal (mesma guia) */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:60;backdrop-filter:saturate(1.1) blur(2px)}
+    .overlay.open{display:flex}
+    .modal{background:#fff;border:1px solid var(--borda);border-radius:16px;max-width:820px;width:min(96vw,820px);box-shadow:0 25px 60px rgba(0,0,0,.18);overflow:hidden;animation:pop .15s ease}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--borda)}
+    .modal-title{font:800 1.05rem/1.2 var(--font-heading);color:var(--roxo);margin:0}
+    .modal-body{padding:16px 16px 18px;display:grid;gap:10px}
+    .close{background:#fff;border:1px solid var(--borda);border-radius:10px;padding:8px 10px;font-weight:800;cursor:pointer}
+    @keyframes pop{from{transform:translateY(6px);opacity:.0}to{transform:translateY(0);opacity:1}}
   </style>
 </head>
 <body>
   <header>
     <div class="header-wrap">
-      <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
+      <a href="index.html" class="logo-text" aria-label="Voltar para Início">
         <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
       </a>
       <nav aria-label="Navegação principal">
         <a class="active" href="index.html">Início</a>
         <a href="manuais.html">Manuais</a>
         <a href="suporte.html">Suporte</a>
+        <a href="games.html">Games</a>
       </nav>
     </div>
   </header>
@@ -159,35 +133,66 @@
     </div>
   </section>
 
-  <!-- CTA forte de Assistência Técnica -->
-  <section class="support-cta" aria-label="Assistência Técnica em destaque">
-    <div class="cta-wrap">
-      <div>
-        <h3>Precisa de Assistência Técnica agora?</h3>
-        <p>Atendimento para Impressora 3D, Corte a Laser, Plotter, Tela Interativa e Notebook Amado.</p>
-      </div>
-      <div class="cta-actions">
-        <a class="btn-strong" href="suporte.html">Abrir Suporte</a>
-      </div>
-    </div>
-  </section>
+  <a class="cta-suporte" href="suporte.html" title="Precisa de ajuda agora?">Precisa de Suporte?</a>
 
-  <!-- HOME (lista + blog) -->
-  <main id="homeContent" class="container" aria-live="polite">
+  <main class="container">
+    <div class="ribbon"><p>Laboratório criativo com Impressora 3D • Corte a Laser • Plotter • Telas Interativas • Notebooks</p></div>
+
+    <h2 class="section-title">Equipamentos</h2>
+    <section class="equip-grid" aria-label="Equipamentos">
+      <article class="equip">
+        <img src="imagens/Imagens impressora 3d.png" alt="Impressora 3D"/>
+        <div>
+          <h4>Impressora 3D</h4>
+          <p>Modela e imprime peças para projetos.</p>
+        </div>
+        <a href="manuais.html#impressora3d">Manual</a>
+      </article>
+      <article class="equip">
+        <img src="imagens/Corte a laser flow.png" alt="Corte a Laser"/>
+        <div>
+          <h4>Corte a Laser</h4>
+          <p>Cortes/gravuras precisos em MDF/acrílico.</p>
+        </div>
+        <a href="manuais.html#laser">Manual</a>
+      </article>
+      <article class="equip">
+        <img src="imagens/plotter de recorte.webp" alt="Plotter de Recorte"/>
+        <div>
+          <h4>Plotter de Recorte</h4>
+          <p>Adesivos e sinalização escolar.</p>
+        </div>
+        <a href="manuais.html#plotter">Manual</a>
+      </article>
+      <article class="equip">
+        <img src="imagens/D_NQ_NP_717598-MLB54926343763_042023-O-removebg-preview.png" alt="Tela Interativa"/>
+        <div>
+          <h4>Tela Interativa</h4>
+          <p>Aulas dinâmicas e exposições digitais.</p>
+        </div>
+        <a href="manuais.html#tela">Manual</a>
+      </article>
+      <article class="equip">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=256&auto=format&fit=crop&q=70" alt="Notebook Amado"/>
+        <div>
+          <h4>Notebook Amado</h4>
+          <p>Uso diário com software educacional.</p>
+        </div>
+        <a href="manuais.html#notebook">Manual</a>
+      </article>
+    </section>
+
     <h2 class="section-title">Ideias de Projetos Pedagógicos</h2>
-
     <section class="grid" aria-label="Ideias pedagógicas">
       <!-- 1 -->
       <article class="card" data-project="proj1" data-dl="downloads/projetos/chaveiro-acrilico.zip">
-        <div class="card-media">
-          <img src="imagens/ChatGPT Image 16 de ago. de 2025, 12_32_02.png" alt="Chaveiros em acrílico cortados a laser"/>
-        </div>
+        <div class="card-media"><img src="imagens/ChatGPT Image 16 de ago. de 2025, 12_32_02.png" alt="Chaveiros em acrílico"/></div>
         <div class="card-body">
           <h3 class="card-title">Chaveiro em Acrílico</h3>
           <p>Identidade da turma e vetorização básica.</p>
           <div class="card-meta">
             <span class="badge">Corte a Laser</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj1">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/chaveiro-acrilico.zip" download>Baixar Arquivo</a>
             </div>
@@ -196,15 +201,13 @@
       </article>
       <!-- 2 -->
       <article class="card" data-project="proj2" data-dl="downloads/projetos/selo-3d.zip">
-        <div class="card-media">
-          <img src="imagens/placa 3d.png" alt="Peças impressas em 3D"/>
-        </div>
+        <div class="card-media"><img src="imagens/placa 3d.png" alt="Peças impressas 3D"/></div>
         <div class="card-body">
           <h3 class="card-title">Selo 3D da Escola</h3>
-          <p>Modelagem 3D simples e impressão.</p>
+          <p>Modelagem simples e impressão.</p>
           <div class="card-meta">
             <span class="badge">Impressora 3D</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj2">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/selo-3d.zip" download>Baixar Arquivo</a>
             </div>
@@ -213,15 +216,13 @@
       </article>
       <!-- 3 -->
       <article class="card" data-project="proj3" data-dl="downloads/projetos/mapa-quebra-cabeca.zip">
-        <div class="card-media">
-          <img src="imagens/Mapa MDF.png" alt="Quebra-cabeça de mapa"/>
-        </div>
+        <div class="card-media"><img src="imagens/Mapa MDF.png" alt="Quebra-cabeça de mapa"/></div>
         <div class="card-body">
           <h3 class="card-title">Mapa Quebra-cabeça</h3>
-          <p>Geografia em MDF com encaixes.</p>
+        <p>Geografia com encaixes em MDF.</p>
           <div class="card-meta">
             <span class="badge">Corte a Laser</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj3">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/mapa-quebra-cabeca.zip" download>Baixar Arquivo</a>
             </div>
@@ -230,15 +231,13 @@
       </article>
       <!-- 4 -->
       <article class="card" data-project="proj4" data-dl="downloads/projetos/sinalizacao-escolar.zip">
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=800&auto=format&fit=crop&q=70" alt="Placas e adesivos escolares"/>
-        </div>
+        <div class="card-media"><img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=800&auto=format&fit=crop&q=70" alt="Placas e adesivos"/></div>
         <div class="card-body">
           <h3 class="card-title">Sinalização da Escola</h3>
-          <p>Pictogramas e adesivos pelos alunos.</p>
+          <p>Pictogramas feitos pelos alunos.</p>
           <div class="card-meta">
-            <span class="badge">Plotter de Recorte</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <span class="badge">Plotter</span>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj4">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/sinalizacao-escolar.zip" download>Baixar Arquivo</a>
             </div>
@@ -247,15 +246,13 @@
       </article>
       <!-- 5 -->
       <article class="card" data-project="proj5" data-dl="downloads/projetos/robotica-basica.zip">
-        <div class="card-media">
-          <img src="imagens/robo.png" alt="Protótipos com microcontroladores"/>
-        </div>
+        <div class="card-media"><img src="imagens/robo.png" alt="Protótipos com microcontroladores"/></div>
         <div class="card-body">
           <h3 class="card-title">Robótica Básica</h3>
-          <p>Protótipos com sensores e lógica.</p>
+          <p>Sensores, lógica e desafios.</p>
           <div class="card-meta">
             <span class="badge">Tecnologia</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj5">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/robotica-basica.zip" download>Baixar Arquivo</a>
             </div>
@@ -264,15 +261,13 @@
       </article>
       <!-- 6 -->
       <article class="card" data-project="proj6" data-dl="downloads/projetos/carimbo-pedagogico.zip">
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=70" alt="Carimbos pedagógicos"/>
-        </div>
+        <div class="card-media"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=70" alt="Carimbos"/></div>
         <div class="card-body">
           <h3 class="card-title">Carimbo Pedagógico</h3>
-          <p>Carimbo com cabo 3D e borracha laser.</p>
+          <p>Cabo 3D + matriz a laser.</p>
           <div class="card-meta">
             <span class="badge">3D + Laser</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj6">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/carimbo-pedagogico.zip" download>Baixar Arquivo</a>
             </div>
@@ -281,15 +276,13 @@
       </article>
       <!-- 7 -->
       <article class="card" data-project="proj7" data-dl="downloads/projetos/porta-lapis-parametrico.zip">
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1587573089734-09cb69c0f1b3?w=800&auto=format&fit=crop&q=70" alt="Porta-lápis a laser"/>
-        </div>
+        <div class="card-media"><img src="https://images.unsplash.com/photo-1587573089734-09cb69c0f1b3?w=800&auto=format&fit=crop&q=70" alt="Porta-lápis"/></div>
         <div class="card-body">
           <h3 class="card-title">Porta-lápis Paramétrico</h3>
-          <p>Design paramétrico e encaixes.</p>
+          <p>Encaixes e tolerância.</p>
           <div class="card-meta">
             <span class="badge">Corte a Laser</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj7">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/porta-lapis-parametrico.zip" download>Baixar Arquivo</a>
             </div>
@@ -298,15 +291,13 @@
       </article>
       <!-- 8 -->
       <article class="card" data-project="proj8" data-dl="downloads/projetos/totem-qrcode.zip">
-        <div class="card-media">
-          <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=800&auto=format&fit=crop&q=70" alt="Totem com QR Codes"/>
-        </div>
+        <div class="card-media"><img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=800&auto=format&fit=crop&q=70" alt="Totem com QR Codes"/></div>
         <div class="card-body">
           <h3 class="card-title">Totem com QR Codes</h3>
-          <p>Exposição de projetos com links.</p>
+          <p>Exposição com links.</p>
           <div class="card-meta">
             <span class="badge">Plotter + Tela</span>
-            <div style="display:flex; gap:8px; flex-wrap:wrap">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
               <button class="btn-mini" data-modal="proj8">Ver projeto</button>
               <a class="btn-download" href="downloads/projetos/totem-qrcode.zip" download>Baixar Arquivo</a>
             </div>
@@ -315,46 +306,27 @@
       </article>
     </section>
 
-    <!-- Blog de assistência -->
     <section class="blog">
       <h2 class="section-title">Assistência Técnica • Dicas Rápidas</h2>
       <div class="post-list">
         <article class="post">
           <h4>Checklist antes de imprimir em 3D</h4>
-          <p>Temperatura, adesão, nivelamento e fatiamento: 4 passos para reduzir falhas.</p>
+          <p>Temperatura, adesão, nivelamento e fatiamento.</p>
           <div class="meta"><span class="chip">Impressora 3D</span><span class="chip">5 min</span></div>
         </article>
         <article class="post">
-          <h4>Parâmetros seguros para MDF 3mm</h4>
-          <p>Velocidade, potência e foco ideais para cortes limpos sem queimado.</p>
+          <h4>Parâmetros para MDF 3mm</h4>
+          <p>Velocidade, potência e foco ideais.</p>
           <div class="meta"><span class="chip">Corte a Laser</span><span class="chip">3 min</span></div>
         </article>
         <article class="post">
-          <h4>Vinil: como evitar bolhas</h4>
-          <p>Aplicação com máscara, espátula e limpeza da superfície em 2 etapas.</p>
+          <h4>Vinil sem bolhas</h4>
+          <p>Máscara, espátula e limpeza da superfície.</p>
           <div class="meta"><span class="chip">Plotter</span><span class="chip">4 min</span></div>
         </article>
       </div>
     </section>
   </main>
-
-  <!-- DETALHE (mesma guia) -->
-  <section id="detailPage" class="detail hidden" aria-live="polite">
-    <h1 id="d-title">Projeto</h1>
-    <div id="d-main" class="section"><!-- chips + passos entram aqui --></div>
-    <div class="section">
-      <strong>Materiais sugeridos:</strong>
-      <ul id="d-mat" style="margin:6px 0 0 18px"></ul>
-      <strong>Softwares:</strong>
-      <ul id="d-soft" style="margin:6px 0 0 18px"></ul>
-      <strong>Dicas rápidas:</strong>
-      <p id="d-tip">—</p>
-    </div>
-    <div class="section actions">
-      <a id="d-download" class="btn btn-primary" href="#" download>Baixar Arquivo</a>
-      <button id="d-back" class="btn btn-outline" type="button">Voltar</button>
-    </div>
-  </section>
 
   <footer class="site-footer">
     <div class="footer-wrap">
@@ -363,126 +335,64 @@
     </div>
   </footer>
 
+  <!-- Modal -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Projeto</h3>
+        <button class="close" id="closeModal" aria-label="Fechar">Fechar</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
   <script>
-    // RIPPLE no clique do card
+    // Ripple
     document.addEventListener('click', (e)=>{
       const card = e.target.closest('.card');
       if(!card) return;
-      const r = document.createElement('span');
-      r.className = 'ripple';
-      const rect = card.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      r.style.width = r.style.height = size + 'px';
-      r.style.left = (e.clientX - rect.left - size/2) + 'px';
-      r.style.top  = (e.clientY - rect.top  - size/2) + 'px';
-      card.appendChild(r);
-      setTimeout(()=>r.remove(), 600);
+      const r = document.createElement('span'); r.className='ripple';
+      const rect = card.getBoundingClientRect(); const size = Math.max(rect.width, rect.height);
+      r.style.width=r.style.height=size+'px'; r.style.left=(e.clientX-rect.left-size/2)+'px'; r.style.top=(e.clientY-rect.top-size/2)+'px';
+      card.appendChild(r); setTimeout(()=>r.remove(),600);
     });
 
-    // Conteúdo dos projetos (sem templates no HTML)
+    // Templates de projeto (curtos)
     const TPL = {
-      proj1:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Artes & Design</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> criação de chaveiros em acrílico com símbolos da turma, trabalhando vetorização e segurança.</p><ol class="steps"><li>Desenhar vetor simples (Inkscape/Corel/Illustrator).</li><li>Ajustar espessura, medidas e cores de corte/gravação.</li><li>Configurar material (acrílico 3mm) e testar potência/velocidade.</li><li>Cortar na laser e lixar rebarbas.</li><li>Adicionar argola/metais e montar o chaveiro.</li><li>Registrar aprendizados e apresentar.</li></ol>`,
-      proj2:`<div class="chips"><span class="chip">Impressora 3D</span><span class="chip">Tecnologia</span><span class="chip">2–3 aulas</span></div><p><strong>Descrição:</strong> modelagem do brasão da escola e impressão 3D para aplicar em murais/projetos.</p><ol class="steps"><li>Modelar o selo em Tinkercad/Fusion (alto-relevo).</li><li>Exportar STL e fatiar (0,2mm; 15–20% infill).</li><li>Imprimir PLA, remover suportes e lixar leve.</li><li>Opcional: pintar com tinta acrílica.</li><li>Fixar no painel da escola.</li></ol>`,
-      proj3:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Geografia</span><span class="chip">2 aulas</span></div><p><strong>Descrição:</strong> puzzle do mapa do Brasil em MDF para trabalhar regiões e capitais.</p><ol class="steps"><li>Preparar vetor com divisões estaduais.</li><li>Cortar em MDF 3mm e gravar nomes no verso.</li><li>Lixar leve e aplicar seladora.</li><li>Criar base/tabuleiro com silhueta.</li><li>Jogar e avaliar aprendizagem.</li></ol>`,
-      proj4:`<div class="chips"><span class="chip">Plotter de Recorte</span><span class="chip">Comunicação</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> sinalização da escola com pictogramas e adesivos de orientação.</p><ol class="steps"><li>Coletar necessidades de sinalização.</li><li>Selecionar ícones padronizados e cores.</li><li>Recortar vinil e aplicar máscara de transferência.</li><li>Aplicar nos locais definidos (porta/sala/corredor).</li><li>Revisar legibilidade e acessibilidade.</li></ol>`,
-      proj5:`<div class="chips"><span class="chip">Tecnologia</span><span class="chip">Lógica</span><span class="chip">2–4 aulas</span></div><p><strong>Descrição:</strong> robôs simples com sensores para introdução à programação e eletrônica.</p><ol class="steps"><li>Montar kit (microcontrolador + motor/servo).</li><li>Ligar sensor (ultrassom/luz) e testar.</li><li>Programar reações (desviar/seguir linha).</li><li>Construir chassis em cartão/MDF.</li><li>Desafio final e reflexão.</li></ol>`,
-      proj6:`<div class="chips"><span class="chip">3D + Laser</span><span class="chip">Artes</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> carimbo com cabo impresso em 3D e matriz gravada a laser em borracha.</p><ol class="steps"><li>Modelar cabo simples e imprimir.</li><li>Gravar borracha a laser (espelhado).</li><li>Colar matriz no cabo.</li><li>Testar e ajustar pressão/tinta.</li><li>Produzir cartões/selos da escola.</li></ol>`,
-      proj7:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Matemática</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> porta-lápis com encaixes paramétricos explorando medidas e tolerância.</p><ol class="steps"><li>Gerar desenho paramétrico (thickness, folga).</li><li>Cortar MDF 3mm e testar encaixes.</li><li>Ajustar folga e repetir se necessário.</li><li>Montar e reforçar com cola.</li><li>Personalizar com gravação.</li></ol>`,
-      proj8:`<div class="chips"><span class="chip">Plotter + Tela</span><span class="chip">Interdisciplinar</span><span class="chip">1 aula</span></div><p><strong>Descrição:</strong> totem com QR Codes de trabalhos que apontam para vídeos/portfólios.</p><ol class="steps"><li>Gerar QR Codes (links verificados).</li><li>Diagramar totem e imprimir vinil.</li><li>Aplicar em placa de foam/MDF.</li><li>Instalar próximo à tela interativa.</li><li>Organizar visita guiada.</li></ol>`
+      proj1:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">1–2 aulas</span></div><p><strong>Chaveiros em acrílico</strong> para trabalhar vetorização e segurança.</p><ol class="steps"><li>Desenho vetorial simples.</li><li>Definir corte/gravação.</li><li>Testar potência/velocidade.</li><li>Cortar e montar.</li></ol>`,
+      proj2:`<div class="chips"><span class="chip">Impressora 3D</span><span class="chip">2–3 aulas</span></div><p><strong>Selo da escola</strong> em alto-relevo.</p><ol class="steps"><li>Modelagem (Tinkercad/Fusion).</li><li>Fatiar 0,2mm / 20%.</li><li>Imprimir PLA e finalizar.</li></ol>`,
+      proj3:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">2 aulas</span></div><p><strong>Mapa-puzzle</strong> para estudar regiões.</p><ol class="steps"><li>Vetor por estados.</li><li>Corte MDF 3mm.</li><li>Base/tabuleiro.</li></ol>`,
+      proj4:`<div class="chips"><span class="chip">Plotter</span><span class="chip">1–2 aulas</span></div><p><strong>Sinalização</strong> com ícones e cores padronizadas.</p><ol class="steps"><li>Levantamento de locais.</li><li>Recorte de vinil.</li><li>Aplicação assistida.</li></ol>`,
+      proj5:`<div class="chips"><span class="chip">Tecnologia</span><span class="chip">2–4 aulas</span></div><p><strong>Robôs simples</strong> com sensores.</p><ol class="steps"><li>Montagem do kit.</li><li>Programação básica.</li><li>Desafio final.</li></ol>`,
+      proj6:`<div class="chips"><span class="chip">3D + Laser</span><span class="chip">1–2 aulas</span></div><p><strong>Carimbo</strong> com cabo 3D e matriz a laser.</p><ol class="steps"><li>Modelar e imprimir cabo.</li><li>Gravar borracha (espelhado).</li><li>Colar e testar.</li></ol>`,
+      proj7:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">1–2 aulas</span></div><p><strong>Porta-lápis</strong> com folga ajustada.</p><ol class="steps"><li>Parametrizar encaixes.</li><li>Cortar e montar.</li></ol>`,
+      proj8:`<div class="chips"><span class="chip">Plotter + Tela</span><span class="chip">1 aula</span></div><p><strong>Totem com QR</strong> de trabalhos dos alunos.</p><ol class="steps"><li>Gerar QR.</li><li>Aplicar em placa.</li></ol>`
     };
+    const TIT = {proj1:'Chaveiro em Acrílico',proj2:'Selo 3D da Escola',proj3:'Mapa Quebra-cabeça',proj4:'Sinalização da Escola',proj5:'Robótica Básica',proj6:'Carimbo Pedagógico',proj7:'Porta-lápis Paramétrico',proj8:'Totem com QR Codes'};
 
-    const extras = {
-      proj1:{titulo:'Chaveiro em Acrílico', materiais:['Acrílico 3mm','Argolas metálicas','Lixa fina','Detergente neutro'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Use cores diferentes para corte (vermelho) e gravação (preto). Faça um teste de potência antes.'},
-      proj2:{titulo:'Selo 3D da Escola', materiais:['PLA','Espátula','Lixa 400','Tinta acrílica (opcional)'], softwares:['Tinkercad / Fusion 360','Fatiador Cura/PrusaSlicer'], dicas:'Para alto-relevo nítido, use 0,2mm de camada e 3 paredes.'},
-      proj3:{titulo:'Mapa Quebra-cabeça', materiais:['MDF 3mm','Seladora','Lixa','Cola branca'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Grave nomes no verso para autoavaliação dos alunos.'},
-      proj4:{titulo:'Sinalização da Escola', materiais:['Vinil adesivo','Máscara de transferência','Espátula','Álcool isopropílico'], softwares:['Corel / Illustrator','Studio da plotter'], dicas:'Limpe a superfície e aplique com espátula do centro para as bordas.'},
-      proj5:{titulo:'Robótica Básica', materiais:['Microcontrolador','Motores/Servos','Jumpers','Bateria'], softwares:['Arduino IDE / Block-based','Serial Monitor'], dicas:'Comece com “pisca LED” e avance para sensor ultrassom.'},
-      proj6:{titulo:'Carimbo Pedagógico', materiais:['Borracha para carimbo','PLA para cabo','Adesivo de contato'], softwares:['Inkscape / Illustrator','Software da Laser'], dicas:'Lembre-se de espelhar o desenho antes da gravação.'},
-      proj7:{titulo:'Porta-lápis Paramétrico', materiais:['MDF 3mm','Cola','Lixa'], softwares:['OpenSCAD / Inkscape','Software da Laser'], dicas:'Ajuste folga (kerf) conforme sua máquina (0,12–0,2mm).'},
-      proj8:{titulo:'Totem com QR Codes', materiais:['Vinil','Placa foam/MDF','Impressão'], softwares:['Gerador de QR','Editor Vetorial'], dicas:'Teste os QR Codes em celulares diferentes antes de imprimir.'}
-    };
-
-    const home = document.getElementById('homeContent');
-    const detail = document.getElementById('detailPage');
-    const dTitle = document.getElementById('d-title');
-    const dMain = document.getElementById('d-main');
-    const dMat = document.getElementById('d-mat');
-    const dSoft = document.getElementById('d-soft');
-    const dTip = document.getElementById('d-tip');
-    const dDl = document.getElementById('d-download');
-    const dBack = document.getElementById('d-back');
-
-    function fillList(ul, items){
-      ul.innerHTML = (items||[]).map(i=>`<li>${i}</li>`).join('');
+    // Modal
+    const overlay = document.getElementById('overlay');
+    const modalBody = document.getElementById('modalBody');
+    const modalTitle = document.getElementById('modalTitle');
+    function abrirModal(titulo, html, dlHref){
+      modalTitle.textContent = titulo || 'Projeto';
+      modalBody.innerHTML = `${html}<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <a class="btn btn-primary" href="${dlHref||'#'}" ${dlHref?'download':''}>Baixar Arquivo</a>
+        <button class="btn btn-outline" id="fecharModalInline">Fechar</button></div>`;
+      overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
+      document.getElementById('fecharModalInline').onclick = ()=>fecharModal();
     }
+    function fecharModal(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); modalBody.innerHTML=''; }
+    document.getElementById('closeModal').onclick = fecharModal;
+    overlay.addEventListener('click',(e)=>{ if(e.target===overlay) fecharModal(); });
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&overlay.classList.contains('open')) fecharModal(); });
 
-    function showDetail(projectId, dlHref, skipPush){
-      const html = TPL[projectId];
-      const info = extras[projectId] || {};
-      if(!html){ alert('Conteúdo do projeto não encontrado.'); return; }
-
-      // preencher
-      dTitle.textContent = info.titulo || 'Projeto';
-      dMain.innerHTML = html;
-      fillList(dMat, info.materiais);
-      fillList(dSoft, info.softwares);
-      dTip.textContent = info.dicas || '—';
-      if(dlHref && dlHref !== '#'){ dDl.href = dlHref; dDl.removeAttribute('aria-disabled'); }
-      else{ dDl.href = '#'; dDl.setAttribute('aria-disabled','true'); }
-
-      // alternar telas
-      home.classList.add('hidden');
-      detail.classList.remove('hidden');
-      window.scrollTo({top:0,behavior:'smooth'});
-
-      if(!skipPush){
-        history.pushState({p:projectId}, '', '#'+projectId);
-      }
-    }
-
-    function hideDetail(skipPush){
-      detail.classList.add('hidden');
-      home.classList.remove('hidden');
-      if(!skipPush){
-        history.pushState({}, '', location.pathname);
-      }
-    }
-
-    // Botão "Ver projeto" -> detalhe na mesma guia
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('button.btn-mini[data-modal]');
-      if(!btn) return;
-      e.preventDefault();
-      const projectId = btn.dataset.modal;
-      const card = btn.closest('.card');
-      const dlHref = card?.getAttribute('data-dl') || '#';
-      showDetail(projectId, dlHref);
+    // Handler "Ver projeto"
+    document.addEventListener('click',(e)=>{
+      const btn=e.target.closest('button.btn-mini[data-modal]'); if(!btn) return; e.preventDefault();
+      const id=btn.dataset.modal; const card=btn.closest('.card'); const dl=card?.getAttribute('data-dl')||'#';
+      abrirModal(TIT[id]||'Projeto', TPL[id]||'', dl);
     });
-
-    // Botão voltar
-    dBack.addEventListener('click', ()=>hideDetail());
-
-    // Suporte a back/forward do navegador
-    window.addEventListener('popstate', ()=>{
-      const id = location.hash?.replace('#','');
-      if(id && TPL[id]){
-        const card = document.querySelector(`.card[data-project="${id}"]`);
-        const dlHref = card?.getAttribute('data-dl') || '#';
-        showDetail(id, dlHref, /*skipPush*/true);
-      }else{
-        hideDetail(/*skipPush*/true);
-      }
-    });
-
-    // Abrir direto se vier com hash (#projX)
-    (function bootFromHash(){
-      const id = location.hash?.replace('#','');
-      if(id && TPL[id]){
-        const card = document.querySelector(`.card[data-project="${id}"]`);
-        const dlHref = card?.getAttribute('data-dl') || '#';
-        showDetail(id, dlHref, /*skipPush*/true);
-      }
-    })();
   </script>
 </body>
 </html>
