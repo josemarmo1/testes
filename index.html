@@ -52,8 +52,27 @@
     .btn-outline{background:#fff;color:var(--roxo);border-color:var(--roxo)}
     .btn-outline:hover{background:#f8f5ff}
 
-    /* Conteúdo */
-    .container{max-width:1200px;margin:0 auto;padding:28px 18px 60px}
+    /* CTA de Assistência Técnica — destaque forte */
+    .support-cta{
+      max-width:1200px;margin:18px auto 0;padding:18px; border:1px solid var(--borda); border-radius:18px;
+      background:linear-gradient(90deg, rgba(106,27,154,.12), rgba(255,107,0,.12));
+      position:relative;overflow:hidden;
+    }
+    .support-cta::after{
+      content:"";position:absolute;left:-30%;top:-120%;width:160%;height:300%;
+      background:radial-gradient(50% 30% at 30% 40%, rgba(106,27,154,.20), transparent 60%),
+                 radial-gradient(40% 25% at 80% 30%, rgba(255,107,0,.18), transparent 60%);
+      animation:floatBg 18s linear infinite;pointer-events:none;opacity:.7;
+    }
+    .support-cta .cta-wrap{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .support-cta h3{margin:0;font:800 clamp(1.1rem,2.6vw,1.4rem)/1.2 var(--font-heading);color:var(--roxo)}
+    .support-cta p{margin:2px 0 0;opacity:.95}
+    .support-cta .cta-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-strong{background:var(--laranja);color:#fff;border-radius:12px;padding:10px 14px;font-weight:800;text-decoration:none;border:1px solid transparent;display:inline-flex;align-items:center}
+    .btn-strong:hover{filter:brightness(.96)}
+
+    /* Conteúdo principal (lista e blog) */
+    .container{max-width:1200px;margin:0 auto;padding:20px 18px 60px}
     .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:22px 0 26px;letter-spacing:.2px}
 
     /* Grid e Cards (maiores, animados e com ripple) */
@@ -74,14 +93,14 @@
     .btn-mini{padding:9px 12px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none;background:var(--laranja);color:#fff;transition:transform .15s ease,filter .15s ease}
     .btn-mini:hover{filter:brightness(.96)}
     .btn-mini:active{transform:scale(.98)}
-    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:var(--roxo);text-decoration:none;font-weight:800}
+    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:#6a1b9a;text-decoration:none;font-weight:800}
     .btn-download:hover{background:#f8f5ff}
 
     /* Efeito ripple */
     .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
     @keyframes ripple{to{transform:scale(10);opacity:0}}
 
-    /* “Blog” */
+    /* Blog enxuto */
     .blog{margin-top:14px}
     .post-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:8px}
     .post{padding:16px;border:1px solid var(--borda);border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease, box-shadow .18s ease;display:grid;gap:6px}
@@ -91,6 +110,17 @@
     .post .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
     .chip{font-size:.75rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:var(--roxo)}
 
+    /* Página de Detalhe (mesma guia) */
+    .hidden{display:none}
+    .detail{max-width:920px;margin:0 auto;padding:22px 18px 50px}
+    .detail h1{font:800 1.6rem/1.15 var(--font-heading);color:var(--roxo);margin:0 0 10px}
+    .detail .section{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;margin-top:14px;animation:fadeSlide .2s ease}
+    .detail .chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+    .detail .chip{font-size:.8rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:#4c1d95}
+    .detail .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-outline{background:#fff;color:var(--roxo);border:1px solid var(--roxo)}
+    @keyframes fadeSlide{from{opacity:.0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
     /* Rodapé animado */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
@@ -99,19 +129,9 @@
     /* Animações base */
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
     @media (prefers-reduced-motion:reduce){
-      header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}
+      header::after,.site-footer,.hero::before,.support-cta::after{animation:none;background-position:50% 50%}
       .btn,.btn-mini{transition:none}
     }
-
-    /* Fallback modal (apenas se pop-up for bloqueado) */
-    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:60}
-    .overlay.open{display:flex}
-    .modal{background:#fff;border:1px solid var(--borda);border-radius:16px;max-width:760px;width:min(96vw,760px);box-shadow:0 25px 60px rgba(0,0,0,.18);overflow:hidden;animation:pop .15s ease}
-    .modal-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--borda)}
-    .modal-title{font:800 1.05rem/1.2 var(--font-heading);color:var(--roxo);margin:0}
-    .modal-body{padding:16px 16px 18px;display:grid;gap:10px}
-    .close{background:#fff;border:1px solid var(--borda);border-radius:10px;padding:8px 10px;font-weight:800;cursor:pointer}
-    @keyframes pop{from{transform:translateY(6px);opacity:.0}to{transform:translateY(0);opacity:1}}
   </style>
 </head>
 <body>
@@ -139,10 +159,23 @@
     </div>
   </section>
 
-  <main class="container">
+  <!-- CTA forte de Assistência Técnica -->
+  <section class="support-cta" aria-label="Assistência Técnica em destaque">
+    <div class="cta-wrap">
+      <div>
+        <h3>Precisa de Assistência Técnica agora?</h3>
+        <p>Atendimento para Impressora 3D, Corte a Laser, Plotter, Tela Interativa e Notebook Amado.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn-strong" href="suporte.html">Abrir Suporte</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOME (lista + blog) -->
+  <main id="homeContent" class="container" aria-live="polite">
     <h2 class="section-title">Ideias de Projetos Pedagógicos</h2>
 
-    <!-- Suba seus SVG/DXF/ZIP em /downloads/projetos/ e ajuste os href dos botões "Baixar Arquivo" -->
     <section class="grid" aria-label="Ideias pedagógicas">
       <!-- 1 -->
       <article class="card" data-project="proj1" data-dl="downloads/projetos/chaveiro-acrilico.zip">
@@ -305,23 +338,30 @@
     </section>
   </main>
 
+  <!-- DETALHE (mesma guia) -->
+  <section id="detailPage" class="detail hidden" aria-live="polite">
+    <h1 id="d-title">Projeto</h1>
+    <div id="d-main" class="section"><!-- chips + passos entram aqui --></div>
+    <div class="section">
+      <strong>Materiais sugeridos:</strong>
+      <ul id="d-mat" style="margin:6px 0 0 18px"></ul>
+      <strong>Softwares:</strong>
+      <ul id="d-soft" style="margin:6px 0 0 18px"></ul>
+      <strong>Dicas rápidas:</strong>
+      <p id="d-tip">—</p>
+    </div>
+    <div class="section actions">
+      <a id="d-download" class="btn btn-primary" href="#" download>Baixar Arquivo</a>
+      <button id="d-back" class="btn btn-outline" type="button">Voltar</button>
+    </div>
+  </section>
+
   <footer class="site-footer">
     <div class="footer-wrap">
       <p>© 2025 Help Amado — Todos os direitos reservados.</p>
       <p>Laboratório de aprendizagem criativa • Escola & Pedagogia</p>
     </div>
   </footer>
-
-  <!-- Fallback modal (só se pop-up for bloqueado) -->
-  <div class="overlay" id="overlay" aria-hidden="true" style="display:none">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitle">Projeto</h3>
-        <button class="close" id="closeModal" aria-label="Fechar">Fechar</button>
-      </div>
-      <div class="modal-body" id="modalBody"></div>
-    </div>
-  </div>
 
   <script>
     // RIPPLE no clique do card
@@ -339,7 +379,7 @@
       setTimeout(()=>r.remove(), 600);
     });
 
-    // Conteúdo (sem templates no HTML)
+    // Conteúdo dos projetos (sem templates no HTML)
     const TPL = {
       proj1:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">Artes & Design</span><span class="chip">1–2 aulas</span></div><p><strong>Descrição:</strong> criação de chaveiros em acrílico com símbolos da turma, trabalhando vetorização e segurança.</p><ol class="steps"><li>Desenhar vetor simples (Inkscape/Corel/Illustrator).</li><li>Ajustar espessura, medidas e cores de corte/gravação.</li><li>Configurar material (acrílico 3mm) e testar potência/velocidade.</li><li>Cortar na laser e lixar rebarbas.</li><li>Adicionar argola/metais e montar o chaveiro.</li><li>Registrar aprendizados e apresentar.</li></ol>`,
       proj2:`<div class="chips"><span class="chip">Impressora 3D</span><span class="chip">Tecnologia</span><span class="chip">2–3 aulas</span></div><p><strong>Descrição:</strong> modelagem do brasão da escola e impressão 3D para aplicar em murais/projetos.</p><ol class="steps"><li>Modelar o selo em Tinkercad/Fusion (alto-relevo).</li><li>Exportar STL e fatiar (0,2mm; 15–20% infill).</li><li>Imprimir PLA, remover suportes e lixar leve.</li><li>Opcional: pintar com tinta acrílica.</li><li>Fixar no painel da escola.</li></ol>`,
@@ -362,51 +402,53 @@
       proj8:{titulo:'Totem com QR Codes', materiais:['Vinil','Placa foam/MDF','Impressão'], softwares:['Gerador de QR','Editor Vetorial'], dicas:'Teste os QR Codes em celulares diferentes antes de imprimir.'}
     };
 
-    function abrirAbaDetalhe(projectId, conteudoHTML, dlHref){
+    const home = document.getElementById('homeContent');
+    const detail = document.getElementById('detailPage');
+    const dTitle = document.getElementById('d-title');
+    const dMain = document.getElementById('d-main');
+    const dMat = document.getElementById('d-mat');
+    const dSoft = document.getElementById('d-soft');
+    const dTip = document.getElementById('d-tip');
+    const dDl = document.getElementById('d-download');
+    const dBack = document.getElementById('d-back');
+
+    function fillList(ul, items){
+      ul.innerHTML = (items||[]).map(i=>`<li>${i}</li>`).join('');
+    }
+
+    function showDetail(projectId, dlHref, skipPush){
+      const html = TPL[projectId];
       const info = extras[projectId] || {};
-      const page = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>${info.titulo ? info.titulo + ' — ' : ''}Help Amado</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
-<style>:root{--laranja:#ff6b00;--roxo:#6a1b9a;--borda:#e5e7eb;--texto:#1f2937;--cinza:#f5f7fb;--font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;--font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif}*{box-sizing:border-box}body{margin:0;font-family:var(--font-body);color:var(--texto);background:#fff}header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--borda)}header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 12s linear infinite}@keyframes move{to{background-position:300% 50%}}.wrap{max-width:920px;margin:0 auto;padding:14px 18px}.logo{font-family:var(--font-heading);font-weight:800}.logo .o{color:var(--laranja)} .p{color:var(--roxo)}main{max-width:920px;margin:0 auto;padding:20px 18px 40px}h1{font:800 1.6rem/1.1 var(--font-heading);color:var(--roxo);margin:10px 0 6px}.section{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:16px;margin-top:14px}.btn{display:inline-flex;gap:8px;align-items:center;justify-content:center;padding:10px 14px;border-radius:12px;border:1px solid transparent;font-weight:800;text-decoration:none;cursor:pointer}.btn-primary{background:var(--laranja);color:#fff}.btn-outline{background:#fff;color:var(--roxo);border:1px solid var(--roxo)}ul{margin:6px 0 0 18px}footer{color:#fff;margin-top:30px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:move 16s linear infinite}footer .wrap{padding:16px 18px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}.chip{font-size:.8rem;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px;font-weight:700;color:#4c1d95}</style></head>
-<body><header><div class="wrap"><span class="logo"><span class="o">Help</span> <span class="p">Amado</span></span></div></header>
-<main><h1>${info.titulo || 'Projeto'}</h1><div class="section">${conteudoHTML}</div>
-<div class="section"><strong>Materiais sugeridos:</strong><ul>${(info.materiais||[]).map(i=>'<li>'+i+'</li>').join('')}</ul><strong>Softwares:</strong><ul>${(info.softwares||[]).map(i=>'<li>'+i+'</li>').join('')}</ul><strong>Dicas rápidas:</strong><p>${info.dicas||'—'}</p></div>
-<div class="section" style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="${dlHref||'#'}" ${dlHref?'download':''}>Baixar Arquivo</a><a class="btn btn-outline" href="index.html">Voltar à Início</a></div>
-</main><footer><div class="wrap">© 2025 Help Amado — Todos os direitos reservados.</div></footer></body></html>`;
-      const w = window.open('', '_blank');
-      if(!w){ return abrirModalFallback(info.titulo || 'Projeto', conteudoHTML, dlHref); }
-      w.document.open(); w.document.write(page); w.document.close();
+      if(!html){ alert('Conteúdo do projeto não encontrado.'); return; }
+
+      // preencher
+      dTitle.textContent = info.titulo || 'Projeto';
+      dMain.innerHTML = html;
+      fillList(dMat, info.materiais);
+      fillList(dSoft, info.softwares);
+      dTip.textContent = info.dicas || '—';
+      if(dlHref && dlHref !== '#'){ dDl.href = dlHref; dDl.removeAttribute('aria-disabled'); }
+      else{ dDl.href = '#'; dDl.setAttribute('aria-disabled','true'); }
+
+      // alternar telas
+      home.classList.add('hidden');
+      detail.classList.remove('hidden');
+      window.scrollTo({top:0,behavior:'smooth'});
+
+      if(!skipPush){
+        history.pushState({p:projectId}, '', '#'+projectId);
+      }
     }
 
-    // Modal fallback
-    const overlay = document.getElementById('overlay');
-    const modalBody = document.getElementById('modalBody');
-    const modalTitle = document.getElementById('modalTitle');
-    const closeBtn = document.getElementById('closeModal');
-
-    function abrirModalFallback(titulo, conteudoHTML, dlHref){
-      if(!overlay || !modalBody || !modalTitle){ alert('Conteúdo:\n' + titulo); return; }
-      modalTitle.textContent = titulo || 'Projeto';
-      modalBody.innerHTML = `
-        ${conteudoHTML}
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-          <a class="btn btn-primary" href="${dlHref||'#'}" ${dlHref?'download':''}>Baixar Arquivo</a>
-          <button class="btn btn-outline" id="fecharModalInline">Fechar</button>
-        </div>`;
-      overlay.classList.add('open'); overlay.style.display='flex'; overlay.setAttribute('aria-hidden','false');
-      const fecharInline = document.getElementById('fecharModalInline');
-      if(fecharInline) fecharInline.onclick = fecharModal;
-      if(closeBtn) closeBtn.onclick = fecharModal;
-      overlay.onclick = (e)=>{ if(e.target === overlay) fecharModal(); };
-      document.addEventListener('keydown', escTrap);
-    }
-    function escTrap(e){ if(e.key==='Escape') fecharModal(); }
-    function fecharModal(){
-      overlay.classList.remove('open'); overlay.style.display='none'; overlay.setAttribute('aria-hidden','true');
-      modalBody.innerHTML=''; document.removeEventListener('keydown', escTrap);
+    function hideDetail(skipPush){
+      detail.classList.add('hidden');
+      home.classList.remove('hidden');
+      if(!skipPush){
+        history.pushState({}, '', location.pathname);
+      }
     }
 
-    // Botão "Ver projeto"
+    // Botão "Ver projeto" -> detalhe na mesma guia
     document.addEventListener('click', (e)=>{
       const btn = e.target.closest('button.btn-mini[data-modal]');
       if(!btn) return;
@@ -414,10 +456,33 @@
       const projectId = btn.dataset.modal;
       const card = btn.closest('.card');
       const dlHref = card?.getAttribute('data-dl') || '#';
-      const html = TPL[projectId] || '';
-      if(!html){ alert('Conteúdo do projeto não encontrado.'); return; }
-      abrirAbaDetalhe(projectId, html, dlHref);
+      showDetail(projectId, dlHref);
     });
+
+    // Botão voltar
+    dBack.addEventListener('click', ()=>hideDetail());
+
+    // Suporte a back/forward do navegador
+    window.addEventListener('popstate', ()=>{
+      const id = location.hash?.replace('#','');
+      if(id && TPL[id]){
+        const card = document.querySelector(`.card[data-project="${id}"]`);
+        const dlHref = card?.getAttribute('data-dl') || '#';
+        showDetail(id, dlHref, /*skipPush*/true);
+      }else{
+        hideDetail(/*skipPush*/true);
+      }
+    });
+
+    // Abrir direto se vier com hash (#projX)
+    (function bootFromHash(){
+      const id = location.hash?.replace('#','');
+      if(id && TPL[id]){
+        const card = document.querySelector(`.card[data-project="${id}"]`);
+        const dlHref = card?.getAttribute('data-dl') || '#';
+        showDetail(id, dlHref, /*skipPush*/true);
+      }
+    })();
   </script>
 </body>
 </html>

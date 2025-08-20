@@ -62,6 +62,8 @@
     .btn:active{transform:scale(.98)}
     .btn-primary{background:var(--laranja);color:#fff}
     .btn-primary:hover{filter:brightness(.96)}
+    .muted{font-size:.85rem;opacity:.75;margin-top:6px}
+    .hidden{display:none !important}
 
     /* Rodapé (igual) */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
@@ -99,22 +101,56 @@
       <div class="panel-body">
         <div class="field">
           <label class="label" for="nome">Nome Completo</label>
-          <input class="input" type="text" id="nome" autocomplete="name"/>
+          <input class="input" type="text" id="nome" autocomplete="name" />
         </div>
 
         <div class="field">
           <label class="label" for="escola">Escola / Instituição</label>
-          <input class="input" type="text" id="escola" placeholder="Ex.: Escola Municipal XYZ"/>
-        </div>
-
-        <div class="field">
-          <label class="label" for="cidade">Cidade</label>
-          <input class="input" type="text" id="cidade" autocomplete="address-level2"/>
+          <input class="input" type="text" id="escola" placeholder="Ex.: Escola Municipal XYZ" />
         </div>
 
         <div class="field">
           <label class="label" for="estado">Estado</label>
-          <input class="input" type="text" id="estado" autocomplete="address-level1" placeholder="Ex.: SP, RJ, MG..."/>
+          <select class="select" id="estado">
+            <option value="">Selecione o estado</option>
+            <option value="AC">AC — Acre</option>
+            <option value="AL">AL — Alagoas</option>
+            <option value="AP">AP — Amapá</option>
+            <option value="AM">AM — Amazonas</option>
+            <option value="BA">BA — Bahia</option>
+            <option value="CE">CE — Ceará</option>
+            <option value="DF">DF — Distrito Federal</option>
+            <option value="ES">ES — Espírito Santo</option>
+            <option value="GO">GO — Goiás</option>
+            <option value="MA">MA — Maranhão</option>
+            <option value="MT">MT — Mato Grosso</option>
+            <option value="MS">MS — Mato Grosso do Sul</option>
+            <option value="MG">MG — Minas Gerais</option>
+            <option value="PA">PA — Pará</option>
+            <option value="PB">PB — Paraíba</option>
+            <option value="PR">PR — Paraná</option>
+            <option value="PE">PE — Pernambuco</option>
+            <option value="PI">PI — Piauí</option>
+            <option value="RJ">RJ — Rio de Janeiro</option>
+            <option value="RN">RN — Rio Grande do Norte</option>
+            <option value="RS">RS — Rio Grande do Sul</option>
+            <option value="RO">RO — Rondônia</option>
+            <option value="RR">RR — Roraima</option>
+            <option value="SC">SC — Santa Catarina</option>
+            <option value="SP">SP — São Paulo</option>
+            <option value="SE">SE — Sergipe</option>
+            <option value="TO">TO — Tocantins</option>
+          </select>
+          <p id="estadoHint" class="muted">Ao escolher o estado, a lista de cidades será carregada.</p>
+        </div>
+
+        <div class="field" id="cidadeField">
+          <label class="label" for="cidadeSelect">Cidade</label>
+          <select class="select" id="cidadeSelect" disabled>
+            <option value="">Selecione o estado primeiro</option>
+          </select>
+          <input class="input hidden" type="text" id="cidadeInput" placeholder="Digite sua cidade" />
+          <p id="cidadeStatus" class="muted"></p>
         </div>
 
         <div class="field">
@@ -130,7 +166,7 @@
 
         <div class="field">
           <label class="label" for="serie">Nº de Série</label>
-          <input class="input" type="text" id="serie"/>
+          <input class="input" type="text" id="serie" />
         </div>
 
         <div class="actions">
@@ -148,11 +184,120 @@
   </footer>
 
   <script>
+    // Mapa UF -> ID numérico do IBGE (estável)
+    const UF_IDS = {
+      AC:12, AL:27, AP:16, AM:13, BA:29, CE:23, DF:53, ES:32, GO:52, MA:21,
+      MT:51, MS:50, MG:31, PA:15, PB:25, PR:41, PE:26, PI:22, RJ:33, RN:24,
+      RS:43, RO:11, RR:14, SC:42, SP:35, SE:28, TO:17
+    };
+
+    const estadoEl = document.getElementById('estado');
+    const cidadeSelect = document.getElementById('cidadeSelect');
+    const cidadeInput  = document.getElementById('cidadeInput');
+    const cidadeStatus = document.getElementById('cidadeStatus');
+
+    // fetch com timeout
+    async function fetchWithTimeout(url, ms = 10000){
+      const ctrl = new AbortController();
+      const to = setTimeout(()=>ctrl.abort(), ms);
+      try{
+        const res = await fetch(url, { signal: ctrl.signal });
+        return res;
+      } finally {
+        clearTimeout(to);
+      }
+    }
+
+    async function carregarCidades(uf){
+      const id = UF_IDS[uf];
+      if(!id){
+        usarInputManual('Estado inválido. Digite a cidade.');
+        return;
+      }
+
+      const cacheKey = 'cities_' + id + '_v2';
+      const cached = localStorage.getItem(cacheKey);
+      if(cached){
+        try{
+          const lista = JSON.parse(cached);
+          preencherSelect(lista);
+          return;
+        }catch{}
+      }
+
+      preparandoLoad();
+
+      try{
+        // tentativa 1: com orderBy
+        let url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios?orderBy=nome`;
+        let res = await fetchWithTimeout(url, 12000);
+        if(!res.ok){
+          // tentativa 2: sem orderBy (alguns proxies/ISPs dão 400/404 nisso)
+          url = `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${id}/municipios`;
+          res = await fetchWithTimeout(url, 12000);
+        }
+        if(!res.ok) throw new Error('HTTP '+res.status);
+
+        const data = await res.json();
+        const nomes = data.map(m => m.nome).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+        localStorage.setItem(cacheKey, JSON.stringify(nomes));
+        preencherSelect(nomes);
+      }catch(err){
+        usarInputManual('Não foi possível carregar as cidades. Digite manualmente.');
+        console.warn('Falha IBGE:', err);
+      }
+    }
+
+    function preparandoLoad(){
+      cidadeStatus.textContent = 'Carregando cidades…';
+      cidadeSelect.innerHTML = '<option value="">Carregando…</option>';
+      cidadeSelect.disabled = true;
+      cidadeSelect.classList.remove('hidden');
+      cidadeInput.classList.add('hidden');
+    }
+
+    function preencherSelect(nomes){
+      cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>' +
+        nomes.map(n=>`<option value="${n}">${n}</option>`).join('');
+      cidadeSelect.disabled = false;
+      cidadeStatus.textContent = '';
+      cidadeSelect.classList.remove('hidden');
+      cidadeInput.classList.add('hidden');
+    }
+
+    function usarInputManual(msg){
+      cidadeSelect.classList.add('hidden');
+      cidadeSelect.disabled = true;
+      cidadeInput.classList.remove('hidden');
+      cidadeInput.value = '';
+      cidadeInput.focus();
+      cidadeStatus.textContent = msg || '';
+    }
+
+    estadoEl.addEventListener('change', ()=>{
+      const uf = estadoEl.value;
+      if(!uf){
+        cidadeSelect.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+        cidadeSelect.disabled = true;
+        cidadeSelect.classList.remove('hidden');
+        cidadeInput.classList.add('hidden');
+        cidadeStatus.textContent = '';
+        return;
+      }
+      carregarCidades(uf);
+    });
+
+    function getCidadeValor(){
+      return (!cidadeSelect.classList.contains('hidden') && !cidadeSelect.disabled)
+        ? (cidadeSelect.value || '')
+        : cidadeInput.value.trim();
+    }
+
     function enviarWhatsApp(){
       const nome = document.getElementById('nome').value.trim();
       const escola = document.getElementById('escola').value.trim();
-      const cidade = document.getElementById('cidade').value.trim();
-      const estado = document.getElementById('estado').value.trim();
+      const estado = estadoEl.value.trim();
+      const cidade = getCidadeValor();
       const equipamento = document.getElementById('equipamento').value;
       const serie = document.getElementById('serie').value.trim();
 
@@ -165,6 +310,11 @@
 
       const url = `https://wa.me/5519981629450?text=${encodeURIComponent(msg)}`;
       window.open(url,'_blank');
+    }
+
+    // se já houver UF selecionada, carrega na entrada
+    if(estadoEl.value){
+      carregarCidades(estadoEl.value);
     }
   </script>
 </body>
