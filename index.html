@@ -42,7 +42,7 @@
     .btn:active{transform:scale(.98)} .btn-primary{background:var(--laranja);color:#fff} .btn-primary:hover{filter:brightness(.96)}
     .btn-outline{background:#fff;color:var(--roxo);border-color:var(--roxo)} .btn-outline:hover{background:#f8f5ff}
 
-    /* CTA flutuante */
+    /* CTA flutuante -> Chat */
     .cta-suporte{position:fixed;right:18px;bottom:18px;z-index:60;background:linear-gradient(135deg,var(--laranja),var(--roxo));color:#fff;border-radius:999px;padding:12px 16px;font-weight:800;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.18);animation:pulse 2.4s ease-in-out infinite}
     @keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
@@ -74,7 +74,7 @@
     .badge{font-size:.72rem;font-weight:800;color:#4c1d95;background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:5px 10px}
     .btn-mini{padding:9px 12px;border-radius:10px;border:1px solid transparent;cursor:pointer;font-weight:800;text-decoration:none;background:var(--laranja);color:#fff;transition:transform .15s ease,filter .15s ease}
     .btn-mini:hover{filter:brightness(.96)} .btn-mini:active{transform:scale(.98)}
-    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:var(--roxo);text-decoration:none;font-weight:800}
+    .btn-download{padding:9px 12px;border-radius:10px;border:1px solid var(--roxo);background:#fff;color:#var(--roxo);text-decoration:none;font-weight:800}
     .btn-download:hover{background:#f8f5ff}
     .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
     @keyframes ripple{to{transform:scale(10);opacity:0}}
@@ -105,6 +105,28 @@
     .modal-body{padding:16px 16px 18px;display:grid;gap:10px}
     .close{background:#fff;border:1px solid var(--borda);border-radius:10px;padding:8px 10px;font-weight:800;cursor:pointer}
     @keyframes pop{from{transform:translateY(6px);opacity:.0}to{transform:translateY(0);opacity:1}}
+
+    /* ===================== CHATBOT (sem API) ===================== */
+    .cb{position:fixed;right:18px;bottom:90px;z-index:70;display:none}
+    .cb.open{display:block}
+    .cb-window{width:min(92vw,380px);height:520px;background:#fff;border:1px solid var(--borda);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden}
+    .cb-header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:linear-gradient(90deg,var(--roxo),var(--laranja));color:#fff}
+    .cb-title{font:800 1rem/1 var(--font-heading)}
+    .cb-ico{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:10px;padding:6px 8px;font-weight:800;cursor:pointer}
+    .cb-messages{flex:1;padding:12px;overflow:auto;background:linear-gradient(180deg,#ffffff 0%, #faf7ff 100%)}
+    .cb-msg{display:flex;margin:8px 0;gap:8px;align-items:flex-start}
+    .cb-msg.user .bubble{background:#e3f2ff;border:1px solid #cfe7ff;color:#0b2a55}
+    .cb-msg.bot .bubble{background:linear-gradient(180deg,#f6f0ff,#fff);border:1px solid #eadcff}
+    .bubble{padding:10px 12px;border-radius:12px;max-width:78%;box-shadow:0 2px 8px rgba(0,0,0,.04);white-space:pre-wrap}
+    .avatar{width:26px;height:26px;border-radius:999px;display:grid;place-items:center;font-weight:800;color:#fff}
+    .avatar.u{background:var(--azul)} .avatar.b{background:var(--roxo)}
+    .cb-typing{font-size:.85rem;opacity:.7;margin:6px 12px}
+    .cb-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--borda);background:#fff}
+    .cb-input input{flex:1;padding:10px;border:1px solid var(--borda);border-radius:10px}
+    .cb-input button{padding:10px 12px;border-radius:10px;border:1px solid transparent;background:var(--laranja);color:#fff;font-weight:800;cursor:pointer}
+    @media (max-width:520px){ .cb-window{height:70vh} }
+    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+    @keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
   </style>
 </head>
 <body>
@@ -114,7 +136,7 @@
         <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
       </a>
       <nav aria-label="Navegação principal">
-        <a class="active" href="index.html">Início</a>
+        <a class="active" href="index.html" aria-current="page">Início</a>
         <a href="manuais.html">Manuais</a>
         <a href="suporte.html">Suporte</a>
         <a href="games.html">Games</a>
@@ -133,10 +155,11 @@
     </div>
   </section>
 
-  <a class="cta-suporte" href="suporte.html" title="Precisa de ajuda agora?">Precisa de Suporte?</a>
+  <!-- Botão que abre o chat -->
+  <a class="cta-suporte" href="#" id="ctaChat" title="Precisa de ajuda agora?">Precisa de Suporte?</a>
 
   <main class="container">
-    <div class="ribbon"><p>Laboratório criativo com Impressora 3D • Corte a Laser • Plotter • Telas Interativas • Notebooks</p></div>
+    <div class="ribbon"><p>Impressora 3D • Corte a Laser • Plotter • Telas Interativas • Notebooks</p></div>
 
     <h2 class="section-title">Equipamentos</h2>
     <section class="equip-grid" aria-label="Equipamentos">
@@ -184,7 +207,7 @@
 
     <h2 class="section-title">Ideias de Projetos Pedagógicos</h2>
     <section class="grid" aria-label="Ideias pedagógicas">
-      <!-- 1 -->
+      <!-- (cards mantidos iguais) -->
       <article class="card" data-project="proj1" data-dl="downloads/projetos/chaveiro-acrilico.zip">
         <div class="card-media"><img src="imagens/ChatGPT Image 16 de ago. de 2025, 12_32_02.png" alt="Chaveiros em acrílico"/></div>
         <div class="card-body">
@@ -199,7 +222,7 @@
           </div>
         </div>
       </article>
-      <!-- 2 -->
+
       <article class="card" data-project="proj2" data-dl="downloads/projetos/selo-3d.zip">
         <div class="card-media"><img src="imagens/placa 3d.png" alt="Peças impressas 3D"/></div>
         <div class="card-body">
@@ -214,12 +237,12 @@
           </div>
         </div>
       </article>
-      <!-- 3 -->
+
       <article class="card" data-project="proj3" data-dl="downloads/projetos/mapa-quebra-cabeca.zip">
         <div class="card-media"><img src="imagens/Mapa MDF.png" alt="Quebra-cabeça de mapa"/></div>
         <div class="card-body">
           <h3 class="card-title">Mapa Quebra-cabeça</h3>
-        <p>Geografia com encaixes em MDF.</p>
+          <p>Geografia com encaixes em MDF.</p>
           <div class="card-meta">
             <span class="badge">Corte a Laser</span>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -229,7 +252,7 @@
           </div>
         </div>
       </article>
-      <!-- 4 -->
+
       <article class="card" data-project="proj4" data-dl="downloads/projetos/sinalizacao-escolar.zip">
         <div class="card-media"><img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?w=800&auto=format&fit=crop&q=70" alt="Placas e adesivos"/></div>
         <div class="card-body">
@@ -244,7 +267,7 @@
           </div>
         </div>
       </article>
-      <!-- 5 -->
+
       <article class="card" data-project="proj5" data-dl="downloads/projetos/robotica-basica.zip">
         <div class="card-media"><img src="imagens/robo.png" alt="Protótipos com microcontroladores"/></div>
         <div class="card-body">
@@ -259,7 +282,7 @@
           </div>
         </div>
       </article>
-      <!-- 6 -->
+
       <article class="card" data-project="proj6" data-dl="downloads/projetos/carimbo-pedagogico.zip">
         <div class="card-media"><img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=70" alt="Carimbos"/></div>
         <div class="card-body">
@@ -274,7 +297,7 @@
           </div>
         </div>
       </article>
-      <!-- 7 -->
+
       <article class="card" data-project="proj7" data-dl="downloads/projetos/porta-lapis-parametrico.zip">
         <div class="card-media"><img src="https://images.unsplash.com/photo-1587573089734-09cb69c0f1b3?w=800&auto=format&fit=crop&q=70" alt="Porta-lápis"/></div>
         <div class="card-body">
@@ -289,7 +312,7 @@
           </div>
         </div>
       </article>
-      <!-- 8 -->
+
       <article class="card" data-project="proj8" data-dl="downloads/projetos/totem-qrcode.zip">
         <div class="card-media"><img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=800&auto=format&fit=crop&q=70" alt="Totem com QR Codes"/></div>
         <div class="card-body">
@@ -335,7 +358,7 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal de projetos -->
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-header">
@@ -346,18 +369,24 @@
     </div>
   </div>
 
+  <!-- 1) IMPORTA o WebLLM via ESM e expõe no window -->
+  <script type="module">
+    import * as webllm from "https://esm.run/@mlc-ai/web-llm";
+    window.webllm = webllm;
+  </script>
+
+  <!-- 2) Seu script principal: usa window.webllm já definido -->
   <script>
-    // Ripple
+    /* Ripple em cards */
     document.addEventListener('click', (e)=>{
-      const card = e.target.closest('.card');
-      if(!card) return;
+      const card = e.target.closest('.card'); if(!card) return;
       const r = document.createElement('span'); r.className='ripple';
       const rect = card.getBoundingClientRect(); const size = Math.max(rect.width, rect.height);
       r.style.width=r.style.height=size+'px'; r.style.left=(e.clientX-rect.left-size/2)+'px'; r.style.top=(e.clientY-rect.top-size/2)+'px';
       card.appendChild(r); setTimeout(()=>r.remove(),600);
     });
 
-    // Templates de projeto (curtos)
+    /* Modal de projetos (igual) */
     const TPL = {
       proj1:`<div class="chips"><span class="chip">Corte a Laser</span><span class="chip">1–2 aulas</span></div><p><strong>Chaveiros em acrílico</strong> para trabalhar vetorização e segurança.</p><ol class="steps"><li>Desenho vetorial simples.</li><li>Definir corte/gravação.</li><li>Testar potência/velocidade.</li><li>Cortar e montar.</li></ol>`,
       proj2:`<div class="chips"><span class="chip">Impressora 3D</span><span class="chip">2–3 aulas</span></div><p><strong>Selo da escola</strong> em alto-relevo.</p><ol class="steps"><li>Modelagem (Tinkercad/Fusion).</li><li>Fatiar 0,2mm / 20%.</li><li>Imprimir PLA e finalizar.</li></ol>`,
@@ -370,7 +399,6 @@
     };
     const TIT = {proj1:'Chaveiro em Acrílico',proj2:'Selo 3D da Escola',proj3:'Mapa Quebra-cabeça',proj4:'Sinalização da Escola',proj5:'Robótica Básica',proj6:'Carimbo Pedagógico',proj7:'Porta-lápis Paramétrico',proj8:'Totem com QR Codes'};
 
-    // Modal
     const overlay = document.getElementById('overlay');
     const modalBody = document.getElementById('modalBody');
     const modalTitle = document.getElementById('modalTitle');
@@ -386,13 +414,128 @@
     document.getElementById('closeModal').onclick = fecharModal;
     overlay.addEventListener('click',(e)=>{ if(e.target===overlay) fecharModal(); });
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape'&&overlay.classList.contains('open')) fecharModal(); });
-
-    // Handler "Ver projeto"
     document.addEventListener('click',(e)=>{
       const btn=e.target.closest('button.btn-mini[data-modal]'); if(!btn) return; e.preventDefault();
       const id=btn.dataset.modal; const card=btn.closest('.card'); const dl=card?.getAttribute('data-dl')||'#';
       abrirModal(TIT[id]||'Projeto', TPL[id]||'', dl);
     });
+
+    /* ================= CHATBOT – IA local (WebLLM) ================= */
+    const cb      = document.getElementById('chatbot');
+    const cta     = document.getElementById('ctaChat');
+    const cbClose = document.getElementById('cbCloseBtn');
+    const cbForm  = document.getElementById('cbForm');
+    const cbText  = document.getElementById('cbText');
+    const cbMsgs  = document.getElementById('cbMessages');
+
+    const MODEL_ID = "Phi-3-mini-4k-instruct-q4f16_1-MLC";
+    let engine = null;
+    let initializing = false;
+    const MAX_CONTEXT = 10;
+
+    function el(tag, cls, txt){ const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+    function addMsg(role, text, keepRef=false){
+      const row=el('div','cb-msg '+(role==='user'?'user':'bot'));
+      const av=el('div','avatar '+(role==='user'?'u':'b'), role==='user'?'U':'B');
+      const b =el('div','bubble'); b.innerHTML=(text||'').toString();
+      row.append(av,b); cbMsgs.append(row); cbMsgs.scrollTop=cbMsgs.scrollHeight;
+      return keepRef ? b : null;
+    }
+    function sanitize(s){ return (s||'').replace(/[&<>]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+    function addTyping(){ const t=el('div','cb-typing','IA está digitando…'); t.id='cbTyping'; cbMsgs.append(t); cbMsgs.scrollTop=cbMsgs.scrollHeight; }
+    function rmTyping(){ const t=document.getElementById('cbTyping'); if(t) t.remove(); }
+
+    const storeKey='helpamado_chat_hist_v1';
+    let hist = JSON.parse(localStorage.getItem(storeKey)||'[]');
+    function saveHist(){ localStorage.setItem(storeKey, JSON.stringify(hist.slice(-MAX_CONTEXT))); }
+
+    function openChat(){
+      cb.classList.add('open');
+      cbText.focus();
+      if(cbMsgs.children.length===0){
+        addMsg('bot', '👋 <b>Bem-vindo ao Help Amado!</b><br>Como posso te ajudar hoje?');
+      }
+      if(!engine && !initializing){ initEngine(); }
+    }
+    function closeChat(){ cb.classList.remove('open'); }
+
+    cta.addEventListener('click', (e)=>{ e.preventDefault(); openChat(); });
+    cbClose.addEventListener('click', closeChat);
+
+    async function initEngine(){
+      if(initializing) return;
+      initializing = true;
+
+      if(!('gpu' in navigator)){
+        addMsg('bot', '⚠️ Seu navegador não possui <b>WebGPU</b> habilitado.<br>Use Chrome/Edge atualizados para rodar a IA localmente sem API.');
+        initializing = false; return;
+      }
+
+      addMsg('bot', '🔄 Carregando a IA local… (primeira vez pode demorar um pouco, depois fica em cache)');
+      try{
+        // usa o webllm exposto no window pelo script ESM acima
+        engine = await window.webllm.CreateMLCEngine(MODEL_ID, {
+          initProgressCallback: (p)=>{
+            const txt = p && p.text ? p.text : '';
+            const last = document.querySelector('.cb-msg.bot:last-child .bubble');
+            if(last) last.innerHTML = '🔄 ' + txt.replaceAll('\n','<br>');
+          }
+        });
+        addMsg('bot','✅ Pronto! Pode perguntar qualquer coisa.');
+      }catch(err){
+        addMsg('bot','❌ Não consegui inicializar a IA local.<br>'+sanitize(String(err)));
+      }finally{
+        initializing = false;
+      }
+    }
+
+    cbForm.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const text = cbText.value.trim(); if(!text) return;
+      cbText.value='';
+      addMsg('user', sanitize(text));
+      hist.push({role:'user', content: text}); saveHist();
+
+      if(!engine){
+        if(!initializing) initEngine();
+        addTyping(); await waitFor(()=>!!engine, 180); rmTyping();
+        if(!engine){ addMsg('bot','Ainda carregando o modelo… aguarde mais um pouco.'); return; }
+      }
+
+      let bubble = addMsg('bot','', true);
+      try{
+        const messages = [
+          {role:'system', content:'You are a helpful, general-purpose assistant. Answer in the user language (Portuguese if user is in PT). Be clear and friendly.'},
+          ...hist.slice(-MAX_CONTEXT)
+        ];
+        const stream = await engine.chat.completions.create({
+          messages, temperature:0.6, stream:true
+        });
+
+        let full = '';
+        addTyping();
+        for await (const part of stream){
+          const delta = part?.choices?.[0]?.delta?.content || '';
+          if(delta){
+            full += delta;
+            bubble.innerText = full;
+            cbMsgs.scrollTop = cbMsgs.scrollHeight;
+          }
+        }
+        rmTyping();
+        hist.push({role:'assistant', content: full}); saveHist();
+      }catch(err){
+        rmTyping();
+        bubble.innerHTML = '⚠️ Erro ao gerar resposta: '+sanitize(String(err));
+      }
+    });
+
+    function waitFor(cond, maxSec=60){
+      return new Promise((res)=>{ let t=0; const id=setInterval(()=>{ if(cond()){clearInterval(id);res(true);} if((t+=200)>=maxSec*1000){clearInterval(id);res(false);} },200); });
+    }
+
+    // Reabre chat se já havia histórico
+    if(hist.length){ openChat(); }
   </script>
 </body>
 </html>

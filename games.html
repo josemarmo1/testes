@@ -41,10 +41,11 @@
     .card{background:#fff;border:1px solid var(--borda);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);overflow:hidden;display:flex;flex-direction:column}
     .card-title{font:800 1rem/1.2 var(--font-heading);color:var(--roxo);padding:12px 14px;border-bottom:1px solid var(--borda)}
     .card-body{padding:14px;display:grid;gap:12px}
-    .controls{display:flex;flex-wrap:wrap;gap:10px}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
     .controls label{font-size:.9rem;font-weight:600}
-    .controls input[type="range"]{width:160px}
-    .canvas-wrap{background:#f9fafb;border:1px dashed #e5e7eb;border-radius:12px;display:grid;place-items:center;min-height:260px;overflow:hidden}
+    .controls input[type="range"],.controls input[type="number"],.controls select,.controls input[type="text"]{padding:6px 8px;border:1px solid var(--borda);border-radius:8px}
+    .controls input[type="range"]{width:150px}
+    .canvas-wrap{background:#f9fafb;border:1px dashed #e5e7eb;border-radius:12px;display:grid;place-items:center;min-height:260px;overflow:hidden;position:relative}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:10px;border:1px solid var(--borda);cursor:pointer;font-weight:800;text-decoration:none;background:#fff}
     .btn-primary{background:var(--laranja);border-color:transparent;color:#fff}
     .muted{font-size:.88rem;opacity:.8}
@@ -76,44 +77,47 @@
 
   <section class="hero">
     <div class="wrap">
-      <h1>Games & Mini-Simuladores</h1>
+      <h1>Mini-Simuladores</h1>
       <p>Brinque com conceitos de 3D, corte a laser, plotter e lógica.</p>
     </div>
   </section>
 
   <main class="container">
     <section class="grid">
-      <!-- Modelagem 3D (cubo) -->
+      <!-- ===== Modelagem 3D (mantido) ===== -->
       <article class="card" id="sim3d">
-        <h3 class="card-title">Modelagem 3D (cubo)</h3>
+        <h3 class="card-title">Impressora3D</h3>
         <div class="card-body">
           <div class="controls">
+            <label>X (mm) <input type="number" id="sizeX" min="20" max="400" value="120"></label>
+            <label>Y (mm) <input type="number" id="sizeY" min="20" max="400" value="120"></label>
+            <label>Z (mm) <input type="number" id="sizeZ" min="20" max="400" value="120"></label>
             <label>Rot X <input type="range" id="rotX" min="-180" max="180" value="20"></label>
             <label>Rot Y <input type="range" id="rotY" min="-180" max="180" value="20"></label>
             <label>Rot Z <input type="range" id="rotZ" min="-180" max="180" value="0"></label>
-            <label>Escala <input type="range" id="scale" min="0.5" max="2" step="0.01" value="1"></label>
+            <label>Zoom <input type="range" id="scale" min="0.5" max="2" step="0.01" value="1"></label>
           </div>
           <div class="canvas-wrap" style="perspective:800px">
             <div id="cube" style="position:relative;width:120px;height:120px;transform-style:preserve-3d">
-              <div class="face" style="--tx:0; --ty:0; --tz:60; background:linear-gradient(135deg,#93c5fd,#2563eb); transform:translate3d(0,0,60px)"></div>
-              <div class="face" style="--tx:0; --ty:0; --tz:-60; background:linear-gradient(135deg,#86efac,#16a34a); transform:rotateY(180deg) translate3d(0,0,60px)"></div>
+              <div class="face" style="background:linear-gradient(135deg,#93c5fd,#2563eb); transform:translate3d(0,0,60px)"></div>
+              <div class="face" style="background:linear-gradient(135deg,#86efac,#16a34a); transform:rotateY(180deg) translate3d(0,0,60px)"></div>
               <div class="face" style="background:linear-gradient(135deg,#fca5a5,#ef4444); transform:rotateY(-90deg) translate3d(0,0,60px)"></div>
               <div class="face" style="background:linear-gradient(135deg,#fcd34d,#eab308); transform:rotateY(90deg) translate3d(0,0,60px)"></div>
               <div class="face" style="background:linear-gradient(135deg,#c4b5fd,#6a1b9a); transform:rotateX(90deg) translate3d(0,0,60px)"></div>
               <div class="face" style="background:linear-gradient(135deg,#f0abfc,#a21caf); transform:rotateX(-90deg) translate3d(0,0,60px)"></div>
             </div>
           </div>
-          <p class="muted">Gire e escale o cubo — transformações 3D básicas.</p>
+          <p class="muted">Defina as dimensões em mm (X, Y, Z). 1 px ≈ 1 mm para referência visual.</p>
         </div>
       </article>
 
-      <!-- Corte a Laser 2D -->
+      <!-- ===== Corte a Laser (mantido) ===== -->
       <article class="card" id="simlaser">
-        <h3 class="card-title">Corte a Laser (2D)</h3>
+        <h3 class="card-title">Corte a Laser</h3>
         <div class="card-body">
           <div class="controls">
-            <button class="btn" id="addRect">+ Retângulo</button>
-            <button class="btn" id="addCirc">+ Círculo</button>
+            <button class="btn" id="addRect">Retângulo</button>
+            <button class="btn" id="addCirc">Círculo</button>
             <label>Vel. (mm/s) <input type="range" id="vel" min="10" max="200" step="1" value="80"></label>
             <label>Potência (%) <input type="range" id="pow" min="1" max="100" step="1" value="60"></label>
             <button class="btn" id="run">▶ Simular</button>
@@ -126,29 +130,52 @@
         </div>
       </article>
 
-      <!-- Plotter 2D -->
+      <!-- ===== Plotter 2D — área fixa no visor, tamanho real no arquivo ===== -->
       <article class="card" id="simplotter">
-        <h3 class="card-title">Plotter 2D (gera SVG)</h3>
+        <h3 class="card-title">Plotter de Recorte</h3>
         <div class="card-body">
           <div class="controls">
-            <label>Texto <input type="text" id="txt" value="HELPA"/></label>
-            <label>Tamanho <input type="range" id="fs" min="32" max="200" step="1" value="96"></label>
+            <label>Largura X (mm) <input type="number" id="plotW" min="100" max="1000" value="500"></label>
+            <label>Altura Y (mm) <input type="number" id="plotH" min="100" max="800" value="300"></label>
+            <label>Texto <input type="text" id="txt" value="Help Amado"/></label>
+            <label>Tamanho (mm) <input type="range" id="fs" min="10" max="200" step="1" value="50"></label>
             <label><input type="checkbox" id="mirror"> Espelhar</label>
-            <button class="btn" id="dlSvg">Baixar SVG</button>
+            <button class="btn" id="centerArt">Centralizar</button>
+            <button class="btn btn-primary" id="dlSvg">Baixar SVG</button>
           </div>
-          <div class="canvas-wrap" style="padding:16px">
-            <svg id="svgOut" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 220" width="100%" height="220">
-              <rect x="0" y="0" width="800" height="220" fill="#fff"/>
-              <text id="t" x="400" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="96" fill="#111"></text>
+
+          <!-- Visor fixo: 520x320 px (não muda). Trabalho é reescalado para simular o tamanho real. -->
+          <div class="canvas-wrap" style="padding:0">
+            <svg id="plotView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="max-width:100%; background:#fff">
+              <!-- moldura do visor -->
+              <rect x="0" y="0" width="520" height="320" fill="#fff"/>
+              <!-- grupo de trabalho (transform: translate + scale) -->
+              <g id="work">
+                <!-- área de trabalho em mm (desenhada escalada) -->
+                <rect id="workArea" x="0" y="0" width="500" height="300" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+                <!-- grid (20 mm) -->
+                <g id="plotGrid"></g>
+                <!-- grupo para espelhamento -->
+                <g id="mirG">
+                  <!-- arte: texto arrastável em mm -->
+                  <text id="plotText" x="250" y="150" font-family="Arial, Helvetica, sans-serif"
+                        font-weight="900" font-size="96"
+                        text-anchor="middle" dominant-baseline="middle"
+                        fill="#111" style="cursor:move; user-select:none;">Help Amado</text>
+                </g>
+              </g>
             </svg>
+            <div style="position:absolute;bottom:8px;right:10px" class="muted">
+              X: <span id="plotX">0</span> mm • Y: <span id="plotY">0</span> mm
+            </div>
           </div>
-          <p class="muted">Pré-visualize o adesivo; exporte o SVG para a plotter.</p>
+          <p class="muted">O visor é fixo; usamos escala interna para simular o tamanho X×Y real. O SVG baixado sai em mm no tamanho solicitado.</p>
         </div>
       </article>
 
-      <!-- Snake (joguinho clássico) -->
+      <!-- ===== Snake (mantido) ===== -->
       <article class="card" id="snk">
-        <h3 class="card-title">Snake</h3>
+        <h3 class="card-title">Lógica</h3>
         <div class="card-body">
           <div class="controls">
             <button class="btn btn-primary" id="startSnake">Iniciar</button>
@@ -170,15 +197,33 @@
   </footer>
 
   <script>
-    /* ===== Modelagem 3D (cubo) ===== */
-    const cube = document.getElementById('cube');
-    function updCube(){
-      const rx=+document.getElementById('rotX').value, ry=+document.getElementById('rotY').value, rz=+document.getElementById('rotZ').value, s=+document.getElementById('scale').value;
-      cube.style.transform=`translateZ(0) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
-    }
-    ['rotX','rotY','rotZ','scale'].forEach(id=>document.getElementById(id).addEventListener('input',updCube)); updCube();
+    /* ===== Modelagem 3D (mantido) ===== */
+    (function(){
+      const cube = document.getElementById('cube');
+      const sizeX=document.getElementById('sizeX');
+      const sizeY=document.getElementById('sizeY');
+      const sizeZ=document.getElementById('sizeZ');
+      const rX=document.getElementById('rotX');
+      const rY=document.getElementById('rotY');
+      const rZ=document.getElementById('rotZ');
+      const scale=document.getElementById('scale');
 
-    /* ===== Laser 2D ===== */
+      const BASE=120;
+      function updCube(){
+        const rx=+rX.value, ry=+rY.value, rz=+rZ.value;
+        const zoom=+scale.value;
+        const sx=(+sizeX.value||BASE)/BASE;
+        const sy=(+sizeY.value||BASE)/BASE;
+        const sz=(+sizeZ.value||BASE)/BASE;
+        cube.style.transform = `translateZ(0) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale3d(${(sx*zoom)}, ${(sy*zoom)}, ${(sz*zoom)})`;
+      }
+      ['input','change'].forEach(evt=>{
+        [sizeX,sizeY,sizeZ,rX,rY,rZ,scale].forEach(el=>el.addEventListener(evt,updCube));
+      });
+      updCube();
+    })();
+
+    /* ===== Laser 2D (mantido) ===== */
     const cnv=document.getElementById('cnv'), ctx=cnv.getContext('2d'); const shapes=[];
     const vel=document.getElementById('vel'), pow=document.getElementById('pow'), tempo=document.getElementById('tempo'), lenOut=document.getElementById('len');
     function drawGrid(){
@@ -194,57 +239,216 @@
     function pathLength(){ let L=0; shapes.forEach(s=>{ if(s.type==='rect') L+=2*(Math.abs(s.w)+Math.abs(s.h)); else L+=2*Math.PI*Math.abs(s.r); }); return L; }
     function updateStats(){ const L=pathLength(); lenOut.textContent=L.toFixed(1); const v=Math.max(10,+vel.value); const t=L/v; tempo.textContent=t.toFixed(1); }
     function simulate(){
-      const segs=[]; shapes.forEach(s=>{ if(s.type==='rect'){ const p=[{x:s.x,y:s.y},{x:s.x+s.w,y:s.y},{x:s.x+s.w,y:s.y+s.h},{x:s.x,y:s.y+s.h},{x:s.x,y:s.y}]; for(let i=0;i<p.length-1;i++) segs.push([p[i],p[i+1]]); }
-        else { const N=80; let pr=null; for(let i=0;i<=N;i++){ const a=i/N*2*Math.PI, pt={x:s.cx+s.r*Math.cos(a),y:s.cy+s.r*Math.sin(a)}; if(pr) segs.push([pr,pt]); pr=pt; } }});
+      const segs=[]; shapes.forEach(s=>{
+        if(s.type==='rect'){
+          const p=[{x:s.x,y:s.y},{x:s.x+s.w,y:s.y},{x:s.x+s.w,y:s.y+s.h},{x:s.x,y:s.y+s.h},{x:s.x,y:s.y}];
+          for(let i=0;i<p.length-1;i++) segs.push([p[i],p[i+1]]);
+        } else {
+          const N=80; let pr=null; for(let i=0;i<=N;i++){ const a=i/N*2*Math.PI, pt={x:s.cx+s.r*Math.cos(a),y:s.cy+s.r*Math.sin(a)}; if(pr) segs.push([pr,pt]); pr=pt; }
+        }});
       let idx=0, prog=0; const v=Math.max(10,+vel.value), dt=1/60;
       function step(){ drawGrid(); ctx.strokeStyle='rgba(239,68,68,.9)'; ctx.lineWidth=3; ctx.beginPath();
         for(let j=0;j<idx;j++){ const [a,b]=segs[j]; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); } ctx.stroke();
-        if(idx<segs.length){ const [a,b]=segs[idx]; const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy); const t=Math.min(1, prog/L); const x=a.x+dx*t, y=a.y+dy*t;
-          ctx.fillStyle='#ef4444'; ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fill(); prog+=v*dt*0.6; if(prog>=L){ idx++; prog=0; } requestAnimationFrame(step); } }
+        if(idx<segs.length){
+          const [a,b]=segs[idx]; const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy); const t=Math.min(1, prog/L);
+          const x=a.x+dx*t, y=a.y+dy*t; ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fillStyle='#ef4444'; ctx.fill();
+          prog+=v*dt*0.6; if(prog>=L){ idx++; prog=0; } requestAnimationFrame(step);
+        } }
       requestAnimationFrame(step);
     }
     document.getElementById('addRect').onclick=addRect; document.getElementById('addCirc').onclick=addCirc; document.getElementById('run').onclick=simulate; document.getElementById('clear').onclick=()=>{shapes.length=0; updateStats(); drawGrid();}
     vel.oninput=updateStats; drawGrid(); updateStats();
 
-    /* ===== Plotter 2D ===== */
-    const txt=document.getElementById('txt'), fs=document.getElementById('fs'), mirror=document.getElementById('mirror'), t=document.getElementById('t'), svgOut=document.getElementById('svgOut');
-    function updSVG(){ t.setAttribute('font-size',fs.value); t.textContent=txt.value||''; const m=mirror.checked?-1:1; t.setAttribute('transform',`scale(${m},1) translate(${mirror.checked?-800:0},0)`); }
-    txt.oninput=updSVG; fs.oninput=updSVG; mirror.onchange=updSVG; updSVG();
-    document.getElementById('dlSvg').onclick=()=>{ const s=new XMLSerializer().serializeToString(svgOut); const blob=new Blob([s],{type:'image/svg+xml'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='adesivo-plotter.svg'; a.click(); URL.revokeObjectURL(url); };
+    /* ===== Plotter 2D — visor fixo, saída real ===== */
+    (function(){
+      // elementos
+      const svg = document.getElementById('plotView');
+      const work = document.getElementById('work');
+      const workArea = document.getElementById('workArea');
+      const grid = document.getElementById('plotGrid');
+      const mirG = document.getElementById('mirG');
+      const txtEl = document.getElementById('plotText');
+      const plotX = document.getElementById('plotX'), plotY = document.getElementById('plotY');
 
-    /* ===== Snake ===== */
-    const sc=document.getElementById('snakeCanvas'); const sctx=sc.getContext('2d'); const grid=20; let snake, dir, food, loop, score=0;
-    function resetSnake(){ snake=[{x:9,y:9}]; dir={x:1,y:0}; food = randFood(); score=0; document.getElementById('score').textContent=score; }
-    function randFood(){ return {x: Math.floor(Math.random()* (sc.width/grid)), y: Math.floor(Math.random()* (sc.height/grid))}; }
-    function drawSnake(){ sctx.fillStyle='#ffffff'; sctx.fillRect(0,0,sc.width,sc.height);
-      // grid
-      sctx.strokeStyle='#eef2f7'; for(let x=0;x<sc.width;x+=grid){ sctx.beginPath(); sctx.moveTo(x,0); sctx.lineTo(x,sc.height); sctx.stroke(); }
-      for(let y=0;y<sc.height;y+=grid){ sctx.beginPath(); sctx.moveTo(0,y); sctx.lineTo(sc.width,y); sctx.stroke(); }
-      // food
-      sctx.fillStyle='#ef4444'; sctx.fillRect(food.x*grid, food.y*grid, grid, grid);
-      // snake
-      sctx.fillStyle='#2563eb'; snake.forEach(p=>sctx.fillRect(p.x*grid, p.y*grid, grid, grid));
-    }
-    function tick(){
-      const head = {x: (snake[0].x + dir.x + sc.width/grid)%(sc.width/grid), y: (snake[0].y + dir.y + sc.height/grid)%(sc.height/grid)};
-      // colisão corpo
-      if(snake.some((p,i)=>i&&p.x===head.x&&p.y===head.y)){ clearInterval(loop); return; }
-      snake.unshift(head);
-      if(head.x===food.x && head.y===food.y){ score++; document.getElementById('score').textContent=score; food=randFood(); }
-      else snake.pop();
-      drawSnake();
-    }
-    function startSnake(){ clearInterval(loop); resetSnake(); drawSnake(); loop=setInterval(tick, 120); }
-    document.getElementById('startSnake').onclick=startSnake;
-    window.addEventListener('keydown',(e)=>{
-      const k=e.key.toLowerCase();
-      if((k==='arrowup'||k==='w') && dir.y!==1) dir={x:0,y:-1};
-      if((k==='arrowdown'||k==='s') && dir.y!==-1) dir={x:0,y:1};
-      if((k==='arrowleft'||k==='a') && dir.x!==1) dir={x:-1,y:0};
-      if((k==='arrowright'||k==='d') && dir.x!==-1) dir={x:1,y:0};
-    });
-    // start automático leve
-    startSnake();
+      // inputs
+      const inW = document.getElementById('plotW');
+      const inH = document.getElementById('plotH');
+      const inTxt = document.getElementById('txt');
+      const inFS  = document.getElementById('fs');   // em mm
+      const inMirror = document.getElementById('mirror');
+      const centerBtn = document.getElementById('centerArt');
+
+      // visor fixo
+      const VW = 520, VH = 320; // NÃO muda
+
+      // estado em mm
+      let Wmm = +inW.value || 500;
+      let Hmm = +inH.value || 300;
+      let fontMM = +inFS.value || 96;
+      let art = { x: Wmm/2, y: Hmm/2 }; // posição do texto em mm
+      let mirror = inMirror.checked;
+
+      // escala e offset (mm -> px do visor)
+      let S=1, offX=0, offY=0, pad=12;
+
+      function fitToView(){
+        // calcula escala para caber no visor com margem
+        const sX = (VW - 2*pad) / Wmm;
+        const sY = (VH - 2*pad) / Hmm;
+        S = Math.min(sX, sY);
+        // centraliza
+        const usedW = Wmm * S;
+        const usedH = Hmm * S;
+        offX = (VW - usedW)/2;
+        offY = (VH - usedH)/2;
+
+        // aplica transform no grupo de trabalho
+        work.setAttribute('transform', `translate(${offX},${offY}) scale(${S})`);
+
+        // atualiza área e grid (em mm, mas serão escalados)
+        workArea.setAttribute('width', Wmm);
+        workArea.setAttribute('height', Hmm);
+        rebuildGrid();
+        applyMirror();
+        applyText();
+      }
+
+      function rebuildGrid(){
+        grid.innerHTML = '';
+        // linhas a cada 20mm
+        for(let x=0; x<=Wmm; x+=20){
+          const l = line(x,0,x,Hmm); grid.appendChild(l);
+        }
+        for(let y=0; y<=Hmm; y+=20){
+          const l = line(0,y,Wmm,y); grid.appendChild(l);
+        }
+        function line(x1,y1,x2,y2){
+          const L = document.createElementNS('http://www.w3.org/2000/svg','line');
+          L.setAttribute('x1',x1); L.setAttribute('y1',y1); L.setAttribute('x2',x2); L.setAttribute('y2',y2);
+          L.setAttribute('stroke','#eef2f7'); L.setAttribute('stroke-width','1');
+          return L;
+        }
+      }
+
+      function applyMirror(){
+        // espelha dentro da área (em mm)
+        if(mirror){
+          mirG.setAttribute('transform', `scale(-1,1) translate(${-Wmm},0)`);
+        }else{
+          mirG.removeAttribute('transform');
+        }
+      }
+
+      function applyText(){
+        txtEl.textContent = inTxt.value || '';
+        txtEl.setAttribute('font-size', fontMM); // mm (escala aplicada pelo grupo)
+        txtEl.setAttribute('x', art.x);
+        txtEl.setAttribute('y', art.y);
+      }
+
+      // pointer -> mm (considerando espelho)
+      function screenToMM(evt){
+        const rect = svg.getBoundingClientRect();
+        const sx = (evt.clientX - rect.left - offX) / S; // em mm, sem espelho
+        const sy = (evt.clientY - rect.top  - offY) / S;
+        // se espelhado, x lógico é invertido em relação à área
+        const x = mirror ? (Wmm - sx) : sx;
+        const y = sy;
+        return {x,y};
+      }
+
+      // arrastar texto
+      let dragging=false, dx=0, dy=0;
+      txtEl.addEventListener('pointerdown', (e)=>{
+        dragging=true;
+        const p = screenToMM(e);
+        dx = p.x - art.x; dy = p.y - art.y;
+        txtEl.setPointerCapture(e.pointerId);
+        e.preventDefault();
+      });
+      svg.addEventListener('pointermove', (e)=>{
+        // coordenadas do mouse no visor (mm)
+        const rect = svg.getBoundingClientRect();
+        const sx = (e.clientX - rect.left - offX) / S;
+        const sy = (e.clientY - rect.top  - offY) / S;
+        // mostrar mm do cursor (não considera espelho)
+        plotX.textContent = Math.max(0,Math.min(Wmm,sx)).toFixed(0);
+        plotY.textContent = Math.max(0,Math.min(Hmm,sy)).toFixed(0);
+
+        if(!dragging) return;
+        const p = screenToMM(e);
+        art.x = Math.max(0, Math.min(Wmm, p.x - dx));
+        art.y = Math.max(0, Math.min(Hmm, p.y - dy));
+        applyText();
+      });
+      svg.addEventListener('pointerup', ()=> dragging=false);
+      svg.addEventListener('pointerleave', ()=> dragging=false);
+
+      // inputs
+      inW.addEventListener('input', ()=>{
+        Wmm = Math.max(100, +inW.value||500); fitToView();
+      });
+      inH.addEventListener('input', ()=>{
+        Hmm = Math.max(100, +inH.value||300); fitToView();
+      });
+      inTxt.addEventListener('input', applyText);
+      inFS.addEventListener('input', ()=>{ fontMM = +inFS.value||96; applyText(); });
+      inMirror.addEventListener('change', ()=>{ mirror = inMirror.checked; applyMirror(); applyText(); });
+      centerBtn.addEventListener('click', ()=>{ art.x=Wmm/2; art.y=Hmm/2; applyText(); });
+
+      // inicial
+      fitToView();
+
+      // download SVG com tamanho real (mm)
+      document.getElementById('dlSvg').addEventListener('click', ()=>{
+        const esc = (txtEl.getAttribute('font-size')) || fontMM;
+        const mirrorTF = mirror ? ` transform="scale(-1,1) translate(${-Wmm},0)"` : '';
+        const safeText = (inTxt.value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        const svgStr =
+`<svg xmlns="http://www.w3.org/2000/svg" width="${Wmm}mm" height="${Hmm}mm" viewBox="0 0 ${Wmm} ${Hmm}">
+  <rect x="0" y="0" width="${Wmm}" height="${Hmm}" fill="#ffffff"/>
+  <g${mirrorTF}>
+    <text x="${art.x}" y="${art.y}" text-anchor="middle" dominant-baseline="middle"
+          font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="${esc}" fill="#111">${safeText}</text>
+  </g>
+</svg>`;
+        const blob = new Blob([svgStr], {type:'image/svg+xml'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download=`plotter-${Wmm}x${Hmm}mm.svg`; a.click();
+        URL.revokeObjectURL(url);
+      });
+    })();
+
+    /* ===== Snake (mantido) ===== */
+    (function(){
+      const sc=document.getElementById('snakeCanvas'); const sctx=sc.getContext('2d'); const grid=20; let snake, dir, food, loop, score=0;
+      function resetSnake(){ snake=[{x:9,y:9}]; dir={x:1,y:0}; food = randFood(); score=0; document.getElementById('score').textContent=score; }
+      function randFood(){ return {x: Math.floor(Math.random()* (sc.width/grid)), y: Math.floor(Math.random()* (sc.height/grid))}; }
+      function drawSnake(){ sctx.fillStyle='#ffffff'; sctx.fillRect(0,0,sc.width,sc.height);
+        sctx.strokeStyle='#eef2f7'; for(let x=0;x<sc.width;x+=grid){ sctx.beginPath(); sctx.moveTo(x,0); sctx.lineTo(x,sc.height); sctx.stroke(); }
+        for(let y=0;y<sc.height;y+=grid){ sctx.beginPath(); sctx.moveTo(0,y); sctx.lineTo(sc.width,y); sctx.stroke(); }
+        sctx.fillStyle='#ef4444'; sctx.fillRect(food.x*grid, food.y*grid, grid, grid);
+        sctx.fillStyle='#2563eb'; snake.forEach(p=>sctx.fillRect(p.x*grid, p.y*grid, grid, grid));
+      }
+      function tick(){
+        const head = {x: (snake[0].x + dir.x + sc.width/grid)%(sc.width/grid), y: (snake[0].y + dir.y + sc.height/grid)%(sc.height/grid)};
+        if(snake.some((p,i)=>i&&p.x===head.x&&p.y===head.y)){ clearInterval(loop); return; }
+        snake.unshift(head);
+        if(head.x===food.x && head.y===food.y){ score++; document.getElementById('score').textContent=score; food=randFood(); }
+        else snake.pop();
+        drawSnake();
+      }
+      function startSnake(){ clearInterval(loop); resetSnake(); drawSnake(); loop=setInterval(tick, 120); }
+      document.getElementById('startSnake').onclick=startSnake;
+      window.addEventListener('keydown',(e)=>{
+        const k=e.key.toLowerCase();
+        if((k==='arrowup'||k==='w') && dir.y!==1) dir={x:0,y:-1};
+        if((k==='arrowdown'||k==='s') && dir.y!==-1) dir={x:0,y:1};
+        if((k==='arrowleft'||k==='a') && dir.x!==1) dir={x:-1,y:0};
+        if((k==='arrowright'||k==='d') && dir.x!==-1) dir={x:1,y:0};
+      });
+      startSnake();
+    })();
   </script>
 </body>
 </html>

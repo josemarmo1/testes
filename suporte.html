@@ -7,7 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
   <style>
     :root{
-      --laranja:#ff6b00; --roxo:#6a1b9a; --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
+      --laranja:#ff6b00; --roxo:#6a1b9a; --azul:#2563eb; --verde:#16a34a; --amarelo:#eab308;
+      --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
       --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --space-field:16px; --space-actions:26px;
@@ -15,9 +16,9 @@
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho */
+    /* Cabeçalho (padrão multicolorido) */
     header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
-    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
+    header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
     .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
@@ -28,18 +29,12 @@
     nav a:hover::after,nav a.active::after{width:100%}
 
     /* Hero animado */
-    .hero{
-      position:relative;overflow:hidden;
-      background:linear-gradient(120deg, #fff 0%, #fff 30%, #f8efff 60%, #fff 100%);
-      padding:56px 20px;
-    }
-    .hero::before{
-      content:"";position:absolute;inset:-40%;background:
-        radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
-        radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
-        radial-gradient(45% 35% at 50% 80%, rgba(106,27,154,.10), transparent 60%);
-      animation:floatBg 16s linear infinite; pointer-events:none;
-    }
+    .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 30%,#f8efff 60%,#fff 100%);padding:56px 20px}
+    .hero::before{content:"";position:absolute;inset:-40%;background:
+      radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
+      radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
+      radial-gradient(45% 35% at 50% 80%, rgba(37,99,235,.10), transparent 60%);
+      animation:floatBg 16s linear infinite;pointer-events:none}
     @keyframes floatBg{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5%, 3%, 0)}100%{transform:translate3d(0,0,0)}}
     .hero .wrap{max-width:1200px;margin:0 auto;text-align:center;position:relative}
     .hero h1{font:800 clamp(1.6rem,3.6vw,2.4rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 10px}
@@ -65,8 +60,8 @@
     .muted{font-size:.85rem;opacity:.75;margin-top:6px}
     .hidden{display:none !important}
 
-    /* Rodapé */
-    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
+    /* Rodapé padronizado */
+    .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
 
@@ -84,6 +79,7 @@
         <a href="index.html">Início</a>
         <a href="manuais.html">Manuais</a>
         <a class="active" href="suporte.html" aria-current="page">Suporte</a>
+        <a href="games.html">Games</a>
       </nav>
     </div>
   </header>
@@ -199,7 +195,7 @@
       RR:'Boa Vista', SC:'Florianópolis', SP:'São Paulo', SE:'Aracaju', TO:'Palmas'
     };
 
-    // Preenche datalist com capitais (usado só no fallback)
+    // Preenche datalist com capitais (usado no fallback)
     const dataList = document.getElementById('sugestoesCapitais');
     dataList.innerHTML = Object.values(CAPITAIS).map(c => `<option value="${c}">`).join('');
 
@@ -316,12 +312,13 @@
       const equipamento = document.getElementById('equipamento').value;
       const serie = document.getElementById('serie').value.trim();
 
-      const msg = `*Novo Chamado*\n` +
-                  `Nome: ${nome}\n` +
-                  `Escola: ${escola}\n` +
-                  `Cidade: ${cidade} - ${estado}\n` +
-                  `Equipamento: ${equipamento}\n` +
-                  `Nº de Série: ${serie}`;
+      const msg =
+`*Novo Chamado*
+Nome: ${nome}
+Escola: ${escola}
+Cidade: ${cidade} - ${estado}
+Equipamento: ${equipamento}
+Nº de Série: ${serie}`;
 
       const url = `https://wa.me/5519981629450?text=${encodeURIComponent(msg)}`;
       window.open(url,'_blank');
