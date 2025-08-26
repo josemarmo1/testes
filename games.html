@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>Help Amado — Games</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
   <style>
@@ -11,21 +11,68 @@
       --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
       --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      --shadow:0 12px 30px rgba(0,0,0,.12);
     }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
+    /* ===== Header ===== */
+    header{background:#fff;position:sticky;top:0;z-index:80;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
-    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none;line-height:1}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
-    nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
-    nav a:hover{color:var(--laranja);opacity:1}
-    nav a.active{color:var(--laranja)}
-    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
-    nav a:hover::after,nav a.active::after{width:100%}
+    nav.primary{display:flex;align-items:center;gap:18px}
+    nav.primary a{text-decoration:none;color:var(--texto);font-weight:700;opacity:.85;position:relative;padding:8px 2px}
+    nav.primary a:hover{color:var(--laranja);opacity:1}
+    nav.primary a.active{color:var(--laranja)}
+    nav.primary a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
+    nav.primary a:hover::after,nav.primary a.active::after{width:100%}
+    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 
+    /* ===== Hamburger (3 traços alinhados e vira X) ===== */
+    .hamb{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid var(--borda);background:#fff;cursor:pointer}
+    .hamb:active{transform:scale(.98)}
+    .hamb .bars{
+      position:relative; width:22px; height:14px; display:block;
+    }
+    .hamb .bar{
+      position:absolute; left:0; width:22px; height:2px; border-radius:2px; background:#6b7280;
+      transform-origin:center; transition:transform .22s ease, opacity .18s ease, background .18s ease;
+    }
+    .hamb .bar:nth-child(1){ top:0 }
+    .hamb .bar:nth-child(2){ top:6px }
+    .hamb .bar:nth-child(3){ top:12px }
+    .hamb.is-open .bar:nth-child(1){ transform:translateY(6px) rotate(45deg); background:#111 }
+    .hamb.is-open .bar:nth-child(2){ opacity:0 }
+    .hamb.is-open .bar:nth-child(3){ transform:translateY(-6px) rotate(-45deg); background:#111 }
+
+    /* ===== Drawer Mobile ===== */
+    .drawer{position:fixed;inset:0;z-index:90;display:none}
+    .drawer.open{display:block}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:saturate(1.1) blur(2px);opacity:0;transition:opacity .25s ease}
+    .drawer.open .backdrop{opacity:1}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(88vw,380px);background:#fff;border-left:1px solid var(--borda);box-shadow:var(--shadow);
+      transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+    .drawer.open .sheet{transform:translateX(0)}
+    .sheet header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--borda)}
+    .sheet .links{display:grid;gap:10px;padding:16px}
+
+    /* Botões coloridos no menu (intuitivo) */
+    .sheet .link-btn{
+      display:flex;align-items:center;gap:12px;min-height:52px;padding:14px;border-radius:14px;
+      font-weight:800;text-decoration:none;color:#111;border:1px solid var(--borda);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .sheet .link-btn .dot{width:10px;height:10px;border-radius:999px;box-shadow:0 0 0 2px #fff inset}
+    .sheet .link-btn:hover{border-color:#e5d9ff;background:#fcfaff}
+    .sheet .link-btn:active{transform:scale(.985)}
+    .sheet .link-btn[aria-current="page"]{border-color:#e9d5ff;background:#f9f5ff;color:var(--roxo);box-shadow:0 2px 14px rgba(106,27,154,.08) inset}
+    .dot.home{background:#ff6b00}
+    .dot.manuais{background:#2563eb}
+    .dot.suporte{background:#16a34a}
+    .dot.games{background:#6a1b9a}
+
+    /* ===== Hero ===== */
     .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 30%,#f8efff 60%,#fff 100%);padding:48px 20px}
     .hero::before{content:"";position:absolute;inset:-40%;background:
       radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.12), transparent 60%),
@@ -36,6 +83,7 @@
     .hero h1{font:800 clamp(1.5rem,3.2vw,2.3rem)/1.1 var(--font-heading);color:var(--roxo);margin:0}
     .hero p{margin:.4rem 0 0;opacity:.85}
 
+    /* ===== Layout ===== */
     .container{max-width:1200px;margin:0 auto;padding:24px 18px 60px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
     .card{background:#fff;border:1px solid var(--borda);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);overflow:hidden;display:flex;flex-direction:column}
@@ -50,14 +98,26 @@
     .btn-primary{background:var(--laranja);border-color:transparent;color:#fff}
     .muted{font-size:.88rem;opacity:.8}
 
+    /* ===== Footer ===== */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
-    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
     @media (prefers-reduced-motion:reduce){header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}}
 
-    /* cubo 3D faces */
+    /* Cubo 3D faces */
     #cube .face{position:absolute;width:120px;height:120px;transform-origin:center;border:1px solid rgba(0,0,0,.08);box-shadow:inset 0 0 20px rgba(255,255,255,.25);border-radius:8px}
+
+    /* ===== Responsivo ===== */
+    @media (max-width:900px){
+      nav.primary{display:none}
+      .hamb{display:inline-flex}
+    }
+    @media (max-width:768px){
+      .header-wrap{gap:10px;padding:12px 16px}
+      .logo-text{font-size:1.35rem}
+      .hero{padding:40px 16px}
+      .grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -66,14 +126,56 @@
       <a href="index.html" class="logo-text" aria-label="Voltar para Início">
         <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
       </a>
-      <nav aria-label="Navegação principal">
+
+      <!-- Nav desktop -->
+      <nav class="primary" aria-label="Navegação principal">
         <a href="index.html">Início</a>
         <a href="manuais.html">Manuais</a>
         <a href="suporte.html">Suporte</a>
         <a class="active" href="games.html" aria-current="page">Games</a>
       </nav>
+
+      <!-- Hambúrguer -->
+      <button class="hamb" id="btnHamb" aria-controls="drawer" aria-expanded="false" aria-label="Abrir menu">
+        <span class="bars">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </span>
+      </button>
     </div>
   </header>
+
+  <!-- Drawer mobile -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="backdrop" id="backdrop" role="button" aria-label="Fechar menu"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+      <header>
+        <strong id="menuTitle" style="font:800 1rem var(--font-heading);color:var(--roxo)">Menu</strong>
+        <button class="hamb is-open" id="btnClose" aria-label="Fechar menu">
+          <span class="bars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+        </button>
+      </header>
+      <nav class="links" aria-label="Menu mobile">
+        <a href="index.html" class="link-btn">
+          <span class="dot home"></span> Início
+        </a>
+        <a href="manuais.html" class="link-btn">
+          <span class="dot manuais"></span> Manuais
+        </a>
+        <a href="suporte.html" class="link-btn">
+          <span class="dot suporte"></span> Suporte
+        </a>
+        <a href="games.html" class="link-btn" aria-current="page">
+          <span class="dot games"></span> Games
+        </a>
+      </nav>
+    </div>
+  </aside>
 
   <section class="hero">
     <div class="wrap">
@@ -84,7 +186,7 @@
 
   <main class="container">
     <section class="grid">
-      <!-- ===== Modelagem 3D (mantido) ===== -->
+      <!-- ===== Modelagem 3D ===== -->
       <article class="card" id="sim3d">
         <h3 class="card-title">Impressora3D</h3>
         <div class="card-body">
@@ -111,7 +213,7 @@
         </div>
       </article>
 
-      <!-- ===== Corte a Laser (mantido) ===== -->
+      <!-- ===== Corte a Laser ===== -->
       <article class="card" id="simlaser">
         <h3 class="card-title">Corte a Laser</h3>
         <div class="card-body">
@@ -130,7 +232,7 @@
         </div>
       </article>
 
-      <!-- ===== Plotter 2D — área fixa no visor, tamanho real no arquivo ===== -->
+      <!-- ===== Plotter 2D ===== -->
       <article class="card" id="simplotter">
         <h3 class="card-title">Plotter de Recorte</h3>
         <div class="card-body">
@@ -144,20 +246,13 @@
             <button class="btn btn-primary" id="dlSvg">Baixar SVG</button>
           </div>
 
-          <!-- Visor fixo: 520x320 px (não muda). Trabalho é reescalado para simular o tamanho real. -->
           <div class="canvas-wrap" style="padding:0">
             <svg id="plotView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="max-width:100%; background:#fff">
-              <!-- moldura do visor -->
               <rect x="0" y="0" width="520" height="320" fill="#fff"/>
-              <!-- grupo de trabalho (transform: translate + scale) -->
               <g id="work">
-                <!-- área de trabalho em mm (desenhada escalada) -->
                 <rect id="workArea" x="0" y="0" width="500" height="300" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
-                <!-- grid (20 mm) -->
                 <g id="plotGrid"></g>
-                <!-- grupo para espelhamento -->
                 <g id="mirG">
-                  <!-- arte: texto arrastável em mm -->
                   <text id="plotText" x="250" y="150" font-family="Arial, Helvetica, sans-serif"
                         font-weight="900" font-size="96"
                         text-anchor="middle" dominant-baseline="middle"
@@ -173,7 +268,7 @@
         </div>
       </article>
 
-      <!-- ===== Snake (mantido) ===== -->
+      <!-- ===== Snake ===== -->
       <article class="card" id="snk">
         <h3 class="card-title">Lógica</h3>
         <div class="card-body">
@@ -197,7 +292,85 @@
   </footer>
 
   <script>
-    /* ===== Modelagem 3D (mantido) ===== */
+    /* ===== Drawer + Hamburger ===== */
+    (() => {
+      const drawer   = document.getElementById('drawer');
+      const btn      = document.getElementById('btnHamb');
+      const closeBtn = document.getElementById('btnClose');
+      const backdrop = document.getElementById('backdrop');
+      const sheet    = drawer.querySelector('.sheet');
+      const links    = drawer.querySelectorAll('.links a');
+
+      // marca página atual
+      const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      links.forEach(a => { if ((a.getAttribute('href')||'').toLowerCase() === path) a.setAttribute('aria-current','page'); });
+
+      let lastFocus = null;
+      const lockScroll = (on)=>{ document.documentElement.style.overflow = on ? 'hidden' : '' };
+
+      function openDrawer(){
+        lastFocus = document.activeElement;
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        btn.classList.add('is-open');      // <- vira X (botão do header)
+        closeBtn.classList.add('is-open'); // <- mantém X no botão interno
+        lockScroll(true);
+        const first = drawer.querySelector('.links a'); first && first.focus();
+        document.addEventListener('focus', trapFocus, true);
+      }
+      function closeDrawer(){
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+        btn.classList.remove('is-open');    // <- volta ao hambúrguer
+        closeBtn.classList.remove('is-open');
+        lockScroll(false);
+        document.removeEventListener('focus', trapFocus, true);
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+      function trapFocus(e){
+        if (!drawer.classList.contains('open')) return;
+        if (!drawer.contains(e.target)){
+          const first = drawer.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
+          first && first.focus();
+        }
+      }
+      btn.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.classList.contains('open')) closeDrawer(); });
+      links.forEach(a => a.addEventListener('click', closeDrawer));
+
+      // Swipe-to-close
+      let startX=null,startY=null,dragging=false;
+      const onStart = (e)=>{ const t=e.touches[0]; startX=t.clientX; startY=t.clientY; dragging=false; };
+      const onMove  = (e)=>{
+        if(startX==null) return;
+        const t=e.touches[0];
+        const dx=t.clientX-startX; const dy=t.clientY-startY;
+        if(Math.abs(dx)>16 && Math.abs(dx)>Math.abs(dy)) dragging=true;
+        if(dragging && dx>0){
+          const w = sheet.offsetWidth;
+          const pct = Math.min(1, dx / w);
+          sheet.style.transform = `translateX(${pct*100}%)`;
+          backdrop.style.opacity = String(1 - pct);
+        }
+      };
+      const onEnd   = ()=>{
+        if(!dragging){ startX=startY=null; return; }
+        const current = parseFloat((sheet.style.transform||'').replace(/[^\d.]/g,'')) || 0;
+        sheet.style.transform = '';
+        backdrop.style.opacity = '';
+        if(current > 30){ closeDrawer(); }
+        startX=startY=null; dragging=false;
+      };
+      drawer.addEventListener('touchstart', onStart, {passive:true});
+      drawer.addEventListener('touchmove',  onMove,  {passive:true});
+      drawer.addEventListener('touchend',   onEnd);
+    })();
+
+    /* ===== Modelagem 3D ===== */
     (function(){
       const cube = document.getElementById('cube');
       const sizeX=document.getElementById('sizeX');
@@ -223,7 +396,7 @@
       updCube();
     })();
 
-    /* ===== Laser 2D (mantido) ===== */
+    /* ===== Laser 2D ===== */
     const cnv=document.getElementById('cnv'), ctx=cnv.getContext('2d'); const shapes=[];
     const vel=document.getElementById('vel'), pow=document.getElementById('pow'), tempo=document.getElementById('tempo'), lenOut=document.getElementById('len');
     function drawGrid(){
@@ -259,9 +432,8 @@
     document.getElementById('addRect').onclick=addRect; document.getElementById('addCirc').onclick=addCirc; document.getElementById('run').onclick=simulate; document.getElementById('clear').onclick=()=>{shapes.length=0; updateStats(); drawGrid();}
     vel.oninput=updateStats; drawGrid(); updateStats();
 
-    /* ===== Plotter 2D — visor fixo, saída real ===== */
+    /* ===== Plotter 2D ===== */
     (function(){
-      // elementos
       const svg = document.getElementById('plotView');
       const work = document.getElementById('work');
       const workArea = document.getElementById('workArea');
@@ -270,94 +442,66 @@
       const txtEl = document.getElementById('plotText');
       const plotX = document.getElementById('plotX'), plotY = document.getElementById('plotY');
 
-      // inputs
       const inW = document.getElementById('plotW');
       const inH = document.getElementById('plotH');
       const inTxt = document.getElementById('txt');
-      const inFS  = document.getElementById('fs');   // em mm
+      const inFS  = document.getElementById('fs');
       const inMirror = document.getElementById('mirror');
       const centerBtn = document.getElementById('centerArt');
 
-      // visor fixo
-      const VW = 520, VH = 320; // NÃO muda
+      const VW = 520, VH = 320;
 
-      // estado em mm
       let Wmm = +inW.value || 500;
       let Hmm = +inH.value || 300;
       let fontMM = +inFS.value || 96;
-      let art = { x: Wmm/2, y: Hmm/2 }; // posição do texto em mm
+      let art = { x: Wmm/2, y: Hmm/2 };
       let mirror = inMirror.checked;
 
-      // escala e offset (mm -> px do visor)
       let S=1, offX=0, offY=0, pad=12;
 
       function fitToView(){
-        // calcula escala para caber no visor com margem
         const sX = (VW - 2*pad) / Wmm;
         const sY = (VH - 2*pad) / Hmm;
         S = Math.min(sX, sY);
-        // centraliza
         const usedW = Wmm * S;
         const usedH = Hmm * S;
         offX = (VW - usedW)/2;
         offY = (VH - usedH)/2;
-
-        // aplica transform no grupo de trabalho
         work.setAttribute('transform', `translate(${offX},${offY}) scale(${S})`);
-
-        // atualiza área e grid (em mm, mas serão escalados)
         workArea.setAttribute('width', Wmm);
         workArea.setAttribute('height', Hmm);
         rebuildGrid();
         applyMirror();
         applyText();
       }
-
       function rebuildGrid(){
         grid.innerHTML = '';
-        // linhas a cada 20mm
-        for(let x=0; x<=Wmm; x+=20){
-          const l = line(x,0,x,Hmm); grid.appendChild(l);
-        }
-        for(let y=0; y<=Hmm; y+=20){
-          const l = line(0,y,Wmm,y); grid.appendChild(l);
-        }
+        for(let x=0; x<=Wmm; x+=20){ grid.appendChild(line(x,0,x,Hmm)); }
+        for(let y=0; y<=Hmm; y+=20){ grid.appendChild(line(0,y,Wmm,y)); }
         function line(x1,y1,x2,y2){
           const L = document.createElementNS('http://www.w3.org/2000/svg','line');
           L.setAttribute('x1',x1); L.setAttribute('y1',y1); L.setAttribute('x2',x2); L.setAttribute('y2',y2);
-          L.setAttribute('stroke','#eef2f7'); L.setAttribute('stroke-width','1');
-          return L;
+          L.setAttribute('stroke','#eef2f7'); L.setAttribute('stroke-width','1'); return L;
         }
       }
-
       function applyMirror(){
-        // espelha dentro da área (em mm)
-        if(mirror){
-          mirG.setAttribute('transform', `scale(-1,1) translate(${-Wmm},0)`);
-        }else{
-          mirG.removeAttribute('transform');
-        }
+        if(mirror){ mirG.setAttribute('transform', `scale(-1,1) translate(${-Wmm},0)`); }
+        else{ mirG.removeAttribute('transform'); }
       }
-
       function applyText(){
         txtEl.textContent = inTxt.value || '';
-        txtEl.setAttribute('font-size', fontMM); // mm (escala aplicada pelo grupo)
+        txtEl.setAttribute('font-size', fontMM);
         txtEl.setAttribute('x', art.x);
         txtEl.setAttribute('y', art.y);
       }
-
-      // pointer -> mm (considerando espelho)
       function screenToMM(evt){
         const rect = svg.getBoundingClientRect();
-        const sx = (evt.clientX - rect.left - offX) / S; // em mm, sem espelho
+        const sx = (evt.clientX - rect.left - offX) / S;
         const sy = (evt.clientY - rect.top  - offY) / S;
-        // se espelhado, x lógico é invertido em relação à área
         const x = mirror ? (Wmm - sx) : sx;
-        const y = sy;
-        return {x,y};
+        return {x, y: sy};
       }
 
-      // arrastar texto
       let dragging=false, dx=0, dy=0;
       txtEl.addEventListener('pointerdown', (e)=>{
         dragging=true;
@@ -367,14 +511,11 @@
         e.preventDefault();
       });
       svg.addEventListener('pointermove', (e)=>{
-        // coordenadas do mouse no visor (mm)
         const rect = svg.getBoundingClientRect();
         const sx = (e.clientX - rect.left - offX) / S;
         const sy = (e.clientY - rect.top  - offY) / S;
-        // mostrar mm do cursor (não considera espelho)
         plotX.textContent = Math.max(0,Math.min(Wmm,sx)).toFixed(0);
         plotY.textContent = Math.max(0,Math.min(Hmm,sy)).toFixed(0);
-
         if(!dragging) return;
         const p = screenToMM(e);
         art.x = Math.max(0, Math.min(Wmm, p.x - dx));
@@ -384,22 +525,15 @@
       svg.addEventListener('pointerup', ()=> dragging=false);
       svg.addEventListener('pointerleave', ()=> dragging=false);
 
-      // inputs
-      inW.addEventListener('input', ()=>{
-        Wmm = Math.max(100, +inW.value||500); fitToView();
-      });
-      inH.addEventListener('input', ()=>{
-        Hmm = Math.max(100, +inH.value||300); fitToView();
-      });
+      inW.addEventListener('input', ()=>{ Wmm = Math.max(100, +inW.value||500); fitToView(); });
+      inH.addEventListener('input', ()=>{ Hmm = Math.max(100, +inH.value||300); fitToView(); });
       inTxt.addEventListener('input', applyText);
       inFS.addEventListener('input', ()=>{ fontMM = +inFS.value||96; applyText(); });
       inMirror.addEventListener('change', ()=>{ mirror = inMirror.checked; applyMirror(); applyText(); });
       centerBtn.addEventListener('click', ()=>{ art.x=Wmm/2; art.y=Hmm/2; applyText(); });
 
-      // inicial
       fitToView();
 
-      // download SVG com tamanho real (mm)
       document.getElementById('dlSvg').addEventListener('click', ()=>{
         const esc = (txtEl.getAttribute('font-size')) || fontMM;
         const mirrorTF = mirror ? ` transform="scale(-1,1) translate(${-Wmm},0)"` : '';
@@ -419,7 +553,7 @@
       });
     })();
 
-    /* ===== Snake (mantido) ===== */
+    /* ===== Snake ===== */
     (function(){
       const sc=document.getElementById('snakeCanvas'); const sctx=sc.getContext('2d'); const grid=20; let snake, dir, food, loop, score=0;
       function resetSnake(){ snake=[{x:9,y:9}]; dir={x:1,y:0}; food = randFood(); score=0; document.getElementById('score').textContent=score; }

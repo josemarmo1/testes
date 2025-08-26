@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Manuais de Usuário - Help Amado</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet"/>
   <style>
@@ -11,45 +11,79 @@
       --cinza-claro:#f5f7fb; --texto:#1f2937; --borda:#e5e7eb; --card:#ffffff;
       --font-heading:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
       --font-body:'Inter',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial,sans-serif;
+      --shadow:0 12px 30px rgba(0,0,0,.12);
     }
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* Cabeçalho alinhado com index/games */
-    header{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda)}
+    /* ===== Cabeçalho alinhado com index/games ===== */
+    header{background:#fff;position:sticky;top:0;z-index:80;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
-    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none}
+    .logo-text{font-family:var(--font-heading);font-weight:800;font-size:1.5rem;text-decoration:none;line-height:1}
     .logo-orange{color:var(--laranja)} .logo-purple{color:var(--roxo)}
-    nav a{text-decoration:none;color:var(--texto);margin-left:18px;font-weight:600;opacity:.85;position:relative}
-    nav a:hover{color:var(--laranja);opacity:1}
-    nav a.active{color:var(--laranja)}
-    nav a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
-    nav a:hover::after,nav a.active::after{width:100%}
+    nav.primary{display:flex;align-items:center;gap:18px}
+    nav.primary a{text-decoration:none;color:var(--texto);font-weight:700;opacity:.85;position:relative;padding:8px 2px}
+    nav.primary a:hover{color:var(--laranja);opacity:1}
+    nav.primary a.active{color:var(--laranja)}
+    nav.primary a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
+    nav.primary a:hover::after,nav.primary a.active::after{width:100%}
+    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 
-    /* Hero */
+    /* ===== Hamburger (3 traços alinhados que viram X) ===== */
+    .hamb{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid var(--borda);background:#fff;cursor:pointer}
+    .hamb:active{transform:scale(.98)}
+    .hamb .bars{position:relative;width:22px;height:14px;display:block}
+    .hamb .bar{position:absolute;left:0;width:22px;height:2px;border-radius:2px;background:#6b7280;transform-origin:center;transition:transform .22s ease,opacity .18s ease,background .18s ease}
+    .hamb .bar:nth-child(1){top:0}
+    .hamb .bar:nth-child(2){top:6px}
+    .hamb .bar:nth-child(3){top:12px}
+    .hamb.is-open .bar:nth-child(1){transform:translateY(6px) rotate(45deg);background:#111}
+    .hamb.is-open .bar:nth-child(2){opacity:0}
+    .hamb.is-open .bar:nth-child(3){transform:translateY(-6px) rotate(-45deg);background:#111}
+
+    /* ===== Drawer Mobile ===== */
+    .drawer{position:fixed;inset:0;z-index:90;display:none}
+    .drawer.open{display:block}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:saturate(1.1) blur(2px);opacity:0;transition:opacity .25s ease}
+    .drawer.open .backdrop{opacity:1}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(88vw,380px);background:#fff;border-left:1px solid var(--borda);box-shadow:var(--shadow);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+    .drawer.open .sheet{transform:translateX(0)}
+    .sheet header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--borda)}
+    .sheet .links{display:grid;gap:10px;padding:16px}
+    /* Botões coloridos e intuitivos */
+    .sheet .link-btn{display:flex;align-items:center;gap:12px;min-height:52px;padding:14px;border-radius:14px;font-weight:800;text-decoration:none;color:#111;border:1px solid var(--borda);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease}
+    .sheet .link-btn .dot{width:10px;height:10px;border-radius:999px;box-shadow:0 0 0 2px #fff inset}
+    .sheet .link-btn:hover{border-color:#e5d9ff;background:#fcfaff}
+    .sheet .link-btn:active{transform:scale(.985)}
+    .sheet .link-btn[aria-current="page"]{border-color:#e9d5ff;background:#f9f5ff;color:var(--roxo);box-shadow:0 2px 14px rgba(106,27,154,.08) inset}
+    .dot.home{background:#ff6b00}
+    .dot.manuais{background:#2563eb}
+    .dot.suporte{background:#16a34a}
+    .dot.games{background:#6a1b9a}
+
+    /* ===== Hero ===== */
     .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 30%,#f8efff 60%,#fff 100%);padding:44px 20px 28px}
     .hero::before{content:"";position:absolute;inset:-40%;background:
       radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.15), transparent 60%),
       radial-gradient(35% 25% at 80% 30%, rgba(255,107,0,.12), transparent 60%),
-      radial-gradient(45% 35% at 50% 80%, rgba(37,99,235,.10), transparent 60%);
-      animation:floatBg 16s linear infinite}
+      radial-gradient(45% 35% at 50% 80%, rgba(37,99,235,.10), transparent 60%);animation:floatBg 16s linear infinite}
     @keyframes floatBg{0%{transform:translate3d(0,0,0)}50%{transform:translate3d(-5%, 3%, 0)}100%{transform:translate3d(0,0,0)}}
     .hero .wrap{max-width:1200px;margin:0 auto;text-align:center;position:relative}
     .hero h1{font:800 clamp(1.5rem,3.4vw,2.2rem)/1 var(--font-heading);color:var(--roxo);margin:0 0 8px}
     .hero p{margin:0;opacity:.9}
 
-    /* CTA flutuante (igual ao index) */
+    /* ===== CTA flutuante ===== */
     .cta-suporte{position:fixed;right:18px;bottom:18px;z-index:60;background:linear-gradient(135deg,var(--laranja),var(--roxo));color:#fff;border-radius:999px;padding:12px 16px;font-weight:800;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.18);animation:pulse 2.4s ease-in-out infinite}
     @keyframes pulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-    /* Barra de busca */
+    /* ===== Barra de busca ===== */
     .toolbar{max-width:1200px;margin:0 auto;padding:18px 18px 0;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
     .search{flex:1 1 260px;display:flex;align-items:center;gap:8px;border:1px solid var(--borda);border-radius:10px;padding:8px 12px;background:#fff}
     .search input{border:0;outline:none;flex:1;font-size:1rem}
     .badge{font-size:.72rem;font-weight:800;color:var(--roxo);background:#f3e8ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 8px}
 
-    /* Grid / Cards */
+    /* ===== Grid / Cards ===== */
     .container{max-width:1200px;margin:0 auto;padding:18px 18px 60px}
     .section-title{text-align:center;color:var(--roxo);font:800 clamp(1.3rem,3vw,1.9rem)/1 var(--font-heading);margin:18px 0 20px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
@@ -66,12 +100,23 @@
     .ripple{position:absolute;pointer-events:none;border-radius:9999px;transform:scale(0);opacity:.5;background:radial-gradient(circle, rgba(255,107,0,.35) 0%, rgba(106,27,154,.35) 70%, transparent 72%);animation:ripple .6s ease-out}
     @keyframes ripple{to{transform:scale(10);opacity:0}}
 
-    /* Rodapé alinhado */
+    /* ===== Rodapé ===== */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
-    @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
     @media (prefers-reduced-motion:reduce){header::after,.site-footer,.hero::before{animation:none;background-position:50% 50%}}
+
+    /* ===== Responsivo (mesmo comportamento do games) ===== */
+    @media (max-width:900px){
+      nav.primary{display:none}
+      .hamb{display:inline-flex}
+    }
+    @media (max-width:768px){
+      .header-wrap{gap:10px;padding:12px 16px}
+      .logo-text{font-size:1.35rem}
+      .hero{padding:40px 16px 24px}
+      .grid{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -80,14 +125,56 @@
       <a href="index.html" class="logo-text logo-link" aria-label="Voltar para Início">
         <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
       </a>
-      <nav aria-label="Navegação principal">
+
+      <!-- Nav desktop -->
+      <nav class="primary" aria-label="Navegação principal">
         <a href="index.html">Início</a>
         <a class="active" href="manuais.html" aria-current="page">Manuais</a>
         <a href="suporte.html">Suporte</a>
         <a href="games.html">Games</a>
       </nav>
+
+      <!-- Hambúrguer mobile -->
+      <button class="hamb" id="btnHamb" aria-controls="drawer" aria-expanded="false" aria-label="Abrir menu">
+        <span class="bars">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </span>
+      </button>
     </div>
   </header>
+
+  <!-- Drawer mobile (igual ao games) -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="backdrop" id="backdrop" role="button" aria-label="Fechar menu"></div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
+      <header>
+        <strong id="menuTitle" style="font:800 1rem var(--font-heading);color:var(--roxo)">Menu</strong>
+        <button class="hamb is-open" id="btnClose" aria-label="Fechar menu">
+          <span class="bars">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </span>
+        </button>
+      </header>
+      <nav class="links" aria-label="Menu mobile">
+        <a href="index.html" class="link-btn">
+          <span class="dot home"></span> Início
+        </a>
+        <a href="manuais.html" class="link-btn" aria-current="page">
+          <span class="dot manuais"></span> Manuais
+        </a>
+        <a href="suporte.html" class="link-btn">
+          <span class="dot suporte"></span> Suporte
+        </a>
+        <a href="games.html" class="link-btn">
+          <span class="dot games"></span> Games
+        </a>
+      </nav>
+    </div>
+  </aside>
 
   <section class="hero">
     <div class="wrap">
@@ -96,7 +183,7 @@
     </div>
   </section>
 
-  <!-- CTA flutuante (mesmo do index) -->
+  <!-- CTA flutuante -->
   <a class="cta-suporte" href="suporte.html" title="Precisa de ajuda agora?">Precisa de Suporte?</a>
 
   <!-- Barra de busca -->
@@ -176,7 +263,7 @@
       </article>
     </section>
 
-    <!-- Sem resultados (aparece quando o filtro não encontra nada) -->
+    <!-- Sem resultados -->
     <p id="noResults" class="section-title" style="display:none;margin-top:10px">Nenhum manual encontrado 😕</p>
   </main>
 
@@ -188,11 +275,81 @@
   </footer>
 
   <script>
-    // Filtro por texto + mensagem "sem resultados"
+    /* ===== Drawer + Hamburger (idêntico ao games) ===== */
+    (() => {
+      const drawer   = document.getElementById('drawer');
+      const btn      = document.getElementById('btnHamb');
+      const closeBtn = document.getElementById('btnClose');
+      const backdrop = document.getElementById('backdrop');
+      const sheet    = drawer.querySelector('.sheet');
+      const links    = drawer.querySelectorAll('.links a');
+
+      // marca a página atual
+      const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      links.forEach(a => { if ((a.getAttribute('href')||'').toLowerCase() === path) a.setAttribute('aria-current','page'); });
+
+      let lastFocus = null;
+      const lockScroll = (on)=>{ document.documentElement.style.overflow = on ? 'hidden' : '' };
+
+      function openDrawer(){
+        lastFocus = document.activeElement;
+        drawer.classList.add('open');
+        drawer.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        btn.classList.add('is-open');      // vira X
+        closeBtn.classList.add('is-open'); // mantém X no botão interno
+        lockScroll(true);
+        const first = drawer.querySelector('.links a'); first && first.focus();
+        document.addEventListener('focus', trapFocus, true);
+      }
+      function closeDrawer(){
+        drawer.classList.remove('open');
+        drawer.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+        btn.classList.remove('is-open');    // volta ao hambúrguer
+        closeBtn.classList.remove('is-open');
+        lockScroll(false);
+        document.removeEventListener('focus', trapFocus, true);
+        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      }
+      function trapFocus(e){
+        if (!drawer.classList.contains('open')) return;
+        if (!drawer.contains(e.target)){
+          const first = drawer.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
+          first && first.focus();
+        }
+      }
+      btn.addEventListener('click', openDrawer);
+      closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.classList.contains('open')) closeDrawer(); });
+      links.forEach(a => a.addEventListener('click', closeDrawer));
+
+      // Swipe-to-close
+      let startX=null,startY=null,dragging=false;
+      drawer.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startX=t.clientX; startY=t.clientY; dragging=false; }, {passive:true});
+      drawer.addEventListener('touchmove', (e)=>{
+        if(startX==null) return;
+        const t=e.touches[0]; const dx=t.clientX-startX; const dy=t.clientY-startY;
+        if(Math.abs(dx)>16 && Math.abs(dx)>Math.abs(dy)) dragging=true;
+        if(dragging && dx>0){
+          const w = sheet.offsetWidth; const pct = Math.min(1, dx / w);
+          sheet.style.transform = `translateX(${pct*100}%)`; backdrop.style.opacity = String(1 - pct);
+        }
+      }, {passive:true});
+      drawer.addEventListener('touchend', ()=>{
+        if(!dragging){ startX=startY=null; return; }
+        const current = parseFloat((sheet.style.transform||'').replace(/[^\d.]/g,'')) || 0;
+        sheet.style.transform = ''; backdrop.style.opacity = '';
+        if(current > 30){ closeDrawer(); }
+        startX=startY=null; dragging=false;
+      });
+    })();
+
+    /* ===== Filtro por texto + "sem resultados" ===== */
     const q = document.getElementById('q');
     const cards = Array.from(document.querySelectorAll('#cards .card'));
     const noResults = document.getElementById('noResults');
-
     function applyFilter(){
       const val = q.value.toLowerCase().trim();
       let visible = 0;
@@ -207,7 +364,7 @@
     }
     q.addEventListener('input', applyFilter);
 
-    // Ripple
+    /* ===== Ripple nos cards ===== */
     document.addEventListener('click', (e)=>{
       const card = e.target.closest('.card');
       if(!card) return;
