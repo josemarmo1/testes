@@ -116,6 +116,25 @@
   .logo-text{font-size:1.35rem}
   .hero{padding:40px 16px 24px}
   .grid{grid-template-columns:1fr}
+/* Centralizar imagens dos cards no mobile */
+@media (max-width: 768px){
+  .card-media{
+    display: grid;           /* garante centro perfeito */
+    place-items: center;
+    aspect-ratio: 4 / 3;     /* opcional: dá mais altura no mobile */
+    padding: 8px;            /* evita encostar nas bordas */
+  }
+  .card-media img{
+    width: auto;             /* deixa a imagem na própria proporção */
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;     /* não corta a imagem */
+    object-position: center; /* centraliza */
+    margin: 0 auto;          /* fallback extra */
+    display: block;
+  }
+}
 
   /* Centraliza e evita corte da imagem no card em telas pequenas */
   .card-media{
