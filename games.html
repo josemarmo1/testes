@@ -16,7 +16,7 @@
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;background:#fff;color:var(--texto);font-family:var(--font-body);line-height:1.55}
 
-    /* ===== Header ===== */
+    /* Header */
     header{background:#fff;position:sticky;top:0;z-index:80;border-bottom:1px solid var(--borda)}
     header::after{content:"";display:block;height:3px;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 12s linear infinite}
     .header-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:14px 20px}
@@ -30,49 +30,33 @@
     nav.primary a:hover::after,nav.primary a.active::after{width:100%}
     @keyframes brandMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
 
-    /* ===== Hamburger (3 traços alinhados e vira X) ===== */
+    /* Hamburger */
     .hamb{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid var(--borda);background:#fff;cursor:pointer}
     .hamb:active{transform:scale(.98)}
-    .hamb .bars{
-      position:relative; width:22px; height:14px; display:block;
-    }
-    .hamb .bar{
-      position:absolute; left:0; width:22px; height:2px; border-radius:2px; background:#6b7280;
-      transform-origin:center; transition:transform .22s ease, opacity .18s ease, background .18s ease;
-    }
-    .hamb .bar:nth-child(1){ top:0 }
-    .hamb .bar:nth-child(2){ top:6px }
-    .hamb .bar:nth-child(3){ top:12px }
+    .hamb .bars{position:relative; width:22px; height:14px; display:block}
+    .hamb .bar{position:absolute; left:0; width:22px; height:2px; border-radius:2px; background:#6b7280; transform-origin:center; transition:transform .22s ease, opacity .18s ease, background .18s ease}
+    .hamb .bar:nth-child(1){ top:0 } .hamb .bar:nth-child(2){ top:6px } .hamb .bar:nth-child(3){ top:12px }
     .hamb.is-open .bar:nth-child(1){ transform:translateY(6px) rotate(45deg); background:#111 }
     .hamb.is-open .bar:nth-child(2){ opacity:0 }
     .hamb.is-open .bar:nth-child(3){ transform:translateY(-6px) rotate(-45deg); background:#111 }
 
-    /* ===== Drawer Mobile ===== */
+    /* Drawer */
     .drawer{position:fixed;inset:0;z-index:90;display:none}
     .drawer.open{display:block}
     .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:saturate(1.1) blur(2px);opacity:0;transition:opacity .25s ease}
     .drawer.open .backdrop{opacity:1}
-    .sheet{position:absolute;right:0;top:0;height:100%;width:min(88vw,380px);background:#fff;border-left:1px solid var(--borda);box-shadow:var(--shadow);
-      transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(88vw,380px);background:#fff;border-left:1px solid var(--borda);box-shadow:var(--shadow);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
     .drawer.open .sheet{transform:translateX(0)}
     .sheet header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--borda)}
     .sheet .links{display:grid;gap:10px;padding:16px}
-
-    /* Botões coloridos no menu (intuitivo) */
-    .sheet .link-btn{
-      display:flex;align-items:center;gap:12px;min-height:52px;padding:14px;border-radius:14px;
-      font-weight:800;text-decoration:none;color:#111;border:1px solid var(--borda);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
-    }
+    .sheet .link-btn{display:flex;align-items:center;gap:12px;min-height:52px;padding:14px;border-radius:14px;font-weight:800;text-decoration:none;color:#111;border:1px solid var(--borda);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease}
     .sheet .link-btn .dot{width:10px;height:10px;border-radius:999px;box-shadow:0 0 0 2px #fff inset}
     .sheet .link-btn:hover{border-color:#e5d9ff;background:#fcfaff}
     .sheet .link-btn:active{transform:scale(.985)}
     .sheet .link-btn[aria-current="page"]{border-color:#e9d5ff;background:#f9f5ff;color:var(--roxo);box-shadow:0 2px 14px rgba(106,27,154,.08) inset}
-    .dot.home{background:#ff6b00}
-    .dot.manuais{background:#2563eb}
-    .dot.suporte{background:#16a34a}
-    .dot.games{background:#6a1b9a}
+    .dot.home{background:#ff6b00} .dot.manuais{background:#2563eb} .dot.suporte{background:#16a34a} .dot.games{background:#6a1b9a}
 
-    /* ===== Hero ===== */
+    /* Hero */
     .hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 30%,#f8efff 60%,#fff 100%);padding:48px 20px}
     .hero::before{content:"";position:absolute;inset:-40%;background:
       radial-gradient(40% 30% at 20% 20%, rgba(106,27,154,.12), transparent 60%),
@@ -83,7 +67,7 @@
     .hero h1{font:800 clamp(1.5rem,3.2vw,2.3rem)/1.1 var(--font-heading);color:var(--roxo);margin:0}
     .hero p{margin:.4rem 0 0;opacity:.85}
 
-    /* ===== Layout ===== */
+    /* Layout */
     .container{max-width:1200px;margin:0 auto;padding:24px 18px 60px}
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
     .card{background:#fff;border:1px solid var(--borda);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);overflow:hidden;display:flex;flex-direction:column}
@@ -98,7 +82,7 @@
     .btn-primary{background:var(--laranja);border-color:transparent;color:#fff}
     .muted{font-size:.88rem;opacity:.8}
 
-    /* ===== Footer ===== */
+    /* Footer */
     .site-footer{color:#fff;margin-top:40px;position:relative;overflow:hidden;background:linear-gradient(90deg,var(--roxo),var(--laranja),var(--azul),var(--verde),var(--amarelo),var(--roxo));background-size:300% 100%;animation:brandMove 16s linear infinite}
     .footer-wrap{max-width:1200px;margin:0 auto;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
     .site-footer p{margin:0;font-weight:600}
@@ -107,11 +91,8 @@
     /* Cubo 3D faces */
     #cube .face{position:absolute;width:120px;height:120px;transform-origin:center;border:1px solid rgba(0,0,0,.08);box-shadow:inset 0 0 20px rgba(255,255,255,.25);border-radius:8px}
 
-    /* ===== Responsivo ===== */
-    @media (max-width:900px){
-      nav.primary{display:none}
-      .hamb{display:inline-flex}
-    }
+    /* Responsivo */
+    @media (max-width:900px){ nav.primary{display:none} .hamb{display:inline-flex} }
     @media (max-width:768px){
       .header-wrap{gap:10px;padding:12px 16px}
       .logo-text{font-size:1.35rem}
@@ -123,56 +104,32 @@
 <body>
   <header>
     <div class="header-wrap">
-      <a href="index.html" class="logo-text" aria-label="Voltar para Início">
-        <span class="logo-orange">Help</span> <span class="logo-purple">Amado</span>
-      </a>
-
-      <!-- Nav desktop -->
+      <a href="index.html" class="logo-text" aria-label="Voltar para Início"><span class="logo-orange">Help</span> <span class="logo-purple">Amado</span></a>
       <nav class="primary" aria-label="Navegação principal">
         <a href="index.html">Início</a>
         <a href="manuais.html">Manuais</a>
         <a href="suporte.html">Suporte</a>
         <a class="active" href="games.html" aria-current="page">Games</a>
       </nav>
-
-      <!-- Hambúrguer -->
       <button class="hamb" id="btnHamb" aria-controls="drawer" aria-expanded="false" aria-label="Abrir menu">
-        <span class="bars">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </span>
+        <span class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
       </button>
     </div>
   </header>
 
-  <!-- Drawer mobile -->
+  <!-- Drawer -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="backdrop" id="backdrop" role="button" aria-label="Fechar menu"></div>
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
       <header>
         <strong id="menuTitle" style="font:800 1rem var(--font-heading);color:var(--roxo)">Menu</strong>
-        <button class="hamb is-open" id="btnClose" aria-label="Fechar menu">
-          <span class="bars">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-          </span>
-        </button>
+        <button class="hamb is-open" id="btnClose" aria-label="Fechar menu"><span class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span></button>
       </header>
       <nav class="links" aria-label="Menu mobile">
-        <a href="index.html" class="link-btn">
-          <span class="dot home"></span> Início
-        </a>
-        <a href="manuais.html" class="link-btn">
-          <span class="dot manuais"></span> Manuais
-        </a>
-        <a href="suporte.html" class="link-btn">
-          <span class="dot suporte"></span> Suporte
-        </a>
-        <a href="games.html" class="link-btn" aria-current="page">
-          <span class="dot games"></span> Games
-        </a>
+        <a href="index.html" class="link-btn"><span class="dot home"></span> Início</a>
+        <a href="manuais.html" class="link-btn"><span class="dot manuais"></span> Manuais</a>
+        <a href="suporte.html" class="link-btn"><span class="dot suporte"></span> Suporte</a>
+        <a href="games.html" class="link-btn" aria-current="page"><span class="dot games"></span> Games</a>
       </nav>
     </div>
   </aside>
@@ -198,6 +155,7 @@
             <label>Rot Y <input type="range" id="rotY" min="-180" max="180" value="20"></label>
             <label>Rot Z <input type="range" id="rotZ" min="-180" max="180" value="0"></label>
             <label>Zoom <input type="range" id="scale" min="0.5" max="2" step="0.01" value="1"></label>
+            <button class="btn btn-primary" id="dlStl">Baixar STL</button>
           </div>
           <div class="canvas-wrap" style="perspective:800px">
             <div id="cube" style="position:relative;width:120px;height:120px;transform-style:preserve-3d">
@@ -213,21 +171,35 @@
         </div>
       </article>
 
-      <!-- ===== Corte a Laser ===== -->
+      <!-- ===== Corte a Laser (Simulador) ===== -->
       <article class="card" id="simlaser">
         <h3 class="card-title">Corte a Laser</h3>
         <div class="card-body">
-          <div class="controls">
-            <button class="btn" id="addRect">Retângulo</button>
-            <button class="btn" id="addCirc">Círculo</button>
-            <label>Vel. (mm/s) <input type="range" id="vel" min="10" max="200" step="1" value="80"></label>
-            <label>Potência (%) <input type="range" id="pow" min="1" max="100" step="1" value="60"></label>
-            <button class="btn" id="run">▶ Simular</button>
-            <button class="btn" id="clear">Limpar</button>
+          <div class="controls" style="margin-top:6px; row-gap:12px">
+            <div class="controls" style="gap:8px">
+              <button class="btn" id="addRect" title="Adicionar retângulo">Retângulo</button>
+              <button class="btn" id="addCirc" title="Adicionar círculo">Círculo</button>
+            </div>
+            <div class="controls" style="gap:8px">
+              <label>Vel. (mm/s)
+                <input type="number" id="vel" min="0" max="200" step="1" value="80" style="width:92px">
+              </label>
+              <label>Potência (%)
+                <input type="number" id="pow" min="0" max="100" step="1" value="60" style="width:92px">
+              </label>
+            </div>
           </div>
+
+          <div class="controls" style="margin-top:6px">
+            <button class="btn btn-primary" id="run">Iniciar</button>
+            <button class="btn" id="clear">Limpar</button>
+            <button class="btn" id="openPdfBtn" title="Abrir tabela de parâmetros de corte">Parâmetros — Corte a Laser</button>
+          </div>
+
           <div class="canvas-wrap">
             <canvas id="cnv" width="500" height="300" style="max-width:100%"></canvas>
           </div>
+
           <p class="muted">Tempo estimado ≈ <span id="tempo">0.0</span>s • Comprimento ≈ <span id="len">0.0</span> mm</p>
         </div>
       </article>
@@ -245,7 +217,6 @@
             <button class="btn" id="centerArt">Centralizar</button>
             <button class="btn btn-primary" id="dlSvg">Baixar SVG</button>
           </div>
-
           <div class="canvas-wrap" style="padding:0">
             <svg id="plotView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" width="520" height="320" style="max-width:100%; background:#fff">
               <rect x="0" y="0" width="520" height="320" fill="#fff"/>
@@ -253,10 +224,7 @@
                 <rect id="workArea" x="0" y="0" width="500" height="300" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
                 <g id="plotGrid"></g>
                 <g id="mirG">
-                  <text id="plotText" x="250" y="150" font-family="Arial, Helvetica, sans-serif"
-                        font-weight="900" font-size="96"
-                        text-anchor="middle" dominant-baseline="middle"
-                        fill="#111" style="cursor:move; user-select:none;">Help Amado</text>
+                  <text id="plotText" x="250" y="150" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="96" text-anchor="middle" dominant-baseline="middle" fill="#111" style="cursor:move; user-select:none;">Help Amado</text>
                 </g>
               </g>
             </svg>
@@ -292,7 +260,7 @@
   </footer>
 
   <script>
-    /* ===== Drawer + Hamburger ===== */
+    /* Drawer */
     (() => {
       const drawer   = document.getElementById('drawer');
       const btn      = document.getElementById('btnHamb');
@@ -300,105 +268,104 @@
       const backdrop = document.getElementById('backdrop');
       const sheet    = drawer.querySelector('.sheet');
       const links    = drawer.querySelectorAll('.links a');
-
-      // marca página atual
       const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
       links.forEach(a => { if ((a.getAttribute('href')||'').toLowerCase() === path) a.setAttribute('aria-current','page'); });
-
       let lastFocus = null;
       const lockScroll = (on)=>{ document.documentElement.style.overflow = on ? 'hidden' : '' };
-
-      function openDrawer(){
-        lastFocus = document.activeElement;
-        drawer.classList.add('open');
-        drawer.setAttribute('aria-hidden','false');
-        btn.setAttribute('aria-expanded','true');
-        btn.classList.add('is-open');      // <- vira X (botão do header)
-        closeBtn.classList.add('is-open'); // <- mantém X no botão interno
-        lockScroll(true);
-        const first = drawer.querySelector('.links a'); first && first.focus();
-        document.addEventListener('focus', trapFocus, true);
-      }
-      function closeDrawer(){
-        drawer.classList.remove('open');
-        drawer.setAttribute('aria-hidden','true');
-        btn.setAttribute('aria-expanded','false');
-        btn.classList.remove('is-open');    // <- volta ao hambúrguer
-        closeBtn.classList.remove('is-open');
-        lockScroll(false);
-        document.removeEventListener('focus', trapFocus, true);
-        if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
-      }
-      function trapFocus(e){
-        if (!drawer.classList.contains('open')) return;
-        if (!drawer.contains(e.target)){
-          const first = drawer.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])');
-          first && first.focus();
-        }
-      }
-      btn.addEventListener('click', openDrawer);
-      closeBtn.addEventListener('click', closeDrawer);
-      backdrop.addEventListener('click', closeDrawer);
+      function openDrawer(){ lastFocus = document.activeElement; drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); btn.setAttribute('aria-expanded','true'); btn.classList.add('is-open'); closeBtn.classList.add('is-open'); lockScroll(true); const first = drawer.querySelector('.links a'); first && first.focus(); document.addEventListener('focus', trapFocus, true); }
+      function closeDrawer(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); btn.setAttribute('aria-expanded','false'); btn.classList.remove('is-open'); closeBtn.classList.remove('is-open'); lockScroll(false); document.removeEventListener('focus', trapFocus, true); if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus(); }
+      function trapFocus(e){ if (!drawer.classList.contains('open')) return; if (!drawer.contains(e.target)){ const first = drawer.querySelector('button, [href], input, [tabindex]:not([tabindex="-1"])'); first && first.focus(); } }
+      btn.addEventListener('click', openDrawer); closeBtn.addEventListener('click', closeDrawer); backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.classList.contains('open')) closeDrawer(); });
-      links.forEach(a => a.addEventListener('click', closeDrawer));
-
-      // Swipe-to-close
       let startX=null,startY=null,dragging=false;
       const onStart = (e)=>{ const t=e.touches[0]; startX=t.clientX; startY=t.clientY; dragging=false; };
-      const onMove  = (e)=>{
-        if(startX==null) return;
-        const t=e.touches[0];
-        const dx=t.clientX-startX; const dy=t.clientY-startY;
-        if(Math.abs(dx)>16 && Math.abs(dx)>Math.abs(dy)) dragging=true;
-        if(dragging && dx>0){
-          const w = sheet.offsetWidth;
-          const pct = Math.min(1, dx / w);
-          sheet.style.transform = `translateX(${pct*100}%)`;
-          backdrop.style.opacity = String(1 - pct);
-        }
-      };
-      const onEnd   = ()=>{
-        if(!dragging){ startX=startY=null; return; }
-        const current = parseFloat((sheet.style.transform||'').replace(/[^\d.]/g,'')) || 0;
-        sheet.style.transform = '';
-        backdrop.style.opacity = '';
-        if(current > 30){ closeDrawer(); }
-        startX=startY=null; dragging=false;
-      };
-      drawer.addEventListener('touchstart', onStart, {passive:true});
-      drawer.addEventListener('touchmove',  onMove,  {passive:true});
-      drawer.addEventListener('touchend',   onEnd);
+      const onMove  = (e)=>{ if(startX==null) return; const t=e.touches[0]; const dx=t.clientX-startX; const dy=t.clientY-startY; if(Math.abs(dx)>16 && Math.abs(dx)>Math.abs(dy)) dragging=true; if(dragging && dx>0){ const w = sheet.offsetWidth; const pct = Math.min(1, dx / w); sheet.style.transform = `translateX(${pct*100}%)`; backdrop.style.opacity = String(1 - pct); } };
+      const onEnd   = ()=>{ if(!dragging){ startX=startY=null; return; } const current = parseFloat((sheet.style.transform||'').replace(/[^\d.]/g,'')) || 0; sheet.style.transform = ''; backdrop.style.opacity = ''; if(current > 30){ closeDrawer(); } startX=startY=null; dragging=false; };
+      drawer.addEventListener('touchstart', onStart, {passive:true}); drawer.addEventListener('touchmove',  onMove,  {passive:true}); drawer.addEventListener('touchend',   onEnd);
     })();
 
-    /* ===== Modelagem 3D ===== */
+    /* Modelagem 3D */
     (function(){
       const cube = document.getElementById('cube');
-      const sizeX=document.getElementById('sizeX');
-      const sizeY=document.getElementById('sizeY');
-      const sizeZ=document.getElementById('sizeZ');
-      const rX=document.getElementById('rotX');
-      const rY=document.getElementById('rotY');
-      const rZ=document.getElementById('rotZ');
+      const sizeX=document.getElementById('sizeX'), sizeY=document.getElementById('sizeY'), sizeZ=document.getElementById('sizeZ');
+      const rX=document.getElementById('rotX'), rY=document.getElementById('rotY'), rZ=document.getElementById('rotZ');
       const scale=document.getElementById('scale');
-
       const BASE=120;
+
       function updCube(){
-        const rx=+rX.value, ry=+rY.value, rz=+rZ.value;
-        const zoom=+scale.value;
-        const sx=(+sizeX.value||BASE)/BASE;
-        const sy=(+sizeY.value||BASE)/BASE;
-        const sz=(+sizeZ.value||BASE)/BASE;
+        const rx=+rX.value, ry=+rY.value, rz=+rZ.value, zoom=+scale.value;
+        const sx=(+sizeX.value||BASE)/BASE, sy=(+sizeY.value||BASE)/BASE, sz=(+sizeZ.value||BASE)/BASE;
         cube.style.transform = `translateZ(0) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale3d(${(sx*zoom)}, ${(sy*zoom)}, ${(sz*zoom)})`;
       }
-      ['input','change'].forEach(evt=>{
-        [sizeX,sizeY,sizeZ,rX,rY,rZ,scale].forEach(el=>el.addEventListener(evt,updCube));
-      });
+      ['input','change'].forEach(evt=>{ [sizeX,sizeY,sizeZ,rX,rY,rZ,scale].forEach(el=>el.addEventListener(evt,updCube)); });
       updCube();
+
+      // === Exportar STL (paralelepípedo centrado) ===
+      function triangulateQuad(a,b,c,d,normal){
+        return [
+          {a,b:c,c:d,n:normal}, // placeholder to satisfy structure; fix below
+        ];
+      }
+      function facet(n, v1, v2, v3){
+        return `  facet normal ${n[0]} ${n[1]} ${n[2]}
+    outer loop
+      vertex ${v1[0]} ${v1[1]} ${v1[2]}
+      vertex ${v2[0]} ${v2[1]} ${v2[2]}
+      vertex ${v3[0]} ${v3[1]} ${v3[2]}
+    endloop
+  endfacet
+`;
+      }
+      function boxSTL(wx, wy, wz){
+        const hx=wx/2, hy=wy/2, hz=wz/2;
+        // vértices
+        const V={
+          mmm:[-hx,-hy,-hz], pmm:[ hx,-hy,-hz], ppm:[ hx, hy,-hz], mpm:[-hx, hy,-hz],
+          mmp:[-hx,-hy, hz], pmp:[ hx,-hy, hz], ppp:[ hx, hy, hz], mpp:[-hx, hy, hz],
+        };
+        let s='solid box\n';
+        // -Z
+        s+=facet([0,0,-1], V.mmm, V.pmm, V.ppm);
+        s+=facet([0,0,-1], V.mmm, V.ppm, V.mpm);
+        // +Z
+        s+=facet([0,0, 1], V.mmp, V.ppp, V.pmp);
+        s+=facet([0,0, 1], V.mmp, V.mpp, V.ppp);
+        // -X
+        s+=facet([-1,0,0], V.mmm, V.mpm, V.mpp);
+        s+=facet([-1,0,0], V.mmm, V.mpp, V.mmp);
+        // +X
+        s+=facet([ 1,0,0], V.pmm, V.pmp, V.ppp);
+        s+=facet([ 1,0,0], V.pmm, V.ppp, V.ppm);
+        // -Y
+        s+=facet([0,-1,0], V.mmm, V.mmp, V.pmp);
+        s+=facet([0,-1,0], V.mmm, V.pmp, V.pmm);
+        // +Y
+        s+=facet([0, 1,0], V.mpm, V.ppm, V.ppp);
+        s+=facet([0, 1,0], V.mpm, V.ppp, V.mpp);
+        s+='endsolid box\n';
+        return s;
+      }
+      document.getElementById('dlStl').addEventListener('click', ()=>{
+        const x=Math.max(1, +sizeX.value||BASE);
+        const y=Math.max(1, +sizeY.value||BASE);
+        const z=Math.max(1, +sizeZ.value||BASE);
+        const stl = boxSTL(x, y, z); // mm
+        const blob=new Blob([stl],{type:'model/stl'});
+        const a=document.createElement('a');
+        a.href=URL.createObjectURL(blob);
+        a.download=`modelo-${x}x${y}x${z}mm.stl`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      });
     })();
 
-    /* ===== Laser 2D ===== */
+    /* Laser 2D */
     const cnv=document.getElementById('cnv'), ctx=cnv.getContext('2d'); const shapes=[];
     const vel=document.getElementById('vel'), pow=document.getElementById('pow'), tempo=document.getElementById('tempo'), lenOut=document.getElementById('len');
+
+    let rafId = null;
+    let isRunning = false;
+
     function drawGrid(){
       ctx.clearRect(0,0,cnv.width,cnv.height); ctx.fillStyle='#fff'; ctx.fillRect(0,0,cnv.width,cnv.height);
       ctx.strokeStyle='#eef2f7'; ctx.lineWidth=1;
@@ -410,29 +377,63 @@
     function addRect(){ shapes.push({type:'rect',x:40+Math.random()*320,y:40+Math.random()*160,w:60+Math.random()*80,h:40+Math.random()*80}); updateStats(); drawGrid(); }
     function addCirc(){ shapes.push({type:'circ',cx:80+Math.random()*340,cy:60+Math.random()*140,r:20+Math.random()*40}); updateStats(); drawGrid(); }
     function pathLength(){ let L=0; shapes.forEach(s=>{ if(s.type==='rect') L+=2*(Math.abs(s.w)+Math.abs(s.h)); else L+=2*Math.PI*Math.abs(s.r); }); return L; }
-    function updateStats(){ const L=pathLength(); lenOut.textContent=L.toFixed(1); const v=Math.max(10,+vel.value); const t=L/v; tempo.textContent=t.toFixed(1); }
+    function clamp(v, mi, ma){ return Math.min(ma, Math.max(mi, v)); }
+    function updateStats(){ const L=pathLength(); lenOut.textContent=L.toFixed(1); const v=clamp(+vel.value||0,0,200); const t=v>0?L/v:0; tempo.textContent=t.toFixed(1); }
+
     function simulate(){
-      const segs=[]; shapes.forEach(s=>{
+      pow.value = clamp(+pow.value||0, 0, 100);
+      vel.value = clamp(+vel.value||0, 0, 200);
+
+      const segs=[];
+      shapes.forEach(s=>{
         if(s.type==='rect'){
           const p=[{x:s.x,y:s.y},{x:s.x+s.w,y:s.y},{x:s.x+s.w,y:s.y+s.h},{x:s.x,y:s.y+s.h},{x:s.x,y:s.y}];
           for(let i=0;i<p.length-1;i++) segs.push([p[i],p[i+1]]);
         } else {
           const N=80; let pr=null; for(let i=0;i<=N;i++){ const a=i/N*2*Math.PI, pt={x:s.cx+s.r*Math.cos(a),y:s.cy+s.r*Math.sin(a)}; if(pr) segs.push([pr,pt]); pr=pt; }
-        }});
-      let idx=0, prog=0; const v=Math.max(10,+vel.value), dt=1/60;
-      function step(){ drawGrid(); ctx.strokeStyle='rgba(239,68,68,.9)'; ctx.lineWidth=3; ctx.beginPath();
-        for(let j=0;j<idx;j++){ const [a,b]=segs[j]; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); } ctx.stroke();
-        if(idx<segs.length){
-          const [a,b]=segs[idx]; const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy); const t=Math.min(1, prog/L);
-          const x=a.x+dx*t, y=a.y+dy*t; ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fillStyle='#ef4444'; ctx.fill();
-          prog+=v*dt*0.6; if(prog>=L){ idx++; prog=0; } requestAnimationFrame(step);
-        } }
-      requestAnimationFrame(step);
-    }
-    document.getElementById('addRect').onclick=addRect; document.getElementById('addCirc').onclick=addCirc; document.getElementById('run').onclick=simulate; document.getElementById('clear').onclick=()=>{shapes.length=0; updateStats(); drawGrid();}
-    vel.oninput=updateStats; drawGrid(); updateStats();
+        }
+      });
 
-    /* ===== Plotter 2D ===== */
+      let idx=0, prog=0; const v=clamp(+vel.value||0,0,200), dt=1/60;
+
+      if(isRunning) cancelAnimationFrame(rafId);
+      isRunning = true;
+
+      function step(){
+        drawGrid();
+        ctx.strokeStyle='rgba(239,68,68,.9)'; ctx.lineWidth=3; ctx.beginPath();
+        for(let j=0;j<idx;j++){ const [a,b]=segs[j]; ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); } ctx.stroke();
+
+        if(idx<segs.length && isRunning){
+          const [a,b]=segs[idx]; const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy);
+          const t=Math.min(1, prog/L);
+          const x=a.x+dx*t, y=a.y+dy*t; ctx.beginPath(); ctx.arc(x,y,5,0,Math.PI*2); ctx.fillStyle='#ef4444'; ctx.fill();
+          prog += v * dt * 0.6; if(prog>=L){ idx++; prog=0; }
+          rafId = requestAnimationFrame(step);
+        } else {
+          isRunning = false;
+        }
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    document.getElementById('addRect').onclick=addRect;
+    document.getElementById('addCirc').onclick=addCirc;
+    document.getElementById('run').onclick=simulate;
+    document.getElementById('clear').onclick=()=>{ if(isRunning){ cancelAnimationFrame(rafId); isRunning=false; } shapes.length=0; updateStats(); drawGrid(); };
+
+    vel.addEventListener('input', ()=>{ vel.value = clamp(+vel.value||0,0,200); updateStats(); });
+    pow.addEventListener('input', ()=>{ pow.value = clamp(+pow.value||0,0,100); });
+
+    // PDF de parâmetros
+    const PDF_PATH = './assets/parametros-laser.pdf';
+    document.getElementById('openPdfBtn').addEventListener('click', ()=> {
+      window.open(PDF_PATH, '_blank', 'noopener');
+    });
+
+    drawGrid(); updateStats();
+
+    /* Plotter 2D */
     (function(){
       const svg = document.getElementById('plotView');
       const work = document.getElementById('work');
@@ -442,37 +443,22 @@
       const txtEl = document.getElementById('plotText');
       const plotX = document.getElementById('plotX'), plotY = document.getElementById('plotY');
 
-      const inW = document.getElementById('plotW');
-      const inH = document.getElementById('plotH');
-      const inTxt = document.getElementById('txt');
-      const inFS  = document.getElementById('fs');
-      const inMirror = document.getElementById('mirror');
-      const centerBtn = document.getElementById('centerArt');
+      const inW = document.getElementById('plotW'), inH = document.getElementById('plotH'), inTxt = document.getElementById('txt');
+      const inFS  = document.getElementById('fs'), inMirror = document.getElementById('mirror'), centerBtn = document.getElementById('centerArt');
 
       const VW = 520, VH = 320;
-
-      let Wmm = +inW.value || 500;
-      let Hmm = +inH.value || 300;
-      let fontMM = +inFS.value || 96;
-      let art = { x: Wmm/2, y: Hmm/2 };
-      let mirror = inMirror.checked;
-
+      let Wmm = +inW.value || 500, Hmm = +inH.value || 300, fontMM = +inFS.value || 96;
+      let art = { x: Wmm/2, y: Hmm/2 }; let mirror = inMirror.checked;
       let S=1, offX=0, offY=0, pad=12;
 
       function fitToView(){
-        const sX = (VW - 2*pad) / Wmm;
-        const sY = (VH - 2*pad) / Hmm;
+        const sX = (VW - 2*pad) / Wmm, sY = (VH - 2*pad) / Hmm;
         S = Math.min(sX, sY);
-        const usedW = Wmm * S;
-        const usedH = Hmm * S;
-        offX = (VW - usedW)/2;
-        offY = (VH - usedH)/2;
+        const usedW = Wmm * S, usedH = Hmm * S;
+        offX = (VW - usedW)/2; offY = (VH - usedH)/2;
         work.setAttribute('transform', `translate(${offX},${offY}) scale(${S})`);
-        workArea.setAttribute('width', Wmm);
-        workArea.setAttribute('height', Hmm);
-        rebuildGrid();
-        applyMirror();
-        applyText();
+        workArea.setAttribute('width', Wmm); workArea.setAttribute('height', Hmm);
+        rebuildGrid(); applyMirror(); applyText();
       }
       function rebuildGrid(){
         grid.innerHTML = '';
@@ -484,16 +470,8 @@
           L.setAttribute('stroke','#eef2f7'); L.setAttribute('stroke-width','1'); return L;
         }
       }
-      function applyMirror(){
-        if(mirror){ mirG.setAttribute('transform', `scale(-1,1) translate(${-Wmm},0)`); }
-        else{ mirG.removeAttribute('transform'); }
-      }
-      function applyText(){
-        txtEl.textContent = inTxt.value || '';
-        txtEl.setAttribute('font-size', fontMM);
-        txtEl.setAttribute('x', art.x);
-        txtEl.setAttribute('y', art.y);
-      }
+      function applyMirror(){ if(mirror){ mirG.setAttribute('transform', `scale(-1,1) translate(${-Wmm},0)`); } else { mirG.removeAttribute('transform'); } }
+      function applyText(){ txtEl.textContent = inTxt.value || ''; txtEl.setAttribute('font-size', fontMM); txtEl.setAttribute('x', art.x); txtEl.setAttribute('y', art.y); }
       function screenToMM(evt){
         const rect = svg.getBoundingClientRect();
         const sx = (evt.clientX - rect.left - offX) / S;
@@ -501,29 +479,11 @@
         const x = mirror ? (Wmm - sx) : sx;
         return {x, y: sy};
       }
-
       let dragging=false, dx=0, dy=0;
-      txtEl.addEventListener('pointerdown', (e)=>{
-        dragging=true;
-        const p = screenToMM(e);
-        dx = p.x - art.x; dy = p.y - art.y;
-        txtEl.setPointerCapture(e.pointerId);
-        e.preventDefault();
-      });
-      svg.addEventListener('pointermove', (e)=>{
-        const rect = svg.getBoundingClientRect();
-        const sx = (e.clientX - rect.left - offX) / S;
-        const sy = (e.clientY - rect.top  - offY) / S;
-        plotX.textContent = Math.max(0,Math.min(Wmm,sx)).toFixed(0);
-        plotY.textContent = Math.max(0,Math.min(Hmm,sy)).toFixed(0);
-        if(!dragging) return;
-        const p = screenToMM(e);
-        art.x = Math.max(0, Math.min(Wmm, p.x - dx));
-        art.y = Math.max(0, Math.min(Hmm, p.y - dy));
-        applyText();
-      });
-      svg.addEventListener('pointerup', ()=> dragging=false);
-      svg.addEventListener('pointerleave', ()=> dragging=false);
+      txtEl.addEventListener('pointerdown', (e)=>{ dragging=true; const p = screenToMM(e); dx = p.x - art.x; dy = p.y - art.y; txtEl.setPointerCapture(e.pointerId); e.preventDefault(); });
+      svg.addEventListener('pointermove', (e)=>{ const rect = svg.getBoundingClientRect(); const sx = (e.clientX - rect.left - offX) / S; const sy = (e.clientY - rect.top  - offY) / S; plotX.textContent = Math.max(0,Math.min(Wmm,sx)).toFixed(0); plotY.textContent = Math.max(0,Math.min(Hmm,sy)).toFixed(0);
+        if(!dragging) return; const p = screenToMM(e); art.x = Math.max(0, Math.min(Wmm, p.x - dx)); art.y = Math.max(0, Math.min(Hmm, p.y - dy)); applyText(); });
+      svg.addEventListener('pointerup', ()=> dragging=false); svg.addEventListener('pointerleave', ()=> dragging=false);
 
       inW.addEventListener('input', ()=>{ Wmm = Math.max(100, +inW.value||500); fitToView(); });
       inH.addEventListener('input', ()=>{ Hmm = Math.max(100, +inH.value||300); fitToView(); });
@@ -536,7 +496,7 @@
 
       document.getElementById('dlSvg').addEventListener('click', ()=>{
         const esc = (txtEl.getAttribute('font-size')) || fontMM;
-        const mirrorTF = mirror ? ` transform="scale(-1,1) translate(${-Wmm},0)"` : '';
+        const mirrorTF = mirror ? ` transform="scale(-1,1) translate(${-Wmm},0)` : '';
         const safeText = (inTxt.value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
         const svgStr =
 `<svg xmlns="http://www.w3.org/2000/svg" width="${Wmm}mm" height="${Hmm}mm" viewBox="0 0 ${Wmm} ${Hmm}">
@@ -546,14 +506,12 @@
           font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="${esc}" fill="#111">${safeText}</text>
   </g>
 </svg>`;
-        const blob = new Blob([svgStr], {type:'image/svg+xml'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href=url; a.download=`plotter-${Wmm}x${Hmm}mm.svg`; a.click();
-        URL.revokeObjectURL(url);
+        const blob = new Blob([svgStr], {type:'image/svg+xml'}); const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download=`plotter-${Wmm}x${Hmm}mm.svg`; a.click(); URL.revokeObjectURL(url);
       });
     })();
 
-    /* ===== Snake ===== */
+    /* Snake */
     (function(){
       const sc=document.getElementById('snakeCanvas'); const sctx=sc.getContext('2d'); const grid=20; let snake, dir, food, loop, score=0;
       function resetSnake(){ snake=[{x:9,y:9}]; dir={x:1,y:0}; food = randFood(); score=0; document.getElementById('score').textContent=score; }
