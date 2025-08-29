@@ -37,56 +37,33 @@
     nav.primary a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:currentColor;transition:width .2s ease}
     nav.primary a:hover::after,nav.primary a.active::after{width:100%}
 
-    /* Botão hamburger (corrigido e alinhado) */
-    .hamb{
-      display:none;position:relative;align-items:center;justify-content:center;
-      width:44px;height:44px;border-radius:10px;border:1px solid var(--borda);background:#fff;cursor:pointer
-    }
+    /* Hamburger — igual ao games */
+    .hamb{display:none;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;border:1px solid var(--borda);background:#fff;cursor:pointer}
     .hamb:active{transform:scale(.98)}
-    .hamb::before,.hamb::after,.hamb span{
-      content:"";position:absolute;left:50%;transform:translateX(-50%);
-      width:22px;height:2px;background:#111;border-radius:2px;transition:transform .22s ease, opacity .18s ease, top .22s ease, bottom .22s ease
-    }
-    .hamb::before{top:14px}
-    .hamb span{top:21px}
-    .hamb::after{bottom:14px}
-    /* estado aberto vira X */
-    .hamb.is-open span{opacity:0}
-    .hamb.is-open::before{top:21px;transform:translateX(-50%) rotate(45deg)}
-    .hamb.is-open::after{bottom:auto;top:21px;transform:translateX(-50%) rotate(-45deg)}
+    .hamb .bars{position:relative; width:22px; height:14px; display:block}
+    .hamb .bar{position:absolute; left:0; width:22px; height:2px; border-radius:2px; background:#6b7280; transform-origin:center; transition:transform .22s ease, opacity .18s ease, background .18s ease}
+    .hamb .bar:nth-child(1){ top:0 } .hamb .bar:nth-child(2){ top:6px } .hamb .bar:nth-child(3){ top:12px }
+    .hamb.is-open .bar:nth-child(1){ transform:translateY(6px) rotate(45deg); background:#111 }
+    .hamb.is-open .bar:nth-child(2){ opacity:0 }
+    .hamb.is-open .bar:nth-child(3){ transform:translateY(-6px) rotate(-45deg); background:#111 }
 
-    /* Drawer mobile */
+    /* Drawer mobile — igual ao games */
     .drawer{position:fixed;inset:0;z-index:90;display:none}
     .drawer.open{display:block}
-    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.0);backdrop-filter:saturate(1.1) blur(2px);transition:background .28s ease}
-    .drawer.open .backdrop{background:rgba(0,0,0,.45)}
-    .sheet{
-      position:absolute;right:0;top:0;height:100%;width:min(92vw,380px);background:#fff;
-      border-left:1px solid var(--borda);box-shadow:var(--shadow);
-      transform:translateX(100%) scale(.98);opacity:.96;
-      transition:transform .34s cubic-bezier(.18,.9,.22,1), opacity .2s ease
-    }
-    .drawer.open .sheet{transform:translateX(0) scale(1);opacity:1}
-    .sheet header{border:0;border-bottom:1px solid var(--borda)}
+    .drawer .backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45);backdrop-filter:saturate(1.1) blur(2px);opacity:0;transition:opacity .25s ease}
+    .drawer.open .backdrop{opacity:1}
+    .sheet{position:absolute;right:0;top:0;height:100%;width:min(88vw,380px);background:#fff;border-left:1px solid var(--borda);box-shadow:var(--shadow);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.7,.2,1)}
+    .drawer.open .sheet{transform:translateX(0)}
+    .sheet header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--borda)}
     .sheet .links{display:grid;gap:10px;padding:16px}
-    /* Itens coloridos + ícones (bolinhas) */
-    .sheet a{
-      display:flex;align-items:center;gap:12px;min-height:52px;padding:14px 14px;border-radius:14px;
-      font-weight:800;border:1px solid var(--borda);background:#fff;color:#111;text-decoration:none;letter-spacing:.2px;
-      box-shadow:0 1px 0 rgba(17,24,39,.02);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease
-    }
-    .sheet a:before{content:"";width:10px;height:10px;border-radius:999px;background:#d1d5db}
-    .sheet a[href*="index"]:before{background:var(--azul)}
-    .sheet a[href*="manuais"]:before{background:var(--verde)}
-    .sheet a[href*="suporte"]:before{background:var(--laranja)}
-    .sheet a[href*="games"]:before{background:var(--roxo)}
-    .sheet a:active{transform:scale(.985)}
-    .sheet a:hover{border-color:#e5d9ff;background:#fcfaff}
-    .sheet a[aria-current="page"]{
-      border-color:#e9d5ff;background:#f9f5ff;color:var(--roxo);box-shadow:0 2px 14px rgba(106,27,154,.08) inset
-    }
+    .sheet .link-btn{display:flex;align-items:center;gap:12px;min-height:52px;padding:14px;border-radius:14px;font-weight:800;text-decoration:none;color:#111;border:1px solid var(--borda);transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease}
+    .sheet .link-btn .dot{width:10px;height:10px;border-radius:999px;box-shadow:0 0 0 2px #fff inset}
+    .sheet .link-btn:hover{border-color:#e5d9ff;background:#fcfaff}
+    .sheet .link-btn:active{transform:scale(.985)}
+    .sheet .link-btn[aria-current="page"]{border-color:#e9d5ff;background:#f9f5ff;color:var(--roxo);box-shadow:0 2px 14px rgba(106,27,154,.08) inset}
+    .dot.home{background:#ff6b00} .dot.manuais{background:#2563eb} .dot.suporte{background:#16a34a} .dot.games{background:#6a1b9a}
 
-    /* CTA dentro do menu (botões coloridos) */
+    /* CTA dentro do menu (mantido, mas não usado) */
     .menu-ctas{display:grid;gap:10px;padding:12px 16px 16px}
     .menu-ctas .btn{width:100%;justify-content:center;border-radius:12px;font-weight:800}
     .btn-azul{background:var(--azul);color:#fff}
@@ -231,30 +208,29 @@
         <a href="games.html">Games</a>
       </nav>
 
-      <!-- hambúrguer mobile -->
+      <!-- hambúrguer mobile — igual ao games -->
       <button class="hamb" id="btnHamb" aria-controls="drawer" aria-expanded="false" aria-label="Abrir menu">
-        <span></span>
+        <span class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
       </button>
     </div>
   </header>
 
-  <!-- Drawer mobile -->
+  <!-- Drawer mobile — igual ao games -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="backdrop" id="backdrop" role="button" aria-label="Fechar menu"></div>
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="menuTitle">
-      <header style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;">
+      <header>
         <strong id="menuTitle" style="font:800 1rem var(--font-heading);color:var(--roxo)">Menu</strong>
-        <button class="hamb" id="btnClose" aria-label="Fechar menu"><span></span></button>
+        <button class="hamb is-open" id="btnClose" aria-label="Fechar menu">
+          <span class="bars"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+        </button>
       </header>
 
-      <div class="menu-ctas">
-      </div>
-
       <nav class="links" aria-label="Menu mobile">
-        <a href="index.html" aria-current="page">Início</a>
-        <a href="manuais.html">Manuais</a>
-        <a href="suporte.html">Suporte</a>
-        <a href="games.html">Games</a>
+        <a href="index.html" class="link-btn"><span class="dot home"></span> Início</a>
+        <a href="manuais.html" class="link-btn"><span class="dot manuais"></span> Manuais</a>
+        <a href="suporte.html" class="link-btn"><span class="dot suporte"></span> Suporte</a>
+        <a href="games.html" class="link-btn"><span class="dot games"></span> Games</a>
       </nav>
     </div>
   </aside>
@@ -457,13 +433,13 @@
   </div>
 
   <script>
-    /* Nav mobile (drawer) — com animação e ícone corrigido */
+    /* Drawer — igual ao games */
     (() => {
       const drawer   = document.getElementById('drawer');
       const btn      = document.getElementById('btnHamb');
       const closeBtn = document.getElementById('btnClose');
       const backdrop = document.getElementById('backdrop');
-      const panel    = drawer.querySelector('.sheet');
+      const sheet    = drawer.querySelector('.sheet');
       const links    = drawer.querySelectorAll('.links a');
 
       // marca página atual automaticamente
@@ -471,7 +447,7 @@
       links.forEach(a => { if ((a.getAttribute('href')||'').toLowerCase() === path) a.setAttribute('aria-current','page'); });
 
       let lastFocus = null;
-      const lockScroll = (yes)=>{ document.documentElement.style.overflow = yes ? 'hidden' : ''; };
+      const lockScroll = (on)=>{ document.documentElement.style.overflow = on ? 'hidden' : '' };
 
       function openDrawer(){
         lastFocus = document.activeElement;
@@ -506,7 +482,6 @@
       closeBtn.addEventListener('click', closeDrawer);
       backdrop.addEventListener('click', closeDrawer);
       document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && drawer.classList.contains('open')) closeDrawer(); });
-      links.forEach(a => a.addEventListener('click', closeDrawer));
 
       // Swipe-to-close (direita)
       let startX=null,startY=null,dragging=false;
@@ -516,16 +491,16 @@
         const t=e.touches[0]; const dx=t.clientX-startX; const dy=t.clientY-startY;
         if(Math.abs(dx)>16 && Math.abs(dx)>Math.abs(dy)) dragging=true;
         if(dragging && dx>0){
-          const w = panel.offsetWidth; const pct = Math.min(1, dx / w);
-          panel.style.transform = `translateX(${pct*100}%) scale(${1 - pct*0.02})`;
-          backdrop.style.background = `rgba(0,0,0,${.45*(1-pct)})`;
+          const w = sheet.offsetWidth; const pct = Math.min(1, dx / w);
+          sheet.style.transform = `translateX(${pct*100}%)`;
+          backdrop.style.opacity = String(1 - pct);
         }
       };
       const onEnd   = ()=>{
         if(!dragging){ startX=startY=null; return; }
-        const tx = parseFloat((panel.style.transform||'').match(/translateX\(([\d.]+)/)?.[1] || '0');
-        panel.style.transform = ''; backdrop.style.background = '';
-        if(tx > 30){ closeDrawer(); }
+        const current = parseFloat((sheet.style.transform||'').replace(/[^\d.]/g,'')) || 0;
+        sheet.style.transform = ''; backdrop.style.opacity = '';
+        if(current > 30){ closeDrawer(); }
         startX=startY=null; dragging=false;
       };
       drawer.addEventListener('touchstart', onStart, {passive:true});
@@ -613,4 +588,3 @@
   </script>
 </body>
 </html>
-```
