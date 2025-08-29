@@ -135,7 +135,7 @@
       .hero{padding:40px 16px 24px}
       .grid{grid-template-columns:1fr}
 
-      /* Centralizar imagens no mobile e evitar “pular” lateral no iOS */
+      /* Centralizar imagens no mobile */
       .grid .card .card-media{
         display:grid;
         place-items:center;
@@ -143,8 +143,8 @@
         padding:8px;
       }
       .grid .card .card-media img{
-        width:100% !important;     /* <- chave no iOS */
-        height:auto !important;     /* evita empurrar para o lado */
+        width:100% !important;
+        height:auto !important;
         max-width:100%;
         max-height:100%;
         object-fit:contain !important;
@@ -154,16 +154,17 @@
       }
     }
 
-    /* ===== iOS WebKit fix adicional =====
-       Alguns iPhones ainda “deslocam” imagem com aspect-ratio.
-       Forçamos altura fixa da moldura + width:100% na imagem. */
+    /* ===== iOS WebKit fix adicional ===== */
     @supports (-webkit-touch-callout: none) {
       @media (max-width:768px){
-        .grid .card .card-media{ aspect-ratio:auto; height: 220px; } /* altura previsível */
+        .grid .card .card-media{ aspect-ratio:auto; height: 220px; }
         @media (min-width:420px){ .grid .card .card-media{ height:260px; } }
         .grid .card .card-media img{ width:100% !important; height:auto !important; }
       }
     }
+
+    /* evita qualquer scroll lateral em iOS */
+    html, body { overflow-x: hidden; }
   </style>
 </head>
 <body>
